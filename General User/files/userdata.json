@@ -1,0 +1,62 @@
+[
+    {
+        "FullName": "Shairy",
+        "Email": "Shairy@gmail.xyz",
+        "Phone": "013425",
+        "Password": "$2y$10$j4jDs7\/r1dIlweARDu0eGuUnId6DRs5mWnokYagsncGPnND7kY7ay",
+        "Address": "",
+        "CityStateCountry": "",
+        "Location": "Yes",
+        "AdoptionNotifications": "Yes",
+        "DonationCampaigns": "No",
+        "ProfilePicture": null,
+        "SocialMediaLinks": "",
+        "NewsletterSubscription": "Yes",
+        "EmailVerification": false
+    },
+    {
+        "FullName": "Shairy",
+        "Email": "Shairy@gmail.xyz",
+        "Phone": "013425",
+        "Password": "$2y$10$BHS5ldUEwkPhP9pLO14KDuZTsBIoXIMCkk7E12Nf6PGPSpq93e5Hy",
+        "Address": "",
+        "CityStateCountry": "",
+        "Location": "Yes",
+        "AdoptionNotifications": "Yes",
+        "DonationCampaigns": "No",
+        "ProfilePicture": null,
+        "SocialMediaLinks": "",
+        "NewsletterSubscription": "Yes",
+        "EmailVerification": false
+    },
+    {
+        "FullName": "Shairy",
+        "Email": "Shairy@gmail.xyz",
+        "Phone": "013425",
+        "Password": "$2y$10$xoZTfJa2P6y8crhpvzAMKe5lQ6bDlf8gEYHU8DvpJiMKppxGvFofG",
+        "Address": "",
+        "CityStateCountry": "",
+        "Location": "Yes",
+        "AdoptionNotifications": "Yes",
+        "DonationCampaigns": "No",
+        "ProfilePicture": null,
+        "SocialMediaLinks": "",
+        "NewsletterSubscription": "Yes",
+        "EmailVerification": false
+    },
+    {
+        "FullName": "Shairy",
+        "Email": "Shairy@gmail.xyz",
+        "Phone": "013425",
+        "Password": "$2y$10$gN\/jX4EAdydihawBNucTlux60YBXcgbP7FgVeTpDpgRodt9BrTHf6",
+        "Address": "",
+        "CityStateCountry": "",
+        "Location": "Yes",
+        "AdoptionNotifications": "Yes",
+        "DonationCampaigns": "No",
+        "ProfilePicture": null,
+        "SocialMediaLinks": "",
+        "NewsletterSubscription": "Yes",
+        "EmailVerification": false
+    }
+]
