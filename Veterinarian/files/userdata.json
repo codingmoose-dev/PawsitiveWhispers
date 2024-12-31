@@ -1,0 +1,32 @@
+[
+    {
+        "username": "airin",
+        "email": "ritamita@gmail.com",
+        "phone": "0123456789",
+        "password": "$2y$10$0ByGiEi6771uxD.pfyP1SetMbG.thqyCXCd6ZFlLZslH5vVnf0quC",
+        "medical_license_number": "",
+        "clinic_name": "",
+        "speciality": "",
+        "services": "",
+        "working_hours": "",
+        "vet_license": "",
+        "gov_id": "",
+        "training_materials": "",
+        "host_training": ""
+    },
+    {
+        "username": "airinnnn",
+        "email": "ritamita@gmail.com",
+        "phone": "0123456789",
+        "password": "$2y$10$pl.0eRB3pGV6TI\/TQwQ2QuHD7lTc\/MZmIAH2xZE2lTLCKiNmzgNwG",
+        "medical_license_number": "",
+        "clinic_name": "",
+        "speciality": "",
+        "services": "",
+        "working_hours": "",
+        "vet_license": "",
+        "gov_id": "",
+        "training_materials": "",
+        "host_training": ""
+    }
+]
