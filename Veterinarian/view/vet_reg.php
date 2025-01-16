@@ -5,7 +5,7 @@
     <title>Registration</title>
 </head>
 <body>
-<form action="../control/reg_control.php" method="POST">
+<form action="reg_control.php" method="POST">
 <fieldset>
             <legend>Personal Information</legend>
             <table>
@@ -31,7 +31,26 @@
                     <td><input type="password" id="password" name="password"></td> 
                 </tr>
 </table>
+</fieldset>
+        <fieldset>
+            <legend>Location</legend>
+          
+           
+            <table>
+                <tr>
+                <td>Clinic Address: </td>
+               
+                </tr>
+                <tr>
+                <td>Enable Location service: </td>
+                <td><input type="radio" name-="adress" value="yes" >Yes
+                <input type="radio" name-="adress" value="no" >No</td> 
+                </tr>
 
+
+</table>
+
+</fieldset>
 
 <fieldset>
         <legend>Professional Information</legend>
