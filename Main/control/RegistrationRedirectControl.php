@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Redirect based on the category
     switch ($category) {
         case 'GeneralUser':
-            header("Location: {$baseDir}/GeneralUser/view/GeneralUserRegistration.php");
+            header("Location: {$baseDir}/General User/view/GeneralUserRegistration.php");
             break;
         case 'Volunteer':
             header("Location: {$baseDir}/Volunteer/view/VolunteerRegistration.php");
