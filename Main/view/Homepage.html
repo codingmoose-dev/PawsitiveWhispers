@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawsitiveWellbeing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        header nav {
+            margin: 10px 0;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+        }
+        header div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        header img {
+            height: 60px;
+        }
+
+        section {
+            padding: 20px;
+        }
+        #home, #about, #contact {
+            padding: 40px 20px;
+            margin: 20px 0;
+        }
+        #home {
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        #home h2 {
+            color: #2c3e50;
+        }
+        #about {
+            background-color: #eaeaea;
+        }
+        #about h2 {
+            color: #2c3e50;
+        }
+        #contact {
+            background-color: #f4f4f4;
+        }
+        #contact h2 {
+            color: #2c3e50;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            display: inline-block;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        form input, form textarea, form button {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            font-size: 1em;
+        }
+        form button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        form button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <img src="../images/Icon.png" alt="PawsitiveWellbeing Logo" style="height: 60px;">
+        <h1>PawsitiveWellbeing</h1>
+    </div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact Us</a>
+        <a href="SignIn.php">Sign In</a>
+        <a href="UserCategory.html">Create Account</a>
+        <a href="Adoption.php">Adopt an Animal</a>
+    </nav>
+    </header>
+
+
+    <!-- Home Section -->
+    <section id="home">
+        <h2>Welcome to our Animal Rescue Platform</h2>
+        <p>Our mission is to rescue, rehabilitate, and rehome stray animals. Join us in making a difference!</p>
+        <p>Explore our ongoing campaigns, rescue missions, and adoption opportunities.</p>
+        <a href="#about" class="btn">Learn More</a>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We are a dedicated organization committed to rescuing and rehoming stray animals. Our team of passionate volunteers and veterinarians works tirelessly to ensure the well-being of every animal we encounter.</p>
+        <p>Our Goals:</p>
+        <ul>
+            <li>Rescue and rehabilitate animals in need.</li>
+            <li>Promote responsible pet adoption and care.</li>
+            <li>Educate the community about animal welfare.</li>
+        </ul>
+        <a href="#contact" class="btn">Get In Touch</a>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>If you'd like to learn more about our work or get involved, we'd love to hear from you!</p>
+        <form action="/submit" method="post">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <p>Or reach us directly:</p>
+        <p>Email: contact@pawsitivewellbeing.org</p>
+        <p>Phone: +123 456 7890</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 PawsitiveWellbeing | All Rights Reserved</p>
+        <p>Follow us on: 
+            <a href="#">Facebook</a> | 
+            <a href="#">Twitter</a> | 
+            <a href="#">Instagram</a>
+        </p>
+    </footer>
+</body>
+</html>
