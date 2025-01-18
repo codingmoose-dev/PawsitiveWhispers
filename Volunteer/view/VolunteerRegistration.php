@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volunteers & Specialists</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
-        table { width: 100%; border-spacing: 10px; }
-        td { padding: 5px; }
-        fieldset { margin-bottom: 20px; padding: 15px; }
-        legend { font-weight: bold; }
-        input, select, textarea { width: 100%; padding: 5px; }
-        .button { text-align: center; }
-        .error { color: red; }
-    </style>
 </head>
 <body>
     <h1>Volunteers & Specialists</h1>
@@ -70,8 +60,6 @@
             </table>
         </fieldset>
 
-        <!-- Other fieldsets omitted for brevity -->
-
         <fieldset>
             <legend>Preferences</legend>
             <table>
@@ -104,6 +92,33 @@
                 </tr>
             </table>
         </fieldset>
+        
+        <fieldset>
+            <legend>Skills and Experience</legend>
+            <table>
+                <tr>
+                    <td><label for="skills">Skills:</label></td>
+                    <td>
+                        <select id="skills" name="skills" required>
+                            <option value="Animal Handling">Animal Handling</option>
+                            <option value="First Aid for Animals">First Aid for Animals</option>
+                            <option value="Driving">Driving (for transporting animals)</option>
+                            <option value="Event Planning">Event Planning</option>
+                            <option value="Social Media Management">Social Media Management</option>
+                            <option value="Veterinary Assistance">Veterinary Assistance (if not a licensed veterinarian)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="experience">Years of Experience:</label></td>
+                    <td>
+                        <input type="number" id="experience" name="experience" min="0" step="1" placeholder="Enter years of experience" required>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        
 
         <div class="button">
             <input type="submit" value="Submit">
