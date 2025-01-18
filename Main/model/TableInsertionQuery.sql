@@ -9,16 +9,16 @@ VALUES
 ('Farhana Islam', 'farhana@yahoo.com', '01812345678', 'password4321', '10 Mirpur, Dhaka', 'Dhaka, Bangladesh', FALSE, TRUE, TRUE, FALSE, 'profile7.jpg', 'instagram.com/farhana', TRUE),
 ('Kamal Hossain', 'kamal@google.com', '01911223344', 'password8765', '300 Baridhara, Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, FALSE, TRUE, 'profile8.jpg', 'linkedin.com/kamal', TRUE);
 
-INSERT INTO Volunteers (FullName, Email, Phone, Password, HomeAddress, CityStateCountry, LocationEnabled, EmergencyRescue, OrganizeCampaigns, ManageAdoption, Skills, ExperienceYears, Availability)
+INSERT INTO Volunteers (FullName, Email, Phone, Password, HomeAddress, CityStateCountry, LocationEnabled, Availability, EmergencyRescue, OrganizeCampaigns, ManageAdoption, Skills, ExperienceYears)
 VALUES
-('Shirin Akter', 'shirin@gmail.com', '01788990000', 'volunteer123', '88 Motijheel, Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, TRUE, FALSE, 'Animal Care, Event Management', 5, TRUE),
-('Jamilur Rahman', 'jamilur@outlook.com', '01990001122', 'volunteer456', '120 Puran Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, FALSE, TRUE, 'Campaign Management, Fundraising', 2, TRUE),
-('Rashedul Islam', 'rashedul@yahoo.com', '01866778899', 'volunteer789', '200 New Market, Dhaka', 'Dhaka, Bangladesh', FALSE, FALSE, TRUE, TRUE, 'Animal Rescue, Outreach', 3, TRUE),
-('Meherun Nahar', 'meherun@google.com', '01722334455', 'volunteer000', '35 Sadarghat, Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, TRUE, FALSE, 'Education, Community Outreach', 7, TRUE),
-('Abdul Mannan', 'abdul@outlook.com', '01988553322', 'volunteer1234', '74 Mirpur, Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, FALSE, TRUE, 'Fundraising, Event Planning', 4, TRUE),
-('Sabrina Sultana', 'sabrina@yahoo.com', '01854556677', 'volunteer5678', '55 Kolabagan, Dhaka', 'Dhaka, Bangladesh', FALSE, TRUE, TRUE, FALSE, 'Animal Welfare, Volunteering', 6, TRUE),
-('Sajib Ahmed', 'sajib@google.com', '01733445566', 'volunteer4321', '120 Badda, Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, TRUE, TRUE, 'Project Management, Animal Rescue', 2, TRUE),
-('Nazrul Islam', 'nazrul@outlook.com', '01922334455', 'volunteer8765', '88 Hazaribagh, Dhaka', 'Dhaka, Bangladesh', TRUE, FALSE, TRUE, TRUE, 'Fundraising, Public Relations', 1, TRUE);
+('Shirin Akter', 'shirin@gmail.com', '01788990000', 'volunteer123', '88 Motijheel, Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, TRUE, TRUE, FALSE, 'Animal Care, Event Management', 5),
+('Jamilur Rahman', 'jamilur@outlook.com', '01990001122', 'volunteer456', '120 Puran Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, TRUE, FALSE, TRUE, 'Campaign Management, Fundraising', 2),
+('Rashedul Islam', 'rashedul@yahoo.com', '01866778899', 'volunteer789', '200 New Market, Dhaka', 'Dhaka, Bangladesh', FALSE, TRUE, FALSE, TRUE, TRUE, 'Animal Rescue, Outreach', 3),
+('Meherun Nahar', 'meherun@google.com', '01722334455', 'volunteer000', '35 Sadarghat, Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, TRUE, TRUE, FALSE, 'Education, Community Outreach', 7),
+('Abdul Mannan', 'abdul@outlook.com', '01988553322', 'volunteer1234', '74 Mirpur, Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, FALSE, FALSE, TRUE, 'Fundraising, Event Planning', 4),
+('Sabrina Sultana', 'sabrina@yahoo.com', '01854556677', 'volunteer5678', '55 Kolabagan, Dhaka', 'Dhaka, Bangladesh', FALSE, TRUE, FALSE, TRUE, FALSE, 'Animal Welfare, Volunteering', 6),
+('Sajib Ahmed', 'sajib@google.com', '01733445566', 'volunteer4321', '120 Badda, Dhaka', 'Dhaka, Bangladesh', TRUE, TRUE, TRUE, TRUE, FALSE, 'Project Management, Animal Rescue', 2),
+('Nazrul Islam', 'nazrul@outlook.com', '01922334455', 'volunteer8765', '88 Hazaribagh, Dhaka', 'Dhaka, Bangladesh', TRUE, FALSE, TRUE, TRUE, TRUE, 'Fundraising, Public Relations', 1);
 
 INSERT INTO Veterinarians (FullName, Email, Phone, Password, ClinicAddress, LocationEnabled, License, ClinicName, Speciality, Services, WorkingHours, VetLicensePath, GovIDPath, TrainingMaterialsPath, HostTraining)
 VALUES

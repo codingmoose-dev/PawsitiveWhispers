@@ -20,8 +20,8 @@ class UserModel {
     }
 
     public function fetchUsersFromDatabase() {
-        // Define the query to fetch user data
-        $sql = "SELECT id, full_name, email, phone, home_address, city_state_country, location_services, volunteer_type, experience_level, skills, emergency_contact, emergency_missions, organize_campaigns, adoption_approval FROM animalcarevolunteer";
+        // Define the query to fetch user data with the updated attributes
+        $sql = "SELECT id, FullName, Email, Phone, Password, HomeAddress, CityStateCountry, LocationEnabled, EmergencyRescue, OrganizeCampaigns, ManageAdoption, Skills, ExperienceYears, Availability FROM animalcarevolunteer";
 
         // Execute the query
         $result = $this->conn->query($sql);
@@ -41,9 +41,9 @@ class UserModel {
     
     public function updateUserAttribute($userId, $attribute, $newValue) {
         $validAttributes = [
-            'full_name', 'email', 'phone', 'home_address', 'city_state_country',
-            'location_services', 'volunteer_type', 'experience_level', 'skills',
-            'emergency_contact', 'emergency_missions', 'organize_campaigns', 'adoption_approval'
+            'FullName', 'Email', 'Phone', 'Password', 'HomeAddress', 'CityStateCountry',
+            'LocationEnabled', 'EmergencyRescue', 'OrganizeCampaigns', 'ManageAdoption', 
+            'Skills', 'ExperienceYears', 'Availability'
         ];
     
         if (in_array($attribute, $validAttributes)) {
@@ -63,7 +63,6 @@ class UserModel {
         }
         return false;  // Invalid attribute
     }
-    
     
     public function __destruct() {
         // Close the database connection

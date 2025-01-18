@@ -30,12 +30,12 @@ CREATE TABLE Volunteers (
     HomeAddress TEXT NOT NULL,
     CityStateCountry VARCHAR(255) NOT NULL,
     LocationEnabled BOOLEAN DEFAULT FALSE,
+    Availability BOOLEAN DEFAULT TRUE
     EmergencyRescue BOOLEAN DEFAULT FALSE,
     OrganizeCampaigns BOOLEAN DEFAULT FALSE,
     ManageAdoption BOOLEAN DEFAULT FALSE,
     Skills TEXT,
     ExperienceYears INT CHECK (ExperienceYears >= 0),
-    Availability BOOLEAN DEFAULT TRUE
 ) ENGINE = InnoDB AUTO_INCREMENT = 110000;
 
 -- Veterinarians Table
