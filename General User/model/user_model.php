@@ -3,53 +3,49 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "pawsitivewellbeing";
+$dbname = "PawsitiveWellbeing";
 
 // Create a new MySQLi connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error); // Connection failed, show error
 }
 
 // Function to register a new user
-function registerUser($fullName, $email, $phone, $password, $address, $cityStateCountry, $location, $adoptionNotifications, $donationCampaigns, $profilePicture, $socialMediaLinks, $newsletterSubscription, $emailVerification) {
+function registerUser($fullName, $email, $phone, $password, $address, $cityStateCountry, $locationenabled, $adoptionNotifications, $donationCampaigns, $newsletterSubscription, $profilePicturepath, $socialMediaLinks, $emailVerified) {
     global $conn;
 
     // Hash the password before storing it
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Prepare the SQL query to insert the user data into the database
-    $sql = "INSERT INTO users (FullName, Email, Phone, Password, Address, CityStateCountry, Location, AdoptionNotifications, DonationCampaigns, ProfilePicture, SocialMediaLinks, NewsletterSubscription, EmailVerification)
-            VALUES ('$fullName', '$email', '$phone', '$hashedPassword', '$address', '$cityStateCountry', '$location', '$adoptionNotifications', '$donationCampaigns', '$profilePicture', '$socialMediaLinks', '$newsletterSubscription', '$emailVerification')";
+    $stmt = $conn->prepare("INSERT INTO GeneralUsers (FullName, Email, Phone, Password, Address, CityStateCountry, LocationEnabled, AdoptionNotifications, DonationCampaignNotifications, NewsletterSubscription, ProfilePicturePath, SocialMediaLinks, EmailVerified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    if ($conn->query($sql) === TRUE) {
+    $stmt->bind_param("sssssssssssss", $fullName, $email, $phone, $hashedPassword, $address, $cityStateCountry, $locationenabled, $adoptionNotifications, $donationCampaigns, $newsletterSubscription, $profilePicturepath, $socialMediaLinks, $emailVerified);
+
+    if ($stmt->execute()) {
         return true;
     } else {
-        return false;
+        return "Error: " . $stmt->error;
     }
 }
 
-// Function to authenticate a user during login
-function loginUser($email, $password) {
+function getUserByEmail($email) {
     global $conn;
     
-    // Query to get the user by email
-    $sql = "SELECT * FROM users WHERE Email = '$email'";
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare("SELECT * FROM GeneralUsers WHERE Email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
     
+    // Return the user record if found
     if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        
-        // Verify the password
-        if (password_verify($password, $row['Password'])) {
-            return $row; // Return user data if login is successful
-        }
+        return $result->fetch_assoc(); // Return user data
+    } else {
+        return null; // User not found
     }
-    return false; // Return false if login fails
 }
 
-// Uncomment this line to close the connection when done (optional but not necessary here)
-// $conn->close(); 
 ?>

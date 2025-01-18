@@ -1,95 +1,79 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    $errors = [];
+// Database connection
+include_once '../model/user_model.php'; // Assuming db_config.php has the database connection code
 
-    /*
-    if (empty($_POST["FullName"])) {
-        $errors[] = "Full Name is required.";
-    } elseif (!preg_match("/^[a-zA-Z ]*$/", $_POST["FullName"])) {
-        $errors[] = "Full Name should contain only alphabets.";
-    }
-        */
+class UserController {
 
-    
-    if (empty($_POST["Email"])) {
-        $errors[] = "Email is required.";
-    } elseif (!preg_match("/@.*\.xyz$/", $_POST["Email"])) {
-        $errors[] = "Email must be valid and end with '.xyz' domain.";
-    }
+    public function register() {
+        // Check if the form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Collect form data
+            $fullName = $_POST['FullName'];
+            $email = $_POST['Email'];
+            $phone = $_POST['Phone'];
+            $password = $_POST['Password'];
+            $address = $_POST['Address'];
+            $cityStateCountry = $_POST['CityStateCountry'];
+            $locationenabled = isset($_POST['LocationEnabled']) ? 1 : 0; // Checkbox
+            $adoptionNotifications = isset($_POST['AdoptionNotifications']) ? 1 : 0; // Checkbox
+            $donationCampaigns = isset($_POST['DonationCampaigns']) ? 1 : 0; // Checkbox
+            $newsletterSubscription = isset($_POST['NewsletterSubscription']) ? 1 : 0; // Checkbox
+            $socialMediaLinks = $_POST['SocialMediaLinks'];
+            $emailVerified = isset($_POST['EmailVerified']) ? 1 : 0; // Checkbox
 
-    
-    if (empty($_POST["Password"])) {
-        $errors[] = "Password is required.";
-    } elseif (!preg_match("/[0-9]/", $_POST["Password"])) {
-        $errors[] = "Password must contain at least one numeric character.";
-    }
+            // File upload handling
+            if (isset($_FILES['ProfilePicture']) && $_FILES['ProfilePicture']['error'] === UPLOAD_ERR_OK) {
+                // Get file details
+                $profilePictureTempPath = $_FILES['ProfilePicture']['tmp_name'];
+                $profilePictureName = $_FILES['ProfilePicture']['name'];
+                
+                // Check if the uploaded file is an image
+                $imageSize = getimagesize($profilePictureTempPath);
+                if ($imageSize) {
+                    // Define the target directory to save the image
+                    $targetDirectory = "../files";
+                    $targetPath = $targetDirectory . basename($profilePictureName);
 
-    
-    if (empty($_POST["ConfirmPassword"])) {
-        $errors[] = "Confirm Password is required.";
-    } elseif ($_POST["Password"] !== $_POST["ConfirmPassword"]) {
-        $errors[] = "Confirm Password must match Password.";
-    }
+                    // Move the uploaded file to the target directory
+                    if (move_uploaded_file($profilePictureTempPath, $targetPath)) {
+                        // File uploaded successfully, save the path
+                        $profilePicturePath = $targetPath;
+                    } else {
+                        // Error moving the file
+                        echo "Error uploading the profile picture.";
+                        return;
+                    }
+                } else {
+                    // Invalid image file
+                    echo "The uploaded file is not an image.";
+                    return;
+                }
+            } else {
+                // No file uploaded or error occurred
+                echo "No profile picture uploaded or an error occurred.";
+                // Optionally, set $profilePicturePath to a default value
+                $profilePicturePath = ''; // Or a default image path
+            }
 
-    
-    if (empty($_POST["Phone"])) {
-        $errors[] = "Phone number is required.";
-    } elseif (!is_numeric($_POST["Phone"])) {
-        $errors[] = "Phone number must be numeric.";
-    }
+            // Hash the password before saving it to the database
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    
-    if (empty($errors)) {
-        
-        $userData = [
-            "FullName" => $_POST["FullName"],
-            "Email" => $_POST["Email"],
-            "Phone" => $_POST["Phone"],
-            "Password" => password_hash($_POST["Password"], PASSWORD_DEFAULT), 
-            "Address" => $_POST["Address"] ?? null,
-            "CityStateCountry" => $_POST["CityStateCountry"] ?? null,
-            "Location" => $_POST["Location"] ?? null,
-            "AdoptionNotifications" => $_POST["AdoptionNotifications"] ?? null,
-            "DonationCampaigns" => $_POST["DonationCampaigns"] ?? null,
-            "ProfilePicture" => $_FILES["ProfilePicture"]["name"] ?? null,
-            "SocialMediaLinks" => $_POST["SocialMediaLinks"] ?? null,
-            "NewsletterSubscription" => $_POST["NewsletterSubscription"] ?? null,
-            "EmailVerification" => isset($_POST["EmailVerification"]) ? true : false
-        ];
+            // Prepare the SQL query to insert user data
+            global $conn; // Database connection
+            $stmt = $conn->prepare("INSERT INTO GeneralUsers (FullName, Email, Phone, Password, Address, CityStateCountry, LocationEnabled, AdoptionNotifications, DonationCampaignNotifications, NewsletterSubscription, ProfilePicturePath, SocialMediaLinks, EmailVerified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssssssssss", $fullName, $email, $phone, $hashedPassword, $address, $cityStateCountry, $locationenabled, $adoptionNotifications, $donationCampaigns, $newsletterSubscription, $profilePicturePath, $socialMediaLinks, $emailVerified);
 
-       
-        $dataFolder = '../data';
-   
-   
-        if (!file_exists($dataFolder)) {
-            mkdir($dataFolder, 0777, true);
-        }
-   
-   
-        $jsonFile = $dataFolder . '/userdata.json';
-        $currentData = [];
-   
-       
-        if (file_exists($jsonFile)) {
-            $currentData = json_decode(file_get_contents($jsonFile), true);
-        }
-   
-       
-        $currentData[] = $userData;
-   
-       
-        file_put_contents($jsonFile, json_encode($currentData, JSON_PRETTY_PRINT));
-   
-        echo "Form submitted successfully!";
-    } else {
-        foreach ($errors as $error) {
-            echo $error . "<br>";
+            // Execute the query and check if it was successful
+            if ($stmt->execute()) {
+                echo "User registered successfully!";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
         }
     }
 }
-    ?>
-   
-    
 
+// Instantiate the controller and call the register method
+$controller = new UserController();
+$controller->register();
 ?>
