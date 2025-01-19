@@ -1,30 +1,57 @@
 <?php
 include '../model/user_model.php';
 
-// Initialize the model
-$userModel = new UserModel('localhost', 'root', '', 'PawsitiveWellbeing');
+class UserController {
+    private $userModel;
 
-// Handle form submissions
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Delete benefactor functionality
-    if (isset($_POST['delete_benefactor'])) {
-        $id = intval($_POST['id']); // Use ID as the unique identifier
-        $success = $userModel->deleteBenefactorById($id);
-        
-        if ($success) {
-            echo "Benefactor with ID $id has been deleted successfully.";
-        } else {
-            echo "Error deleting benefactor with ID $id.";
+    public function __construct($servername, $username, $password, $dbname) {
+        // Initialize the model with the database connection parameters
+        $this->userModel = new UserModel($servername, $username, $password, $dbname);
+    }
+
+    public function handleRequest() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['delete_benefactor'])) {
+                $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+                
+                if ($id === false) {
+                    header('Location: view_user.php?error=invalid_id');
+                    exit();
+                }
+
+                try {
+                    $success = $this->userModel->deleteUser($id);
+
+                    if ($success) {
+                        header('Location: view_user.php?success=delete');
+                    } else {
+                        header('Location: view_user.php?error=delete');
+                    }
+                    exit();
+                } catch (Exception $e) {
+                    // Catch any error thrown by the delete operation
+                    header('Location: view_user.php?error=delete');
+                    exit();
+                }
+            }
         }
+    }
+
+    public function fetchBenefactors() {
+        // Fetch all benefactors using the model
+        return $this->userModel->getAllBenefactors();
     }
 }
 
-// Fetch all benefactors to display
-$benefactors = $userModel->fetchBenefactorsFromDatabase();
+// Initialize the controller
+$userController = new UserController('localhost', 'root', '', 'PawsitiveWellbeing');
 
-// Include the view
+// Handle the request
+$userController->handleRequest();
+
+// Fetch all benefactors for display
+$benefactors = $userController->fetchBenefactors();
+
+// Include the view for rendering
 require '../view/view_user.php';
-
-// Close the connection
-$userModel->closeConnection();
 ?>

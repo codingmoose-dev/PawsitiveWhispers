@@ -23,10 +23,12 @@
     <h1>Registered Benefactors</h1>
 
     <!-- Status Message -->
-    <?php if (isset($_GET['status'])): ?>
-        <p style="color: <?= $_GET['status'] === 'success' ? 'green' : 'red'; ?>">
-            <?= $_GET['status'] === 'success' ? 'Benefactor deleted successfully!' : 'Error deleting benefactor.'; ?>
-        </p>
+    <?php if (isset($_GET['success'])): ?>
+        <p style="color: green;">Benefactor deleted successfully!</p>
+    <?php elseif (isset($_GET['error'])): ?>
+        <p style="color: red;">Error occurred while deleting the benefactor. Please try again.</p>
+    <?php elseif (isset($_GET['error']) && $_GET['error'] == 'invalid_id'): ?>
+        <p style="color: red;">Invalid ID provided. Please try again with a valid ID.</p>
     <?php endif; ?>
 
     <!-- Benefactors Table -->
@@ -54,19 +56,19 @@
                 <?php foreach ($benefactors as $benefactor): ?>
                     <tr>
                         <td><?= htmlspecialchars($benefactor['id']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['full_name']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['email']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['phone']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['password']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['address']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['organization_type']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['donation_type']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['preferred_campaign']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['payment_method']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['save_payment']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['sponsor_events']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['ngo_partnership']); ?></td>
-                        <td><?= htmlspecialchars($benefactor['additional_notes']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['FullName']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['Email']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['Phone']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['Password']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['Address']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['OrganizationType']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['DonationType']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['PreferredCampaign']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['PaymentMethod']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['SavePayment']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['SponsorEvents']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['NgoPartnership']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['AdditionalNotes']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -80,9 +82,9 @@
     <!-- Deletion Form -->
     <h2>Delete Benefactor</h2>
     <form method="POST" action="">
-        <label for="delete_benefactor_id">Enter Benefactor ID to delete:</label>
-        <input type="number" name="delete_benefactor_id" id="delete_benefactor_id" required>
-        <button type="submit">Delete Benefactor</button>
+        <label for="id">Enter Benefactor ID to delete:</label>
+        <input type="number" name="id" id="id" required>
+        <button type="submit" name="delete_benefactor">Delete Benefactor</button>
     </form>
 </body>
 </html>

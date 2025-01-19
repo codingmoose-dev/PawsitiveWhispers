@@ -1,99 +1,54 @@
 <?php
-
 class UserModel {
-    private $conn;
+    private $connection;
 
-    public function __construct() {
-        // Database connection details
-        $servername = "localhost"; 
-        $username = "root"; 
-        $password = ""; 
-        $dbname = "PawsitiveWellbeing";
+    public function __construct($servername, $username, $password, $dbname) {
+        // Establish database connection using MySQLi
+        $this->connection = new mysqli($servername, $username, $password, $dbname);
 
-        // Create connection
-        $this->conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
+        // Check for connection error
+        if ($this->connection->connect_error) {
+            die("Connection failed: " . $this->connection->connect_error);
         }
     }
 
-    public function fetchBenefactorsFromDatabase() {
-        // Define the query to fetch benefactor data
-        $sql = "SELECT 
-                    FullName, 
-                    Email, 
-                    Phone, 
-                    Password, 
-                    Address, 
-                    OrganizationType, 
-                    DonationType, 
-                    PreferredCampaign, 
-                    Availability, 
-                    PaymentMethod, 
-                    SavePayment, 
-                    SponsorEvents, 
-                    NgoPartnership, 
-                    AdditionalNotes 
-                FROM Benefactors";
-
-        // Execute the query
-        $result = $this->conn->query($sql);
-
-        // Check if there are any records in the database
-        if ($result->num_rows > 0) {
-            // Fetch all records
-            $benefactors = [];
-            while ($row = $result->fetch_assoc()) {
-                $benefactors[] = $row;
-            }
-            return $benefactors;
-        } else {
-            return [];
-        }
-    }
-
-    public function updateBenefactorAttribute($email, $attribute, $newValue) {
-        $validAttributes = [
-            'FullName', 'Email', 'Phone', 'Password', 'Address',
-            'OrganizationType', 'DonationType', 'PreferredCampaign',
-            'Availability', 'PaymentMethod', 'SavePayment', 
-            'SponsorEvents', 'NgoPartnership', 'AdditionalNotes'
-        ];
-
-        if (in_array($attribute, $validAttributes)) {
-            $sql = "UPDATE Benefactors SET $attribute = ? WHERE Email = ?";
-            $stmt = $this->conn->prepare($sql);
-            if ($stmt === false) {
-                // Error preparing the statement
-                return false;
-            }
-            $stmt->bind_param('ss', $newValue, $email); // Use Email as the identifier
-            if ($stmt->execute()) {
-                return true;  // Successful update
-            } else {
-                // Error executing the statement
-                return false;
-            }
-        }
-        return false;  // Invalid attribute
-    }
-
-    public function deleteBenefactorById($id) {
-        $sql = "DELETE FROM Benefactors WHERE ID = ?";
-        $stmt = $this->conn->prepare($sql);
+    // Get all benefactors from the database
+    public function getAllBenefactors() {
+        $query = "SELECT 
+                    id, FullName, Email, Phone, Password, Address, OrganizationType, 
+                    DonationType, PreferredCampaign, PaymentMethod, 
+                    SavePayment, SponsorEvents, NgoPartnership, AdditionalNotes
+                  FROM Benefactors"; 
+        $stmt = $this->connection->prepare($query);
+        
         if ($stmt === false) {
-            return false;
+            die("Error preparing statement: " . $this->connection->error);
         }
-        $stmt->bind_param('i', $id); // Bind the ID as an integer
-        return $stmt->execute();
-    }
-    
 
-    public function __destruct() {
-        // Close the database connection
-        $this->conn->close();
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC); // Fetch all rows as an associative array
+        } else {
+            return []; // Return empty array if query fails
+        }
+    }
+
+    // Delete a user by primary key
+    public function deleteUser($id) {
+        $query = "DELETE FROM Benefactors WHERE id = ?"; 
+        $stmt = $this->connection->prepare($query);
+        
+        if ($stmt === false) {
+            die("Error preparing statement: " . $this->connection->error);
+        }
+
+        $stmt->bind_param("i", $id); // Bind the integer parameter
+        return $stmt->execute(); // Return whether the execution was successful
+    }
+
+    // Close the database connection
+    public function closeConnection() {
+        $this->connection->close();
     }
 }
 ?>
