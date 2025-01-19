@@ -64,6 +64,7 @@ CREATE TABLE Benefactors (
     FullName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) UNIQUE NOT NULL,
     Phone VARCHAR(15) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
     Address TEXT NOT NULL,
     OrganizationType ENUM('IndividualDonor', 'CorporateSponsor', 'NgoPartner') DEFAULT 'IndividualDonor',
     DonationType ENUM('One-time', 'Monthly') NOT NULL,

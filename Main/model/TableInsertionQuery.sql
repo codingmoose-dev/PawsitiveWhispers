@@ -31,16 +31,16 @@ VALUES
 ('Dr. Noor Islam', 'noorvet@google.com', '01711223344', 'vet4321', '88 Baridhara, Dhaka', TRUE, 9012345678, 'Baridhara Animal Clinic', 'Dentistry', 'Teeth Cleaning, Extraction', '10AM - 4PM', 'noor_license.jpg', 'noor_id.jpg', 'noor_training.jpg', 'no'),
 ('Dr. Fahim Ahmed', 'fahimvet@outlook.com', '01866554433', 'vet8765', '75 Old Dhaka', TRUE, 1234567890, 'Old Dhaka Pet Clinic', 'Gastroenterology', 'Digestion, Gastro Issues', '9AM - 6PM', 'fahim_license.jpg', 'fahim_id.jpg', 'fahim_training.jpg', 'yes');
 
-INSERT INTO Benefactors (FullName, Email, Phone, Address, OrganizationType, DonationType, PreferredCampaign, Availability, PaymentMethod, SavePayment, SponsorEvents, NgoPartnership, AdditionalNotes)
+INSERT INTO Benefactors (FullName, Email, Phone, Password, Address, OrganizationType, DonationType, PreferredCampaign, Availability, PaymentMethod, SavePayment, SponsorEvents, NgoPartnership, AdditionalNotes)
 VALUES
-('Shafiqul Alam', 'shafiq@gmail.com', '01987456321', '20 Gulsan, Dhaka', 'IndividualDonor', 'One-time', 'Animal Welfare', 'Weekends', 'credit-card', 'yes', 'yes', 'no', 'Donor for animal treatment'),
-('Aminul Haque', 'aminul@outlook.com', '01755667788', '45 Shyamoli, Dhaka', 'CorporateSponsor', 'Monthly', 'Pet Shelter', 'Weekdays', 'paypal', 'no', 'yes', 'yes', 'Sponsor for food and supplies'),
-('Tariq Zaman', 'tariq@yahoo.com', '01922334455', '10 Banani, Dhaka', 'NGOPartner', 'Quarterly', 'Medical Supplies', 'Weekdays', 'bank-transfer', 'yes', 'yes', 'no', 'Partners with clinics'),
-('Sadia Ahmed', 'sadia@google.com', '01755667799', '30 Mirpur, Dhaka', 'IndividualDonor', 'Recurring', 'Rescue Operations', 'Weekends', 'debit-card', 'yes', 'no', 'yes', 'Supports in emergency rescues'),
-('Kazi Shahed', 'shahed@outlook.com', '01998887766', '100 Uttara, Dhaka', 'CorporateSponsor', 'One-time', 'Education', 'Weekdays', 'credit-card', 'no', 'yes', 'no', 'Donor for awareness programs'),
-('Nadia Akter', 'nadia@yahoo.com', '01822334455', '150 New Market, Dhaka', 'IndividualDonor', 'Monthly', 'Adoption Drives', 'Weekends', 'paypal', 'yes', 'no', 'yes', 'Supports in adoption events'),
-('Imran Chowdhury', 'imran@google.com', '01744556677', '60 Old Dhaka', 'CorporateSponsor', 'Quarterly', 'Animal Rescue', 'Weekdays', 'bank-transfer', 'no', 'yes', 'yes', 'Provides resources for rescues'),
-('Fariha Nahar', 'fariha@outlook.com', '01966554433', '200 Badda, Dhaka', 'NGOPartner', 'One-time', 'Medical Assistance', 'Weekends', 'credit-card', 'yes', 'no', 'no', 'Assists with medical equipment');
+('Shafiqul Alam', 'shafiq@gmail.com', '01987456321', 'password123', '20 Gulsan, Dhaka', 'IndividualDonor', 'One-time', 'Animal Welfare', 'Weekends', 'credit-card', 'yes', 'yes', 'no', 'Donor for animal treatment'),
+('Aminul Haque', 'aminul@outlook.com', '01755667788', 'securePass456', '45 Shyamoli, Dhaka', 'CorporateSponsor', 'Monthly', 'Pet Shelter', 'Weekdays', 'paypal', 'no', 'yes', 'yes', 'Sponsor for food and supplies'),
+('Tariq Zaman', 'tariq@yahoo.com', '01922334455', 'Zaman789!', '10 Banani, Dhaka', 'NGOPartner', 'Quarterly', 'Medical Supplies', 'Weekdays', 'bank-transfer', 'yes', 'yes', 'no', 'Partners with clinics'),
+('Sadia Ahmed', 'sadia@google.com', '01755667799', 'Ahmed@567', '30 Mirpur, Dhaka', 'IndividualDonor', 'Recurring', 'Rescue Operations', 'Weekends', 'debit-card', 'yes', 'no', 'yes', 'Supports in emergency rescues'),
+('Kazi Shahed', 'shahed@outlook.com', '01998887766', 'Shahed!123', '100 Uttara, Dhaka', 'CorporateSponsor', 'One-time', 'Education', 'Weekdays', 'credit-card', 'no', 'yes', 'no', 'Donor for awareness programs'),
+('Nadia Akter', 'nadia@yahoo.com', '01822334455', 'Akter#2023', '150 New Market, Dhaka', 'IndividualDonor', 'Monthly', 'Adoption Drives', 'Weekends', 'paypal', 'yes', 'no', 'yes', 'Supports in adoption events'),
+('Imran Chowdhury', 'imran@google.com', '01744556677', 'ImranPass!45', '60 Old Dhaka', 'CorporateSponsor', 'Quarterly', 'Animal Rescue', 'Weekdays', 'bank-transfer', 'no', 'yes', 'yes', 'Provides resources for rescues'),
+('Fariha Nahar', 'fariha@outlook.com', '01966554433', 'Fariha#78', '200 Badda, Dhaka', 'NGOPartner', 'One-time', 'Medical Assistance', 'Weekends', 'credit-card', 'yes', 'no', 'no', 'Assists with medical equipment');
 
 INSERT INTO Shelter (ShelterName, Address, CityStateCountry, ContactNumber, Email, ShelterType)
 VALUES
