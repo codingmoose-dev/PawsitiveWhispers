@@ -1,73 +1,84 @@
 <?php
-
 class UserModel {
-    private $conn;
+    private static $connection;
 
+    // Constructor to connect to the database
     public function __construct() {
-        // Database connection details
-        $servername = "localhost"; 
-        $username = "root"; 
-        $password = ""; 
-        $dbname = "pawsitivewellbeing";
-
-        // Create connection
-        $this->conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
+        if (!self::$connection) {
+            self::connect();
         }
     }
 
-    public function fetchUsersFromDatabase() {
-        // Define the query to fetch user data
-        $sql = "SELECT id, full_name, email, phone, home_address, city_state_country, location_services, volunteer_type, experience_level, skills, emergency_contact, emergency_missions, organize_campaigns, adoption_approval FROM animalcarevolunteer";
+    // Connect to the database
+    private static function connect() {
+        $hostname = 'localhost';
+        $username = 'root';
+        $password = '';
+        $dbname = 'PawsitiveWellbeing';
 
-        // Execute the query
-        $result = $this->conn->query($sql);
+        self::$connection = new mysqli($hostname, $username, $password, $dbname);
 
-        // Check if there are any records in the database
-        if ($result->num_rows > 0) {
-            // Fetch all records
-            $users = [];
-            while ($row = $result->fetch_assoc()) {
-                $users[] = $row;
+        // Check for connection errors
+        if (self::$connection->connect_error) {
+            throw new Exception('Connection failed: ' . self::$connection->connect_error);
+        }
+    }
+
+    // Get all users with pagination
+    public function getAllUsers($limit = 10, $offset = 0) {
+        // Modify the query to include LIMIT and OFFSET for pagination
+        $query = "SELECT VolunteerID, FullName, Email, Phone, Password, HomeAddress, CityStateCountry, LocationEnabled, EmergencyRescue, OrganizeCampaigns, ManageAdoption, Skills, ExperienceYears, Availability FROM Volunteers LIMIT ? OFFSET ?";
+        
+        $stmt = self::$connection->prepare($query);
+        $stmt->bind_param("ii", $limit, $offset);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
+        if ($result) {
+            while ($user = $result->fetch_assoc()) {
+                yield $user;
             }
-            return $users;
+            
+            // Free the result set after usage
+            $result->free();
         } else {
-            return [];
+            error_log("Query failed: " . self::$connection->error);
+            die('Error fetching users: ' . self::$connection->error);
         }
+        
+        // Close the prepared statement
+        $stmt->close();
     }
-    
-    public function updateUserAttribute($userId, $attribute, $newValue) {
-        $validAttributes = [
-            'full_name', 'email', 'phone', 'home_address', 'city_state_country',
-            'location_services', 'volunteer_type', 'experience_level', 'skills',
-            'emergency_contact', 'emergency_missions', 'organize_campaigns', 'adoption_approval'
-        ];
-    
-        if (in_array($attribute, $validAttributes)) {
-            $sql = "UPDATE animalcarevolunteer SET $attribute = ? WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            if ($stmt === false) {
-                // Error preparing the statement
-                return false;
-            }
-            $stmt->bind_param('si', $newValue, $userId);
-            if ($stmt->execute()) {
-                return true;  // Successful update
-            } else {
-                // Error executing the statement
-                return false;
-            }
+
+    // Update user information with all fields (including password)
+    public function updateUser($id, $fullName, $email, $phone, $password = null, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability) {
+        $stmt = self::$connection->prepare(
+            $password !== null ?
+            "UPDATE Volunteers SET FullName = ?, Email = ?, Phone = ?, Password = ?, HomeAddress = ?, CityStateCountry = ?, LocationEnabled = ?, EmergencyRescue = ?, OrganizeCampaigns = ?, ManageAdoption = ?, Skills = ?, ExperienceYears = ?, Availability = ? WHERE VolunteerID = ?" :
+            "UPDATE Volunteers SET FullName = ?, Email = ?, Phone = ?, HomeAddress = ?, CityStateCountry = ?, LocationEnabled = ?, EmergencyRescue = ?, OrganizeCampaigns = ?, ManageAdoption = ?, Skills = ?, ExperienceYears = ?, Availability = ? WHERE VolunteerID = ?"
+        );
+
+        if ($password !== null) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $stmt->bind_param("sssssssssssssi", $fullName, $email, $phone, $hashedPassword, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability, $id);
+        } else {
+            $stmt->bind_param("ssssssssssssi", $fullName, $email, $phone, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability, $id);
         }
-        return false;  // Invalid attribute
+
+        if (!$stmt->execute()) {
+            throw new Exception('Error executing statement: ' . $stmt->error);
+        }
+
+        // Close the prepared statement
+        $stmt->close();
     }
-    
-    
+
+    // Destructor to ensure connection is closed
     public function __destruct() {
-        // Close the database connection
-        $this->conn->close();
+        if (self::$connection) {
+            self::$connection->close();
+        }
     }
 }
 ?>
