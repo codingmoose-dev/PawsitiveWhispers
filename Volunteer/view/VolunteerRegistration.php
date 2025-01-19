@@ -118,7 +118,24 @@
             </table>
         </fieldset>
 
-        
+        <fieldset>
+            <legend>Availability</legend>
+            <table>
+                <tr>
+                    <td><label for="availability">What is the best time for you to volunteer in rescue missions?</label></td>
+                    <td>
+                        <select id="availability" name="availability" required>
+                            <option value="Weekends">Weekends</option>
+                            <option value="Weekdays">Weekdays</option>
+                            <option value="Morning">Morning</option>
+                            <option value="Afternoon">Afternoon</option>
+                            <option value="Evening">Evening</option>
+                            <option value="Anytime">Anytime</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
 
         <div class="button">
             <input type="submit" value="Submit">

@@ -1,87 +1,92 @@
 <?php
-include '../model/user_model.php';
-include '../control/user_control.php';
+// Include the UserController class
+include_once '../control/user_control.php';
 
-$model = new UserModel();
-
-// Fetch all users
-$users = $model->fetchUsersFromDatabase();
+// Instantiate the controller and handle the request
+$userController = new UserController();
+$userController->handleRequest();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>All Volunteers of PawsitiveWellbeing</title>
 </head>
 <body>
     <h1>All Volunteers of PawsitiveWellbeing</h1>
 
-    <!-- Display the users in the table -->
+    <!-- Success/Error Messages -->
+    <?php
+    if (isset($_GET['success']) && $_GET['success'] === 'update') {
+        echo '<p style="color: green;">User information updated successfully!</p>';
+    } elseif (isset($_GET['error'])) {
+        echo '<p style="color: red;">Error updating user information!</p>';
+    }
+    ?>
+
+    <!-- Display users in a table -->
     <table border="1">
         <tr>
-            <th>ID</th>
+            <th>Volunteer ID</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Password</th>
             <th>Home Address</th>
             <th>City/State/Country</th>
-            <th>Location Services</th>
-            <th>Volunteer Type</th>
-            <th>Experience Level</th>
-            <th>Skills</th>
-            <th>Emergency Contact</th>
-            <th>Emergency Missions</th>
+            <th>Location Enabled</th>
+            <th>Emergency Rescue</th>
             <th>Organize Campaigns</th>
-            <th>Adoption Approval</th>
+            <th>Manage Adoption</th>
+            <th>Skills</th>
+            <th>Experience Years</th>
+            <th>Availability</th>
         </tr>
         <?php
-        // Check if $users is an array and not empty
-        if (isset($users) && is_array($users) && !empty($users)) {
-            foreach ($users as $user) {
-                echo "<tr>";
-                echo "<td>" . htmlspecialchars($user['id']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['full_name']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['email']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['phone']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['home_address']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['city_state_country']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['location_services']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['volunteer_type']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['experience_level']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['skills']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['emergency_contact']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['emergency_missions']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['organize_campaigns']) . "</td>";
-                echo "<td>" . htmlspecialchars($user['adoption_approval']) . "</td>";
-                echo "</tr>";
-            }
-        } else {
-            echo '<tr><td colspan="14">No volunteers found.</td></tr>';
+        foreach ($users as $user) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($user['VolunteerID']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['FullName']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['Email']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['Phone']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['Password']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['HomeAddress']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['CityStateCountry']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['LocationEnabled']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['EmergencyRescue']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['OrganizeCampaigns']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['ManageAdoption']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['Skills']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['ExperienceYears']) . "</td>";
+            echo "<td>" . htmlspecialchars($user['Availability']) . "</td>";
+            echo "</tr>";
         }
         ?>
     </table>
 
-    <!-- New Update Section Below the Table -->
+    <!-- Update Form -->
     <h2>Update User Information</h2>
-    <form action="../control/user_control.php?action=update" method="post">
+    <form action="view_user.php" method="post">
+        <input type="hidden" name="action" value="update">
         <label for="user_id">User ID: </label>
         <input type="number" id="user_id" name="user_id" required><br><br>
 
         <label for="attribute">Attribute to Update: </label>
         <select id="attribute" name="attribute" required>
-            <option value="full_name">Full Name</option>
-            <option value="email">Email</option>
-            <option value="phone">Phone</option>
-            <option value="home_address">Home Address</option>
-            <option value="city_state_country">City/State/Country</option>
-            <option value="location_services">Location Services</option>
-            <option value="volunteer_type">Volunteer Type</option>
-            <option value="experience_level">Experience Level</option>
-            <option value="skills">Skills</option>
-            <option value="emergency_contact">Emergency Contact</option>
-            <option value="emergency_missions">Emergency Missions</option>
-            <option value="organize_campaigns">Organize Campaigns</option>
-            <option value="adoption_approval">Adoption Approval</option>
+            <option value="FullName">Full Name</option>
+            <option value="Email">Email</option>
+            <option value="Phone">Phone</option>
+            <option value="Password">Password</option>
+            <option value="HomeAddress">Home Address</option>
+            <option value="CityStateCountry">City/State/Country</option>
+            <option value="LocationEnabled">Location Enabled</option>
+            <option value="EmergencyRescue">Emergency Rescue</option>
+            <option value="OrganizeCampaigns">Organize Campaigns</option>
+            <option value="ManageAdoption">Manage Adoption</option>
+            <option value="Skills">Skills</option>
+            <option value="ExperienceYears">Experience Years</option>
+            <option value="Availability">Availability</option>
         </select><br><br>
 
         <label for="new_value">New Value: </label>
@@ -89,6 +94,5 @@ $users = $model->fetchUsersFromDatabase();
 
         <input type="submit" value="Update">
     </form>
-
 </body>
 </html>
