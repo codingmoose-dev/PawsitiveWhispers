@@ -20,41 +20,59 @@ class UserModel {
 
         // Check for connection errors
         if (self::$connection->connect_error) {
-            die('Connection failed: ' . self::$connection->connect_error);
+            throw new Exception('Connection failed: ' . self::$connection->connect_error);
         }
     }
 
-    // Fetch all users from the database
-    public function getAllUsers() {
-        $query = "SELECT VolunteerID, FullName, Email, Phone, Password, HomeAddress, CityStateCountry, LocationEnabled, EmergencyRescue, OrganizeCampaigns, ManageAdoption, Skills, ExperienceYears, Availability FROM Volunteers";
-        $result = self::$connection->query($query);
+    // Get all users with pagination
+    public function getAllUsers($limit = 10, $offset = 0) {
+        // Modify the query to include LIMIT and OFFSET for pagination
+        $query = "SELECT VolunteerID, FullName, Email, Phone, Password, HomeAddress, CityStateCountry, LocationEnabled, EmergencyRescue, OrganizeCampaigns, ManageAdoption, Skills, ExperienceYears, Availability FROM Volunteers LIMIT ? OFFSET ?";
+        
+        $stmt = self::$connection->prepare($query);
+        $stmt->bind_param("ii", $limit, $offset);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        
         if ($result) {
-            $users = $result->fetch_all(MYSQLI_ASSOC);
-            var_dump($users);  // Debug: Display the result to check if any data is returned
-            return $users;
+            while ($user = $result->fetch_assoc()) {
+                yield $user;
+            }
+            
+            // Free the result set after usage
+            $result->free();
         } else {
+            error_log("Query failed: " . self::$connection->error);
             die('Error fetching users: ' . self::$connection->error);
         }
+        
+        // Close the prepared statement
+        $stmt->close();
     }
 
     // Update user information with all fields (including password)
     public function updateUser($id, $fullName, $email, $phone, $password = null, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability) {
+        $stmt = self::$connection->prepare(
+            $password !== null ?
+            "UPDATE Volunteers SET FullName = ?, Email = ?, Phone = ?, Password = ?, HomeAddress = ?, CityStateCountry = ?, LocationEnabled = ?, EmergencyRescue = ?, OrganizeCampaigns = ?, ManageAdoption = ?, Skills = ?, ExperienceYears = ?, Availability = ? WHERE VolunteerID = ?" :
+            "UPDATE Volunteers SET FullName = ?, Email = ?, Phone = ?, HomeAddress = ?, CityStateCountry = ?, LocationEnabled = ?, EmergencyRescue = ?, OrganizeCampaigns = ?, ManageAdoption = ?, Skills = ?, ExperienceYears = ?, Availability = ? WHERE VolunteerID = ?"
+        );
+
         if ($password !== null) {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = self::$connection->prepare("UPDATE Volunteers SET FullName = ?, Email = ?, Phone = ?, Password = ?, HomeAddress = ?, CityStateCountry = ?, LocationEnabled = ?, EmergencyRescue = ?, OrganizeCampaigns = ?, ManageAdoption = ?, Skills = ?, ExperienceYears = ?, Availability = ? WHERE VolunteerID = ?");
             $stmt->bind_param("sssssssssssssi", $fullName, $email, $phone, $hashedPassword, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability, $id);
         } else {
-            $stmt = self::$connection->prepare("UPDATE Volunteers SET FullName = ?, Email = ?, Phone = ?, HomeAddress = ?, CityStateCountry = ?, LocationEnabled = ?, EmergencyRescue = ?, OrganizeCampaigns = ?, ManageAdoption = ?, Skills = ?, ExperienceYears = ?, Availability = ? WHERE VolunteerID = ?");
             $stmt->bind_param("ssssssssssssi", $fullName, $email, $phone, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability, $id);
         }
 
         if (!$stmt->execute()) {
-            die('Error executing statement: ' . $stmt->error);
+            throw new Exception('Error executing statement: ' . $stmt->error);
         }
 
+        // Close the prepared statement
         $stmt->close();
     }
-    
 
     // Destructor to ensure connection is closed
     public function __destruct() {
@@ -64,4 +82,3 @@ class UserModel {
     }
 }
 ?>
-

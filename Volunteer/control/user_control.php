@@ -7,11 +7,10 @@ class UserController {
     public function __construct() {
         $this->userModel = new UserModel();
     }
-
-    // Fetch and display all users
+    
     public function displayUsers() {
         $users = $this->userModel->getAllUsers();
-        include '../view/view_user.php'; // Pass the $users to the view for display
+        include '../view/view_user.php';  // Pass the data to the view
     }
 
     public function updateUser($userId, $fullName, $email, $phone, $password = null, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability) {
