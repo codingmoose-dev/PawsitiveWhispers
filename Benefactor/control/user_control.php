@@ -1,29 +1,29 @@
 <?php
-include 'user_model.php';
+include '../model/user_model.php';
 
 // Initialize the model
-$userModel = new UserModel('localhost', 'root', '', 'pawsitivewellbeing');
+$userModel = new UserModel('localhost', 'root', '', 'PawsitiveWellbeing');
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Delete user functionality
-    if (isset($_POST['delete_user'])) {
-        $userId = intval($_POST['user_id']);
-        $success = $userModel->deleteUser($userId);
+    // Delete benefactor functionality
+    if (isset($_POST['delete_benefactor'])) {
+        $id = intval($_POST['id']); // Use ID as the unique identifier
+        $success = $userModel->deleteBenefactorById($id);
         
         if ($success) {
-            echo "User with ID $userId has been deleted successfully.";
+            echo "Benefactor with ID $id has been deleted successfully.";
         } else {
-            echo "Error deleting user with ID $userId.";
+            echo "Error deleting benefactor with ID $id.";
         }
     }
 }
 
-// Fetch all users to display
-$users = $userModel->getAllUsers();
+// Fetch all benefactors to display
+$benefactors = $userModel->fetchBenefactorsFromDatabase();
 
 // Include the view
-require 'user_view.php';
+require '../view/view_user.php';
 
 // Close the connection
 $userModel->closeConnection();
