@@ -15,8 +15,8 @@
             <legend>Personal Information</legend>
             <table>
                 <tr>
-                    <td><label for="name">Full Name:</label></td>
-                    <td><input type="text" id="name" name="name" placeholder="Your full name" required></td>
+                    <td><label for="full_name">Full Name:</label></td>
+                    <td><input type="text" id="full_name" name="full_name" placeholder="Your full name" required></td>
                 </tr>
                 <tr>
                     <td><label for="email">Email:</label></td>
@@ -51,9 +51,9 @@
                 <tr>
                     <td>Enable Location Services:</td>
                     <td>
-                        <input type="radio" id="location-yes" name="location" value="Yes" required>
+                        <input type="radio" id="location-yes" name="location_enabled" value="Yes" required>
                         <label for="location-yes">Yes</label>
-                        <input type="radio" id="location-no" name="location" value="No">
+                        <input type="radio" id="location-no" name="location_enabled" value="No">
                         <label for="location-no">No</label>
                     </td>
                 </tr>
@@ -66,9 +66,9 @@
                 <tr>
                     <td>Available for Emergency Rescue Missions:</td>
                     <td>
-                        <input type="radio" id="emergency-yes" name="emergency_missions" value="yes" required>
+                        <input type="radio" id="emergency-yes" name="emergency_rescue" value="yes" required>
                         <label for="emergency-yes">Yes</label>
-                        <input type="radio" id="emergency-no" name="emergency_missions" value="no">
+                        <input type="radio" id="emergency-no" name="emergency_rescue" value="no">
                         <label for="emergency-no">No</label>
                     </td>
                 </tr>
@@ -84,9 +84,9 @@
                 <tr>
                     <td>Willing to Manage Adoption Approvals:</td>
                     <td>
-                        <input type="radio" id="adoption-yes" name="adoption_approval" value="yes" required>
+                        <input type="radio" id="adoption-yes" name="manage_adoption" value="yes" required>
                         <label for="adoption-yes">Yes</label>
-                        <input type="radio" id="adoption-no" name="adoption_approval" value="no">
+                        <input type="radio" id="adoption-no" name="manage_adoption" value="no">
                         <label for="adoption-no">No</label>
                     </td>
                 </tr>
@@ -110,9 +110,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="experience">Years of Experience:</label></td>
+                    <td><label for="experience_years">Years of Experience:</label></td>
                     <td>
-                        <input type="number" id="experience" name="experience" min="0" step="1" placeholder="Enter years of experience" required>
+                        <input type="number" id="experience_years" name="experience_years" min="0" step="1" placeholder="Enter years of experience" required>
                     </td>
                 </tr>
             </table>
