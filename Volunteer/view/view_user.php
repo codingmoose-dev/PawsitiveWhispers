@@ -1,6 +1,6 @@
 <?php
 // Increase memory limit at the start of the script
-ini_set('memory_limit', '5G');  // Ensure 1GB memory limit is available
+ini_set('memory_limit', '1G');  // Ensure 1GB memory limit is available
 
 include_once '../control/user_control.php'; // Path to your UserController class
 $controller = new UserController();
