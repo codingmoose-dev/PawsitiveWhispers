@@ -1,17 +1,19 @@
 <?php
-require_once '../control/UserController.php';
 require_once '../model/VetModel.php';
+require_once '../control/UserController.php';
 
-// Instantiate the model and controller
 $vetModel = new VetModel();
 $userController = new UserController($vetModel);
 
-// Fetch all veterinarians
-$userController->viewAllVeterinarians();
+$message = "";
+$veterinarians = $userController->viewAllVeterinarians();
+$veterinarian = null;
 
-// Handle search if submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['vet_id'])) {
-    $userController->searchById();
+// Handle search
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vet_id'])) {
+    $vetId = intval($_POST['vet_id']);
+    $veterinarian = $userController->searchById($vetId);
+    $message = $veterinarian ? "" : "Veterinarian not found.";
 }
 ?>
 
@@ -25,20 +27,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['vet_id'])) {
 <body>
     <h1>All Veterinarians</h1>
 
-    <!-- Display message (if any) -->
-    <p><?php echo $message; ?></p>
+    <!-- Display message -->
+    <p><?php echo htmlspecialchars($message); ?></p>
 
+    <!-- Veterinarian Table -->
     <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>Full Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Password</th>
+                <th>Clinic Address</th>
+                <th>Location Enabled</th>
+                <th>License</th>
                 <th>Clinic Name</th>
                 <th>Specialty</th>
-                <th>Active</th>
-                <th>View Details</th>
+                <th>Services</th>
+                <th>Working Hours</th>
+                <th>Vet License Path</th>
+                <th>Gov ID Path</th>
+                <th>Training Materials Path</th>
+                <th>Host Training</th>
             </tr>
         </thead>
         <tbody>
@@ -49,62 +60,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['vet_id'])) {
                         <td><?php echo htmlspecialchars($vet['FullName']); ?></td>
                         <td><?php echo htmlspecialchars($vet['Email']); ?></td>
                         <td><?php echo htmlspecialchars($vet['Phone']); ?></td>
+                        <td><?php echo htmlspecialchars($vet['Password']); ?></td>
+                        <td><?php echo htmlspecialchars($vet['ClinicAddress']); ?></td>
+                        <td><?php echo $vet['LocationEnabled'] ? 'Yes' : 'No'; ?></td>
+                        <td><?php echo htmlspecialchars($vet['License']); ?></td>
                         <td><?php echo htmlspecialchars($vet['ClinicName']); ?></td>
                         <td><?php echo htmlspecialchars($vet['Speciality']); ?></td>
-                        <td><?php echo $vet['LocationEnabled'] ? 'Yes' : 'No'; ?></td>
-                        <td><a href="view_all_veterinarians.php?id=<?php echo htmlspecialchars($vet['VeterinarianID']); ?>">View Details</a></td>
+                        <td><?php echo htmlspecialchars($vet['Services']); ?></td>
+                        <td><?php echo htmlspecialchars($vet['WorkingHours']); ?></td>
+                        <td><?php echo htmlspecialchars($vet['VetLicensePath']); ?></td>
+                        <td><?php echo htmlspecialchars($vet['GovIDPath']); ?></td>
+                        <td><?php echo htmlspecialchars($vet['TrainingMaterialsPath']); ?></td>
+                        <td><?php echo htmlspecialchars($vet['HostTraining']); ?></td>
                     </tr>
                 <?php } ?>
             <?php } else { ?>
                 <tr>
-                    <td colspan="8"><?php echo "No veterinarians found."; ?></td>
+                    <td colspan="16">No veterinarians found.</td>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
 
-    <hr>
-
+    <!-- Search Form -->
     <h2>Search Veterinarian by ID</h2>
-    <form method="POST" action="view_all_veterinarians.php">
+    <form method="POST">
         <label for="vet_id">Veterinarian ID:</label>
         <input type="text" id="vet_id" name="vet_id" required>
         <button type="submit">Search</button>
     </form>
 
-    <!-- Display search results if available -->
-    <?php if (isset($veterinarian)) { ?>
+    <!-- Display search result -->
+    <?php if ($veterinarian) { ?>
         <h3>Veterinarian Details</h3>
         <table border="1">
-            <tr>
-                <th>ID</th>
-                <td><?php echo htmlspecialchars($veterinarian['VeterinarianID']); ?></td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td><?php echo htmlspecialchars($veterinarian['FullName']); ?></td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td><?php echo htmlspecialchars($veterinarian['Email']); ?></td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td><?php echo htmlspecialchars($veterinarian['Phone']); ?></td>
-            </tr>
-            <tr>
-                <th>Clinic Name</th>
-                <td><?php echo htmlspecialchars($veterinarian['ClinicName']); ?></td>
-            </tr>
-            <tr>
-                <th>Specialty</th>
-                <td><?php echo htmlspecialchars($veterinarian['Speciality']); ?></td>
-            </tr>
-            <tr>
-                <th>Active</th>
-                <td><?php echo $veterinarian['LocationEnabled'] ? 'Yes' : 'No'; ?></td>
-            </tr>
+            <?php foreach ($veterinarian as $key => $value) { ?>
+                <tr>
+                    <th><?php echo htmlspecialchars($key); ?></th>
+                    <td><?php echo htmlspecialchars($value); ?></td>
+                </tr>
+            <?php } ?>
         </table>
     <?php } ?>
 </body>
 </html>
+<?php $vetModel->closeConnection(); ?>
