@@ -1,3 +1,11 @@
+<?php
+include '../model/usermodel.php';
+
+// Fetch the benefactors directly in the view
+$userModel = new UserModel('localhost', 'root', '', 'PawsitiveWellbeing');
+$benefactors = $userModel->getAllBenefactors();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +63,7 @@
             <?php if (!empty($benefactors)): ?>
                 <?php foreach ($benefactors as $benefactor): ?>
                     <tr>
-                        <td><?= htmlspecialchars($benefactor['id']); ?></td>
+                        <td><?= htmlspecialchars($benefactor['BenefactorID']); ?></td>
                         <td><?= htmlspecialchars($benefactor['FullName']); ?></td>
                         <td><?= htmlspecialchars($benefactor['Email']); ?></td>
                         <td><?= htmlspecialchars($benefactor['Phone']); ?></td>
@@ -81,7 +89,7 @@
 
     <!-- Deletion Form -->
     <h2>Delete Benefactor</h2>
-    <form method="POST" action="">
+    <form method="POST" action="../control/user_control.php">
         <label for="id">Enter Benefactor ID to delete:</label>
         <input type="number" name="id" id="id" required>
         <button type="submit" name="delete_benefactor">Delete Benefactor</button>

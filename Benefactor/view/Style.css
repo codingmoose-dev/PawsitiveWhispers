@@ -1,0 +1,138 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+#logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#logo-container img {
+    height: 60px;
+}
+
+/* Section Styles */
+section {
+    padding: 20px;
+}
+
+/* Message Styles */
+#message {
+    background-color: #f4f4f4;
+    padding: 40px 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+#message h2 {
+    color: #2c3e50;
+    font-size: 1.8em;
+}
+
+/* Registration Form Styles */
+#registration {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 750px;
+    margin: 20px auto;
+}
+
+fieldset {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+legend {
+    font-size: 1.2em;
+    color: #2e3c48;
+    margin-bottom: 10px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px 20px;
+    align-items: center;
+}
+
+input, select, textarea, button {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+textarea {
+    resize: none;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Remove space between radio button and text */
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 0; /* Remove default browser margin */
+    padding: 0;
+    vertical-align: middle; /* Align the input vertically with the text */
+}
+
+input[type="radio"] + label,
+input[type="checkbox"] + label {
+    display: inline; /* Keep the label and input inline */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    vertical-align: middle; /* Align text with the input */
+}
+
+/* Optional styling for layout */
+div {
+    display: flex;
+    align-items: center; /* Ensures alignment is consistent */
+    gap: 0; /* Removes any extra gap between the input and text */
+}
+
+label {
+    cursor: pointer; /* Makes the label clickable for better usability */
+    padding: 0; /* Removes any extra padding */
+    margin: 0; /* Ensures no margin between label and radio */
+}
+
+/* Footer Styles */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}

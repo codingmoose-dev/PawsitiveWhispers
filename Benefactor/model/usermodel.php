@@ -15,7 +15,7 @@ class UserModel {
     // Get all benefactors from the database
     public function getAllBenefactors() {
         $query = "SELECT 
-                    id, FullName, Email, Phone, Password, Address, OrganizationType, 
+                    BenefactorID, FullName, Email, Phone, Password, Address, OrganizationType, 
                     DonationType, PreferredCampaign, PaymentMethod, 
                     SavePayment, SponsorEvents, NgoPartnership, AdditionalNotes
                   FROM Benefactors"; 
@@ -33,18 +33,20 @@ class UserModel {
         }
     }
 
-    // Delete a user by primary key
     public function deleteUser($id) {
-        $query = "DELETE FROM Benefactors WHERE id = ?"; 
-        $stmt = $this->connection->prepare($query);
-        
-        if ($stmt === false) {
-            die("Error preparing statement: " . $this->connection->error);
+        try {
+            // Ensure you are passing the correct ID
+            $stmt = $this->connection->prepare("DELETE FROM benefactors WHERE BenefactorID = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            return $stmt->affected_rows > 0; // If at least one row is deleted, return true
+        } catch (Exception $e) {
+            // Handle exceptions if any
+            return false;
         }
-
-        $stmt->bind_param("i", $id); // Bind the integer parameter
-        return $stmt->execute(); // Return whether the execution was successful
     }
+    
+   
 
     // Close the database connection
     public function closeConnection() {

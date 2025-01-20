@@ -4,115 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animal Care Benefactor Registration</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-
-        #logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        #logo-container img {
-            height: 60px;
-        }
-
-        section {
-            padding: 20px;
-        }
-
-        #message {
-            background-color: #f4f4f4;
-            padding: 40px 20px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        #message h2 {
-            color: #2c3e50;
-            font-size: 1.8em;
-        }
-
-        #registration {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 700px; /* Increased from 600px to 700px */
-            margin: 20px auto;
-        }
-
-        fieldset {
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        legend {
-            font-size: 1.2em;
-            color: #2e3c48;
-            margin-bottom: 10px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 10px 20px;
-            align-items: center;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input, select, textarea, button {
-            width: 100%;
-            padding: 8px;
-            font-size: 1em;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-        }
-
-        textarea {
-            resize: none;
-        }
-
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="Style.css">
+    
 </head>
 <body>
     <header>
@@ -162,18 +55,18 @@
             <!-- Organization Type -->
             <fieldset>
                 <legend>Organization Type</legend>
-                <div class="form-grid">
-                    <label>Orhanization Type (if applicable):</label>
-                    <div>
-                        <input type="radio" id="IndividualDonor" name="otype" value="IndividualDonor" required>
-                        <label for="IndividualDonor">Individual Donor</label>
-                        <input type="radio" id="CorporateSponsor" name="otype" value="CorporateSponsor">
-                        <label for="CorporateSponsor">Corporate Sponsor</label>
-                        <input type="radio" id="ngopartner" name="otype" value="NgoPartner">
-                        <label for="ngopartner">NGO Partner</label>
-                    </div>
+                <div>
+                    <input type="radio" id="IndividualDonor" name="otype" value="IndividualDonor" required>
+                    <label for="IndividualDonor">Individual Donor</label>
+
+                    <input type="radio" id="CorporateSponsor" name="otype" value="CorporateSponsor">
+                    <label for="CorporateSponsor">Corporate Sponsor</label>
+
+                    <input type="radio" id="ngopartner" name="otype" value="NgoPartner">
+                    <label for="ngopartner">NGO Partner</label>
                 </div>
             </fieldset>
+
 
             <!-- Donation Preferences -->
             <fieldset>
