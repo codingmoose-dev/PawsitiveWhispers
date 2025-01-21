@@ -50,6 +50,21 @@ class UserModel {
         return false; // Return false if no matching user found
     }
 
+    public function getAnimals() {
+        $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, PicturePath FROM Animal WHERE AdoptionStatus = 'Available'"; 
+        $result = $this->conn->query($sql);
+        $animals = [];
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $animals[] = $row;
+            }
+        }
+        
+        return $animals; // Ensure this is returning the data
+    }    
+
+
     public function __destruct() {
         $this->conn->close();
     }
