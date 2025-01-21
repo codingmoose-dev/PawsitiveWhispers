@@ -53,16 +53,20 @@ class UserModel {
     public function getAnimals() {
         $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, PicturePath FROM Animal WHERE AdoptionStatus = 'Available'"; 
         $result = $this->conn->query($sql);
+        if (!$result) {
+            // Output any SQL error for debugging
+            die('Error executing query: ' . $this->conn->error);
+        }
+    
         $animals = [];
-        
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $animals[] = $row;
             }
         }
-        
-        return $animals; // Ensure this is returning the data
-    }    
+        return $animals;
+    }
+    
 
 
     public function __destruct() {
