@@ -1,19 +1,21 @@
 <?php
 // Include the controller file
-include '../control/reg_control.php';
+//include '../control/reg_control.php';
 
 // Create an instance of the controller
-$userController = new UserController();
+//$userController = new UserController();
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>   
     <title>Animal Care and Pet Adoption Platform</title>
+    <!-- Link to the external JavaScript file -->
+    <script src="../js/FormValidation.js"></script>
 </head>
 <body>
     <h1>Animal Care and Pet Adoption Platform</h1>
-    <form action="../control/reg_control.php" method="post" enctype="multipart/form-data">
+    <form name="registrationForm" action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
         <fieldset>
             <legend>Basic Information</legend>
             <table>
@@ -119,7 +121,7 @@ $userController = new UserController();
 
         <?php
         // Call the register method to handle form submission and registration logic
-        $userController->register();
+        //$userController->register();
         ?>
 
     </form>
