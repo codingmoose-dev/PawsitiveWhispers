@@ -3,24 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-
-
-
-
     <title>Animal Care Benefactor Registration</title>
     <script src="../js/FormValidation.js"></script>
-
+    <link rel="stylesheet" href="../css/Style.css">
     
 </head>
 <body>
-        <!--
     <header>
         <div id="logo-container">
             <img src="../../Main/images/Icon.png" alt="PawsitiveWellbeing Logo">
             <h1>PawsitiveWellbeing</h1>
         </div>
     </header>
--->
 
     <section id="message">
         <h2>Welcome to our Animal Rescue Platform</h2>
