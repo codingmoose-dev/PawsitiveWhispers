@@ -15,7 +15,6 @@
             <h1>PawsitiveWellbeing</h1>
         </div>
     </header>
-
     <section id="message">
         <h2>Welcome to our Animal Rescue Platform</h2>
         <p>Our mission is to rescue, rehabilitate, and rehome stray animals. Join us in making a difference!</p>

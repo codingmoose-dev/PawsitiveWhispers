@@ -126,8 +126,8 @@ legend {
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 10px 20px;
-    align-items: center;
+    gap: 5px 5x;
+    align-items: left;
 }
 
 input, select, textarea, button, form input, form textarea {
@@ -178,7 +178,7 @@ div {
 
 label {
     cursor: pointer;
-    padding: 0;
+    padding: 15px;
     margin: 0;
 }
 

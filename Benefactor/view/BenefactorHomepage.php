@@ -9,7 +9,7 @@
 <body>
     <!-- Header -->
     <header>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <div>>
     <img src="../../Main/images/Icon.png" alt="PawsitiveWellbeing Logo" style="height: 60px;">
         <h1>PawsitiveWellbeing</h1>
     </div>
@@ -88,7 +88,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 Benefactor | Empowering Animal Welfare</p>
+        <p>© 2025 PawsitiveWellbeing. All rights reserved.</p>
         <p>Follow us on: 
             <a href="#">Facebook</a> | 
             <a href="#">Twitter</a> | 

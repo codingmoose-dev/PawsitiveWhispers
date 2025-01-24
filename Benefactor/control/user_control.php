@@ -1,11 +1,11 @@
 <?php
-include '../model/usermodel.php';
+include '../model/BenefactorModel.php';
 
 class UserController {
     private $userModel;
 
-    public function __construct($servername, $username, $password, $dbname) {
-        $this->userModel = new UserModel($servername, $username, $password, $dbname);
+    public function __construct() {
+        $this->userModel = new BenefactorModel();
     }
 
     public function handleRequest() {
@@ -17,25 +17,21 @@ class UserController {
                     exit();
                 }
 
-                try {
-                    $success = $this->userModel->deleteUser($id);
-                    if ($success) {
-                        header('Location: ../view/view_user.php?success=delete');
-                    } else {
-                        header('Location: ../view/view_user.php?error=delete');
-                    }
-                    exit();
-                } catch (Exception $e) {
+                // Directly calling the deleteUser method
+                $success = $this->userModel->deleteUser($id);
+                if ($success) {
+                    header('Location: ../view/view_user.php?success=delete');
+                } else {
                     header('Location: ../view/view_user.php?error=delete');
-                    exit();
                 }
+                exit();
             }
         }
     }
 }
 
 // Initialize the controller
-$userController = new UserController('localhost', 'root', '', 'PawsitiveWellbeing');
+$userController = new UserController();
 
 // Handle the request (this will process any delete actions)
 $userController->handleRequest();

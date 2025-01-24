@@ -1,8 +1,8 @@
 <?php
-include '../model/usermodel.php';
+include '../model/BenefactorModel.php';
 
 // Fetch the benefactors directly in the view
-$userModel = new UserModel('localhost', 'root', '', 'PawsitiveWellbeing');
+$userModel = new BenefactorModel();
 $benefactors = $userModel->getAllBenefactors();
 ?>
 
