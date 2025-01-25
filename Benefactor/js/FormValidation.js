@@ -1,23 +1,28 @@
 function validateForm() {
-    // Check if organization type is selected
-    if (!document.querySelector('input[name="otype"]:checked')) {
-        alert('Please select an Organization Type.');
+    const errorDiv = document.getElementById('error-messages');
+    errorDiv.innerHTML = ""; 
+    
+    // Validate Full Name
+    const fullName = document.getElementById('fname').value.trim();
+    if (!fullName) {
+        errorDiv.innerHTML = "Please enter your full name or organization name.";
         return false;
     }
 
-    // Check if payment method is selected
-    if (!document.querySelector('input[name="payment-method"]:checked')) {
-        alert('Please select a Payment Method.');
+    // Validate Email
+    const email = document.getElementById('email').value.trim();
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        errorDiv.innerHTML = "Please enter a valid email address.";
         return false;
     }
 
-    // Check if captcha is filled
+    // Validate Captcha
     const captcha = document.getElementById('captcha').value.trim();
     if (!captcha) {
-        alert('Captcha field cannot be empty.');
+        errorDiv.innerHTML = "Captcha field cannot be empty.";
         return false;
     }
 
-    // If all validations pass
+    // All validations passed
     return true;
 }

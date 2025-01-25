@@ -91,18 +91,10 @@
                 </div>
             </fieldset>
             
-        <!-- Volunteer Information -->
+        <!-- Convenience Information -->
         <fieldset>
-            <legend>Volunteer Information</legend>
+            <legend>Convenience Information</legend>
             <div class="form-grid">
-                <label for="volunteerRole">Preferred Volunteer Role:</label>
-                <select id="volunteerRole" name="volunteerRole" required>
-                    <option value="Animal Care">Animal Care</option>
-                    <option value="Event Management">Event Management</option>
-                    <option value="Fundraising">Fundraising</option>
-                    <option value="Other">Other</option>
-                </select>
-
                 <label for="availability">Availability (Days/Hours):</label>
                 <input type="text" id="availability" name="availability" placeholder="e.g., Weekends, 4-6 hours" required>
             </div>
