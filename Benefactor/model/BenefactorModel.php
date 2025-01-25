@@ -78,6 +78,24 @@ class BenefactorModel {
         return $stmt->affected_rows > 0;
     }
 
+
+    public function getOngoingCampaigns() {
+        // No need to filter by date, fetch all campaigns
+        $sql = "SELECT CampaignID, CampaignName, Description, StartDate, EndDate, GoalAmount, RaisedAmount 
+                FROM Campaigns";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $campaigns = [];
+        while ($row = $result->fetch_assoc()) {
+            $campaigns[] = $row;
+        }
+    
+        return $campaigns;  // Return campaigns data
+    }
+    
+
     public function closeConnection() {
         if (isset($this->conn)) {
             $this->conn->close();

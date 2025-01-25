@@ -71,7 +71,10 @@ section {
     color: #2c3e50;
 }
 
+
 #donate {
+    text-align: center; /* Centers the button */
+    padding: 20px; /* Adjust padding if necessary */
     background-color: #eaeaea;
 }
 
@@ -207,3 +210,12 @@ footer {
 .btn:hover {
     background-color: #2980b9;
 }
+
+#show-more-donate {
+    display: inline-block; /* Ensures the button takes only the space it needs */
+    text-align: center; /* Centers text within the button */
+    margin: 0 auto; /* Removes any default margin causing stretching */
+    max-width: fit-content; /* Limits button width to its content */
+    padding: 10px 20px; /* Keeps desired padding */
+}
+

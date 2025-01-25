@@ -1,3 +1,8 @@
+<?php
+include '../control/HomepageDisplayRequests.php';
+$homepageController = new HomepageDisplayRequests();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PawsitiveWellbeing - Benefactor</title>
     <link rel="stylesheet" href="../css/Style.css">
+    <script src="../js/ShowDetailHomepage.js"></script>
+
 </head>
 <body>
     <!-- Header -->
     <header>
-    <div>>
+    <div>
     <img src="../../Main/images/Icon.png" alt="PawsitiveWellbeing Logo" style="height: 60px;">
         <h1>PawsitiveWellbeing</h1>
     </div>
@@ -31,14 +38,46 @@
 
     <!-- Donate Section -->
     <section id="donate">
-    <h2>Donate to Make a Difference</h2>
-    <p>Support our mission by donating to specific animal cases, campaigns, or general funds. Your contributions directly help animals in need.</p>
-    <p>Support specific animal cases, campaigns, or contribute to our general fund to make a lasting impact!</p>
+        <h2>Donate to Make a Difference</h2>
+        <p>Support our mission by donating to specific animal cases, campaigns, or general funds. Your contributions directly help animals in need.</p>
+        <button id="show-more-donate" class="btn">Donate Now</button>
 
+        <!-- Hidden Content -->
+        <div id="donate-more-content" style="display: none;">
             <!-- Campaigns Section -->
             <div id="campaigns">
                 <h3>Ongoing Campaigns</h3>
-                <div id="campaign-list"></div> <!-- Dynamically load campaigns -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campaign Name</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Goal Amount</th>
+                            <th>Raised Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($campaigns)): ?>
+                            <?php foreach ($campaigns as $campaign): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($campaign['CampaignName']); ?></td>
+                                    <td><?php echo htmlspecialchars($campaign['Description']); ?></td>
+                                    <td><?php echo htmlspecialchars($campaign['StartDate']); ?></td>
+                                    <td><?php echo htmlspecialchars($campaign['EndDate']); ?></td>
+                                    <td><?php echo htmlspecialchars($campaign['GoalAmount']); ?></td>
+                                    <td><?php echo htmlspecialchars($campaign['RaisedAmount']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6">No ongoing campaigns at the moment.</td>
+                            </tr>
+                        <?php endif; ?>
+
+                    </tbody>
+                </table>
             </div>
 
             <!-- Animal Cases Section -->
@@ -59,10 +98,11 @@
                         <option value="One-time">One-time</option>
                         <option value="Monthly">Monthly</option>
                     </select>
-                    <button type="submit" class="btn">Donate Now</button>
+                    <button type="submit" class="btn">Submit Donation</button>
                 </form>
             </div>
-    </section>
+        </div> 
+    </section> 
 
 
     <!-- Adoption Section -->
