@@ -109,7 +109,7 @@ $homepageController = new HomepageDisplayRequests();
     <section id="adoption">
         <h2>Adopt an Animal</h2>
         <p>Give a forever home to a rescued animal. Browse available animals and track your application status seamlessly.</p>
-        <a href="Adoption.php" class="btn">Explore Adoptions</a>
+        <a href="../../Main/view/Adoption.php" class="btn">Explore Adoptions</a>
     </section>
 
     <!-- Impact Section -->
