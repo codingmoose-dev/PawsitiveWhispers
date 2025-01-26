@@ -2,6 +2,7 @@
 class UserModel {
     private $conn;
 
+    // Constructor to establish database connection
     public function __construct() {
         $servername = "localhost";
         $username = "root";
@@ -13,10 +14,31 @@ class UserModel {
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
-        echo "Database connection successful!"; 
     }
     
+    // Fetch user from the specified table by email or ID
+    public function fetchUser($table, $idField, $emailOrId) {
+        $query = "SELECT * FROM $table WHERE Email = ? OR $idField = ?";
+        $stmt = $this->conn->prepare($query);
+    
+        if ($stmt === false) {
+            error_log("MySQL prepare error: " . $this->conn->error);
+            return false;
+        }
+    
+        $stmt->bind_param("ss", $emailOrId, $emailOrId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+    
+        $stmt->close();
+        return false;
+    }
 
+        
     public function authenticateUser($emailOrId, $password) {
         $queryTemplates = [
             "SELECT GeneralUserID, FullName, Password FROM GeneralUsers WHERE Email = ? OR GeneralUserID = ?",
@@ -70,8 +92,10 @@ class UserModel {
         
         return $animals;
     }
-    
+
+    // Destructor to close the connection
     public function __destruct() {
         $this->conn->close();
     }
 }
+?>
