@@ -141,3 +141,18 @@ CREATE TABLE RescueMissions (
     FOREIGN KEY (ReportedBy) REFERENCES GeneralUsers(GeneralUserID) ON DELETE CASCADE,  
     FOREIGN KEY (AssignedTo) REFERENCES Volunteers(VolunteerID) ON DELETE CASCADE
 ) ENGINE = InnoDB;
+
+ALTER TABLE Animal
+ADD COLUMN PicturePath VARCHAR(255);
+
+UPDATE Animal
+SET PicturePath = CASE
+    WHEN AnimalID = 1 THEN 'images/animal_images/RexLabrador'
+    WHEN AnimalID = 2 THEN 'images/animal_images/MittensPersian'
+    WHEN AnimalID = 3 THEN 'images/animal_images/BellaGoldenRetriever'
+    WHEN AnimalID = 4 THEN 'images/animal_images/ShadowBengal'
+    WHEN AnimalID = 5 THEN 'images/animal_images/TommyPoodle'
+    WHEN AnimalID = 6 THEN 'images/animal_images/SimbaMaineCoon'
+    WHEN AnimalID = 7 THEN 'images/animal_images/CharlieBeagle'
+    WHEN AnimalID = 8 THEN 'images/animal_images/LunaSiamese'
+END;

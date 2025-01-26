@@ -1,5 +1,4 @@
 <?php
-// C:\xampp\htdocs\PawsitiveWellbeing\Main\control\RegistrationRedirect.php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve the selected category

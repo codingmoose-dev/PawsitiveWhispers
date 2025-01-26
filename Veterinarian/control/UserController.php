@@ -1,57 +1,19 @@
 <?php
-require_once __DIR__ . '/../model/UserModel.php';
 
 class UserController {
-    private $userModel;
+    private $veterinarianModel;
 
-    public function __construct() {
-        $this->userModel = new UserModel("localhost", "root", "", "PawsitiveWellbeing");
+    public function __construct($veterinarianModel) {
+        $this->veterinarianModel = $veterinarianModel;
     }
 
-    public function handleRequest() {
-        $action = $_GET['action'] ?? 'viewCombined';
-
-        try {
-            switch ($action) {
-                case 'viewCombined':
-                    $this->viewCombinedPage();
-                    break;
-                case 'viewById':
-                    $this->viewUserByPrimaryKey($_GET['id'] ?? null);
-                    break;
-                default:
-                    $this->viewCombinedPage();
-            }
-        } catch (Exception $e) {
-            $this->handleError($e->getMessage());
-        }
+    public function viewAllVeterinarians() {
+        $veterinarians = $this->veterinarianModel->getAllVeterinarians();
+        return $veterinarians;
     }
 
-    // Displays all users
-    public function viewCombinedPage() {
-        $users = $this->userModel->getAllUsers();
-        require '../view/UserDetailView.php'; // Pass data to the view
+    public function searchById($id) {
+        return $this->veterinarianModel->getVeterinarianById($id);
     }
-
-    // Displays details for a specific user
-    public function viewUserByPrimaryKey($id) {
-        if (!$id || !is_numeric($id)) {
-            throw new Exception("Invalid ID.");
-        }
-
-        $selectedUser = $this->userModel->getUserByPrimaryKey($id);
-        if (!$selectedUser) {
-            throw new Exception("User not found.");
-        }
-
-        require '../view/UserDetailView.php'; // Pass selected user to the view
-    }
-
-    private function handleError($errorMessage) {
-        // Pass the error message to the view
-        require '../view/ErrorView.php'; // Display error view if something goes wrong
-    }
-    
 }
-
 ?>

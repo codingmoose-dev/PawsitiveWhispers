@@ -1,73 +1,50 @@
 <?php
-
 class UserModel {
-    private $conn;
+    private $connection;
 
     public function __construct() {
-        // Database connection details
-        $servername = "localhost"; 
-        $username = "root"; 
-        $password = ""; 
-        $dbname = "pawsitivewellbeing";
+        $this->connection = new mysqli("localhost", "root", "", "PawsitiveWellbeing");
 
-        // Create connection
-        $this->conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
+        if ($this->connection->connect_error) {
+            die("Connection failed: " . $this->connection->connect_error);
         }
     }
 
-    public function fetchUsersFromDatabase() {
-        // Define the query to fetch user data
-        $sql = "SELECT id, full_name, email, phone, home_address, city_state_country, location_services, volunteer_type, experience_level, skills, emergency_contact, emergency_missions, organize_campaigns, adoption_approval FROM animalcarevolunteer";
+    public function getConnection() {
+        return $this->connection;
+    }
 
-        // Execute the query
-        $result = $this->conn->query($sql);
+    public function getAllVolunteers() {
+        $query = "SELECT VolunteerID, FullName, Email, Phone, Password, HomeAddress, CityStateCountry, LocationEnabled, 
+                        EmergencyRescue, OrganizeCampaigns, ManageAdoption, Skills, ExperienceYears, Availability 
+                  FROM Volunteers";
+        return $this->connection->query($query);
+    }
 
-        // Check if there are any records in the database
-        if ($result->num_rows > 0) {
-            // Fetch all records
-            $users = [];
-            while ($row = $result->fetch_assoc()) {
-                $users[] = $row;
-            }
-            return $users;
-        } else {
-            return [];
-        }
+    public function updateVolunteer($userId, $fullName, $email, $phone, $password, $homeAddress, $cityStateCountry, 
+    $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, 
+    $skills, $experienceYears, $availability) {
+    // Check if Skills is empty, if so set a default value
+    if (empty($skills)) {
+    $skills = "Not provided"; // Default value if no skills are provided
     }
-    
-    public function updateUserAttribute($userId, $attribute, $newValue) {
-        $validAttributes = [
-            'full_name', 'email', 'phone', 'home_address', 'city_state_country',
-            'location_services', 'volunteer_type', 'experience_level', 'skills',
-            'emergency_contact', 'emergency_missions', 'organize_campaigns', 'adoption_approval'
-        ];
-    
-        if (in_array($attribute, $validAttributes)) {
-            $sql = "UPDATE animalcarevolunteer SET $attribute = ? WHERE id = ?";
-            $stmt = $this->conn->prepare($sql);
-            if ($stmt === false) {
-                // Error preparing the statement
-                return false;
-            }
-            $stmt->bind_param('si', $newValue, $userId);
-            if ($stmt->execute()) {
-                return true;  // Successful update
-            } else {
-                // Error executing the statement
-                return false;
-            }
-        }
-        return false;  // Invalid attribute
+
+    $updateQuery = "UPDATE Volunteers SET FullName=?, Email=?, Phone=?, Password=?, HomeAddress=?, CityStateCountry=?, 
+    LocationEnabled=?, EmergencyRescue=?, OrganizeCampaigns=?, ManageAdoption=?, Skills=?, 
+    ExperienceYears=?, Availability=? WHERE VolunteerID=?";
+
+    // Prepare the statement
+    if ($stmt = $this->connection->prepare($updateQuery)) {
+    // Bind parameters with proper data types
+    $stmt->bind_param('ssssssiiiiissi', $fullName, $email, $phone, $password, $homeAddress, $cityStateCountry, 
+    $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, 
+    $experienceYears, $availability, $userId);
+
+    // Execute the query
+    return $stmt->execute();
     }
-    
-    
-    public function __destruct() {
-        // Close the database connection
-        $this->conn->close();
+    return false;
     }
-}
+
+    }
 ?>

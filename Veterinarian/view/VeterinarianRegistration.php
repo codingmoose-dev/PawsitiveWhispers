@@ -3,9 +3,10 @@
 <head>
   
     <title>Registration</title>
+    <script src="../js/myjs.js" defer></script>
 </head>
 <body>
-<form method="POST" action="reg_control.php">
+<form name="registrationForm" method="POST" action="" onsubmit="return validateForm()" enctype="multipart/form-data">>
 <fieldset>
             <legend>Personal Information</legend>
             <table>
@@ -19,8 +20,7 @@
                 </tr>
                 <tr>
                     <td>Phone: </td>
-                    <td>  <input type="tel" id="phone" name="phone" placeholder="123-456-7890"
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required></td> 
+                    <td>  <input type="tel" id="phone" name="phone" placeholder="0123456789"></td> 
                 </tr>
                 <tr>
                     <td>Password: </td>
@@ -82,7 +82,7 @@
             <tr>
                 <td>Select Offered Services:</td>
                 <td>
-                    <select id="services" name="services" required>
+                    <select id="services" name="services">
                         <option value="" selected disabled>Select a Service</option>
                         <option value="emergency_care">Emergency Care</option>
                         <option value="surgery">Surgery</option>
@@ -93,7 +93,7 @@
             </tr>
             <tr>
                 <td>Availability Schedule:</td>
-                <td><input type="text" id="working_hours" name="working_hours" placeholder="e.g., Mon-Fri, 9am-5pm" required></td>
+                <td><input type="text" id="working_hours" name="working_hours" placeholder="e.g., Mon-Fri, 9am-5pm"></td>
             </tr>
         </table>
     </fieldset>
@@ -104,11 +104,11 @@
         <table>
             <tr>
                 <td>Veterinary or Medical License:</td>
-                <td><input type="file" id="vet_license" name="vet_license" accept=".pdf, .jpg, .jpeg, .png" required></td>
+                <td><input type="file" id="vet_license" name="vet_license" accept=".pdf, .jpg, .jpeg, .png" ></td>
             </tr>
             <tr>
                 <td>Government-issued ID:</td>
-                <td><input type="file" id="gov_id" name="gov_id" accept=".pdf, .jpg, .jpeg, .png" required></td>
+                <td><input type="file" id="gov_id" name="gov_id" accept=".pdf, .jpg, .jpeg, .png" ></td>
             </tr>
         </table>
     </fieldset>
