@@ -9,14 +9,15 @@ class UserController {
         $this->userModel = new UserModel();
     }
 
+    // SignIn method to authenticate the user
     public function SignIn($email, $password) {
         $user = $this->userModel->findUserByEmail($email);
-    
+
         if ($user) {
             if (password_verify($password, $user['Password'])) {
-                // Debug output
+                // Log the successful sign-in
                 error_log("User email: $email, User table: {$user['table']}");
-    
+
                 switch ($user['table']) {
                     case 'GeneralUsers':
                         header("Location: ../../General User/view/GeneralUserHomepage.php");
@@ -36,12 +37,19 @@ class UserController {
                 }
                 exit();
             } else {
-                header("Location: ../view/SignInPage.php?error=invalid");
+                // Log the password mismatch
+                error_log("Password mismatch for user: $email");
+
+                header("Location: ../view/SignIn.php?error=invalid");
                 exit();
             }
         } else {
-            header("Location: ../view/SignInPage.php?error=invalid");
+            // Log when no user is found
+            error_log("No user found with email: $email");
+
+            header("Location: ../view/SignIn.php?error=invalid");
             exit();
         }
     }  
 }
+?>
