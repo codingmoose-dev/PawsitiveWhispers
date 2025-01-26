@@ -4,7 +4,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve the selected category
     $category = $_POST['category'] ?? '';
 
-
     // Redirect based on the category
     switch ($category) {
         case 'GeneralUser':
