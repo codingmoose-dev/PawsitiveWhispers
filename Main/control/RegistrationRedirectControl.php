@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Redirect based on the category
     switch ($category) {
         case 'GeneralUser':
-            header("Location: /PawsitiveWellbeing/GeneralUser/view/GeneralUserRegistration.php");
+            header("Location: /PawsitiveWellbeing/General User/view/GeneralUserRegistration.php");
             break;
         case 'Volunteer':
             header("Location: /PawsitiveWellbeing/Volunteer/view/VolunteerRegistration.php");
