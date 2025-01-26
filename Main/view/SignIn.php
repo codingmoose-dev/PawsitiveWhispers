@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <footer>
-        © 2025 PawsitiveWellbeing. All rights reserved.
+        © 2024 PawsitiveWellbeing. All rights reserved.
     </footer>
 </body>
 </html>

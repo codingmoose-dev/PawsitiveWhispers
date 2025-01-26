@@ -107,12 +107,7 @@ class UserModel {
             while ($row = $result->fetch_assoc()) {
                 $animals[] = $row;
             }
-        }
-
-        // Debug output
-        var_dump($animals);
-        exit(); // Stop further execution to test the output
-        
+        }        
         return $animals;
     }
 

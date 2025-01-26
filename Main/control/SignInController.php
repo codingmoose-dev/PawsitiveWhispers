@@ -32,7 +32,7 @@ class UserController {
                         header("Location: ../../Benefactor/view/BenefactorHomepage.php");
                         break;
                     default:
-                        header("Location: ../view/ErrorPage.php");
+                        header("Location: ../view/Error.php");
                         break;
                 }
                 exit();
