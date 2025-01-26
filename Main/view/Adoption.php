@@ -1,82 +1,24 @@
+<?php
+include '../control/AdoptionController.php';
+// Initialize the controller
+$animalController = new AnimalController();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adopt an Animal</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        header, footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-        }
-        header h1, footer p {
-            margin: 0;
-        }
-        section {
-            padding: 20px;
-            text-align: center;
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        .animal-card {
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .animal-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .animal-card h3 {
-            margin: 10px 0 0;
-        }
-        .animal-card p {
-            margin: 5px 0;
-            color: #555;
-        }
-        .status-badge {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #3498db;
-            color: white;
-            border-radius: 5px;
-            font-size: 0.9em;
-        }
-        .btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            display: inline-block;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background-color: #2980b9;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/Style.css">
 </head>
 <body>
     <!-- Header -->
     <header>
-        <h1>Adopt an Animal</h1>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <img src="../images/Icon.png" alt="PawsitiveWellbeing Logo" style="height: 60px;">
+            <h1>Adopt an Animal</h1>  
+        </div>
     </header>
 
     <!-- Adoption Section -->
@@ -89,7 +31,7 @@
             <div class="grid-container">
                 <?php foreach ($animals as $animal): ?>
                     <div class="animal-card">
-                        <img src="../images/<?php echo $animal['PicturePath']; ?>" alt="<?php echo $animal['Name']; ?>">
+                        <img src="../images/<?php echo $animal['PicturePath']; ?>.jpg" alt="<?php echo $animal['Name']; ?>">
                         <h3><?php echo $animal['Name']; ?></h3>
                         <p>Species: <?php echo $animal['Species']; ?></p>
                         <p>Breed: <?php echo $animal['Breed']; ?></p>

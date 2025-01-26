@@ -3,20 +3,19 @@ class UserModel {
     private $conn;
 
     public function __construct() {
-        // Database connection details
         $servername = "localhost";
         $username = "root";
         $password = "";
         $dbname = "PawsitiveWellbeing";
-
-        // Create a new MySQLi connection
+    
         $this->conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
+    
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
+        echo "Database connection successful!"; 
     }
+    
 
     public function authenticateUser($emailOrId, $password) {
         $queryTemplates = [
@@ -51,24 +50,27 @@ class UserModel {
     }
 
     public function getAnimals() {
-        $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, PicturePath FROM Animal WHERE AdoptionStatus = 'Available'"; 
+        $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, PicturePath FROM Animal WHERE AdoptionStatus = 'Available'";
         $result = $this->conn->query($sql);
+        
         if (!$result) {
-            // Output any SQL error for debugging
-            die('Error executing query: ' . $this->conn->error);
+            die('Error executing query: ' . $this->conn->error); // Debugging SQL errors
         }
-    
+        
         $animals = [];
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $animals[] = $row;
             }
         }
+        
+        // Debug output
+        var_dump($animals);
+        exit(); // Stop further execution to test the output
+        
         return $animals;
     }
     
-
-
     public function __destruct() {
         $this->conn->close();
     }

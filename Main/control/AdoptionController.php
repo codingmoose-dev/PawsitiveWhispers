@@ -1,3 +1,6 @@
+<?php
+require_once '../model/UserModel.php';
+
 class AnimalController {
     private $model;
 
@@ -6,18 +9,17 @@ class AnimalController {
     }
 
     public function index() {
-    // Fetch available animals from the model
-    $animals = $this->model->getAnimals();
+        $animals = $this->model->getAnimals();
     
-    // Debugging the $animals array
-    var_dump($animals); // Output the contents of $animals to the browser
-    exit(); // Stop further execution so it doesn't interfere with the page rendering
-
-    if ($animals) {
-        require_once '../view/Adoption.php'; // Proceed to the view if data is available
-    } else {
-        echo "No animals available for adoption.";
+        if ($animals) {
+            echo "<pre>";
+            print_r($animals); // Output the array of animals for debugging
+            echo "</pre>";
+            require_once '../view/Adoption.php';
+        } else {
+            echo "No animals available for adoption.<br>";
+        }
     }
+    
 }
-
-}
+?>
