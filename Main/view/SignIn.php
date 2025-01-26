@@ -1,14 +1,19 @@
 <?php
 require_once '../control/SignInController.php';
 
-// Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $emailOrId = $_POST['email_or_id'];
-    $password = $_POST['password'];
+    $emailOrId = trim($_POST['email_or_id']);
+    $password = trim($_POST['password']);
 
-    // Instantiate the controller and call the login method
+    // Check for empty fields
+    if (empty($emailOrId) || empty($password)) {
+        header("Location: ../view/SignIn.php?error=empty");
+        exit;
+    }
+
+    // Initialize the controller and process the sign-in
     $userController = new UserController();
-    $userController->login($emailOrId, $password);
+    $userController->SignIn($emailOrId, $password);
 }
 ?>
 
