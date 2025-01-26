@@ -50,7 +50,7 @@
             text-align: center;
             padding: 40px 20px;
         }
-        #rescue-missions, #case-management, #adoption, #volunteer-network {
+        #rescue-missions, #case-assessment, #medical-records, #training, #funds {
             background-color: #eaeaea;
             margin: 20px 0;
             padding: 40px 20px;
@@ -83,49 +83,57 @@
     <header>
         <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
             <img src="../../Main/images/Icon.png" alt="Veterinarian Logo" style="height: 60px;">
-            <h1>Veterinarian Homepage</h1>
+            <h1>Veterinarian Dashboard</h1>
         </div>
         <nav>
             <a href="#home">Home</a>
             <a href="#rescue-missions">Rescue Missions</a>
-            <a href="#case-management">Case Management</a>
-            <a href="#adoption">Adoption</a>
-            <a href="#volunteer-network">Volunteer Network</a>
+            <a href="#case-assessment">Case Assessment</a>
+            <a href="#medical-records">Medical Records</a>
+            <a href="#training">Training & Education</a>
+            <a href="#funds">Funds</a>
         </nav>
     </header>
 
     <!-- Home Section -->
     <section id="home">
         <h2>Welcome, Veterinarian!</h2>
-        <p>Your dedicated space to manage rescue missions, adoption processes, and collaborate with volunteers to make a difference in animal welfare.</p>
+        <p>Manage rescue missions, review cases, maintain medical records, and train volunteers while making an impactful difference in animal welfare.</p>
     </section>
 
     <!-- Rescue Missions Section -->
     <section id="rescue-missions">
         <h2>View and Respond to Rescue Missions</h2>
-        <p>Access your assigned rescue cases. Review details, update progress, and provide immediate care to animals in need.</p>
+        <p>Access and respond to rescue cases assigned to you. Review mission details and provide the necessary care for animals in need.</p>
         <a href="RescueMissions.php" class="btn">View Rescue Missions</a>
     </section>
 
-    <!-- Case Management Section -->
-    <section id="case-management">
-        <h2>Manage Cases</h2>
-        <p>Update the status of rescue cases, report animal conditions, and upload progress to keep the system informed.</p>
-        <a href="CaseManagement.php" class="btn">Manage Cases</a>
+    <!-- Case Assessment Section -->
+    <section id="case-assessment">
+        <h2>Review and Assess Cases</h2>
+        <p>Review cases submitted by users, assess conditions, and update case statuses for rescue or medical follow-ups.</p>
+        <a href="CaseAssessment.php" class="btn">Review Cases</a>
     </section>
 
-    <!-- Adoption Section -->
-    <section id="adoption">
-        <h2>Animal Adoption</h2>
-        <p>Oversee the adoption process, review applications, and coordinate animal handovers to their forever homes.</p>
-        <a href="../../Main/view/Adoption.php" class="btn">Manage Adoptions</a>
+    <!-- Medical Records Section -->
+    <section id="medical-records">
+        <h2>Manage Medical Records</h2>
+        <p>Upload and track treatment plans, monitor recovery progress, and maintain comprehensive medical records for animals under your care.</p>
+        <a href="MedicalRecords.php" class="btn">Manage Records</a>
     </section>
 
-    <!-- Volunteer Network Section -->
-    <section id="volunteer-network">
-        <h2>Volunteer Network</h2>
-        <p>Connect with fellow volunteers to coordinate rescue missions and collaborate on animal welfare initiatives.</p>
-        <a href="VolunteerNetwork.php" class="btn">Connect with Volunteers</a>
+    <!-- Training Section -->
+    <section id="training">
+        <h2>Volunteer Training & Educational Resources</h2>
+        <p>Conduct training sessions and upload educational materials to equip volunteers with the knowledge to assist in rescue missions.</p>
+        <a href="TrainingResources.php" class="btn">View Training Resources</a>
+    </section>
+
+    <!-- Funds Section -->
+    <section id="funds">
+        <h2>Receive Allocated Funds</h2>
+        <p>Access and manage funds allocated for treatment fees, ensuring every animal gets the care they need.</p>
+        <a href="Funds.php" class="btn">View Funds</a>
     </section>
 
     <!-- Footer -->
