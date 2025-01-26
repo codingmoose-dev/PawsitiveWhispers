@@ -1,6 +1,5 @@
 <?php
-// Database connection
-include_once '../model/user_model.php'; // Assuming db_config.php has the database connection code
+include_once '../model/user_model.php'; 
 
 class UserController {
 
@@ -14,14 +13,15 @@ class UserController {
             $password = $_POST['Password'];
             $address = $_POST['Address'];
             $cityStateCountry = $_POST['CityStateCountry'];
-            $locationenabled = isset($_POST['LocationEnabled']) ? 1 : 0; // Checkbox
-            $adoptionNotifications = isset($_POST['AdoptionNotifications']) ? 1 : 0; // Checkbox
-            $donationCampaigns = isset($_POST['DonationCampaigns']) ? 1 : 0; // Checkbox
-            $newsletterSubscription = isset($_POST['NewsletterSubscription']) ? 1 : 0; // Checkbox
-            $socialMediaLinks = $_POST['SocialMediaLinks'];
-            $emailVerified = isset($_POST['EmailVerified']) ? 1 : 0; // Checkbox
+            $locationEnabled = isset($_POST['Location']) && $_POST['Location'] === 'Yes' ? 1 : 0; // Checkbox handling
+            $adoptionNotifications = isset($_POST['AdoptionNotifications']) && $_POST['AdoptionNotifications'] === 'Yes' ? 1 : 0;
+            $donationCampaigns = isset($_POST['DonationCampaigns']) && $_POST['DonationCampaigns'] === 'Yes' ? 1 : 0;
+            $newsletterSubscription = isset($_POST['NewsletterSubscription']) && $_POST['NewsletterSubscription'] === 'Yes' ? 1 : 0;
+            $socialMediaLink = $_POST['SocialMediaLinks']; // Corrected to match form name
+            $emailVerified = isset($_POST['EmailVerification']) ? 1 : 0; // Checkbox for email verification
 
             // File upload handling
+            $profilePicturePath = '';
             if (isset($_FILES['ProfilePicture']) && $_FILES['ProfilePicture']['error'] === UPLOAD_ERR_OK) {
                 // Get file details
                 $profilePictureTempPath = $_FILES['ProfilePicture']['tmp_name'];
@@ -39,35 +39,29 @@ class UserController {
                         // File uploaded successfully, save the path
                         $profilePicturePath = $targetPath;
                     } else {
-                        // Error moving the file
                         echo "Error uploading the profile picture.";
                         return;
                     }
                 } else {
-                    // Invalid image file
                     echo "The uploaded file is not an image.";
                     return;
                 }
             } else {
                 // No file uploaded or error occurred
                 echo "No profile picture uploaded or an error occurred.";
-                // Optionally, set $profilePicturePath to a default value
-                $profilePicturePath = ''; // Or a default image path
             }
 
-            // Hash the password before saving it to the database
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            // Call the model function to register the user
+            $registrationStatus = registerUser(
+                $fullName, $email, $phone, $password, $address, $cityStateCountry,
+                $locationEnabled, $adoptionNotifications, $donationCampaigns, $newsletterSubscription,
+                $profilePicturePath, $socialMediaLink, $emailVerified
+            );
 
-            // Prepare the SQL query to insert user data
-            global $conn; // Database connection
-            $stmt = $conn->prepare("INSERT INTO GeneralUsers (FullName, Email, Phone, Password, Address, CityStateCountry, LocationEnabled, AdoptionNotifications, DonationCampaignNotifications, NewsletterSubscription, ProfilePicturePath, SocialMediaLinks, EmailVerified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssssssssssss", $fullName, $email, $phone, $hashedPassword, $address, $cityStateCountry, $locationenabled, $adoptionNotifications, $donationCampaigns, $newsletterSubscription, $profilePicturePath, $socialMediaLinks, $emailVerified);
-
-            // Execute the query and check if it was successful
-            if ($stmt->execute()) {
+            if ($registrationStatus === true) {
                 echo "User registered successfully!";
             } else {
-                echo "Error: " . $stmt->error;
+                echo $registrationStatus; // Display the error message from the model
             }
         }
     }

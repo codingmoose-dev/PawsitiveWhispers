@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Function to register a new user
-function registerUser($fullName, $email, $phone, $password, $address, $cityStateCountry, $locationenabled, $adoptionNotifications, $donationCampaigns, $newsletterSubscription, $profilePicturepath, $socialMediaLinks, $emailVerified) {
+function registerUser($fullName, $email, $phone, $password, $address, $cityStateCountry, $locationEnabled, $adoptionNotifications, $donationCampaigns, $newsletterSubscription, $profilePicturePath, $socialMediaLink, $emailVerified) {
     global $conn;
 
     // Hash the password before storing it
@@ -23,8 +23,10 @@ function registerUser($fullName, $email, $phone, $password, $address, $cityState
     // Prepare the SQL query to insert the user data into the database
     $stmt = $conn->prepare("INSERT INTO GeneralUsers (FullName, Email, Phone, Password, Address, CityStateCountry, LocationEnabled, AdoptionNotifications, DonationCampaignNotifications, NewsletterSubscription, ProfilePicturePath, SocialMediaLinks, EmailVerified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("sssssssssssss", $fullName, $email, $phone, $hashedPassword, $address, $cityStateCountry, $locationenabled, $adoptionNotifications, $donationCampaigns, $newsletterSubscription, $profilePicturepath, $socialMediaLinks, $emailVerified);
+    // Bind parameters to the SQL query
+    $stmt->bind_param("sssssssssssss", $fullName, $email, $phone, $hashedPassword, $address, $cityStateCountry, $locationEnabled, $adoptionNotifications, $donationCampaigns, $newsletterSubscription, $profilePicturePath, $socialMediaLink, $emailVerified);
 
+    // Execute the query and return success or failure
     if ($stmt->execute()) {
         return true;
     } else {
@@ -32,14 +34,16 @@ function registerUser($fullName, $email, $phone, $password, $address, $cityState
     }
 }
 
+// Function to get a user by their email
 function getUserByEmail($email) {
     global $conn;
-    
+
+    // Prepare the SQL query to select a user by email
     $stmt = $conn->prepare("SELECT * FROM GeneralUsers WHERE Email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     // Return the user record if found
     if ($result->num_rows > 0) {
         return $result->fetch_assoc(); // Return user data
@@ -47,5 +51,4 @@ function getUserByEmail($email) {
         return null; // User not found
     }
 }
-
 ?>
