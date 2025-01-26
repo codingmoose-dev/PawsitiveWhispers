@@ -2,46 +2,46 @@
 require_once '../model/UserModel.php';
 
 class UserController {
-    private $model;
+    private $userModel;
 
-    // Constructor to initialize the model
     public function __construct() {
-        $this->model = new UserModel();
+        // Initialize UserModel (no parameters required now)
+        $this->userModel = new UserModel();
     }
 
-    // Method to handle user sign-in
-    public function SignIn($emailOrId, $password) {
-        // Check GeneralUsers table
-        $user = $this->model->fetchUser('GeneralUsers', 'GeneralUserID', $emailOrId);
-        if ($user && password_verify($password, $user['Password'])) {
-            header("Location: ../../GeneralUser/view/GeneralUserHomepage.php");
-            exit;
-        }
+    public function SignIn($email, $password) {
+        $user = $this->userModel->findUserByEmail($email);
     
-        // Check Volunteers table
-        $user = $this->model->fetchUser('Volunteers', 'VolunteerID', $emailOrId);
-        if ($user && password_verify($password, $user['Password'])) {
-            header("Location: ../../Volunteer/view/VolunteerHomepage.php");
-            exit;
-        }
+        if ($user) {
+            if (password_verify($password, $user['Password'])) {
+                // Debug output
+                error_log("User email: $email, User table: {$user['table']}");
     
-        // Check Veterinarians table
-        $user = $this->model->fetchUser('Veterinarians', 'VeterinarianID', $emailOrId);
-        if ($user && password_verify($password, $user['Password'])) {
-            header("Location: ../../Veterinarian/view/VeterinarianHome.php");
-            exit;
+                switch ($user['table']) {
+                    case 'GeneralUsers':
+                        header("Location: ../../General User/view/GeneralUserHomepage.php");
+                        break;
+                    case 'Volunteers':
+                        header("Location: ../../Volunteer/view/VolunteerHomepage.php");
+                        break;
+                    case 'Veterinarians':
+                        header("Location: ../../Veterinarian/view/VeterinarianHomepage.php");
+                        break;
+                    case 'Benefactors':
+                        header("Location: ../../Benefactor/view/BenefactorHomepage.php");
+                        break;
+                    default:
+                        header("Location: ../view/ErrorPage.php");
+                        break;
+                }
+                exit();
+            } else {
+                header("Location: ../view/SignInPage.php?error=invalid");
+                exit();
+            }
+        } else {
+            header("Location: ../view/SignInPage.php?error=invalid");
+            exit();
         }
-    
-        // Check Benefactors table
-        $user = $this->model->fetchUser('Benefactors', 'BenefactorID', $emailOrId);
-        if ($user && password_verify($password, $user['Password'])) {
-            header("Location: ../../Benefactor/view/BenefactorHomepage.php");
-            exit;
-        }
-    
-        // If no user is found or password is invalid, show error
-        header("Location: ../view/SignIn.php?error=invalid");
-        exit;
-    }
+    }  
 }
-?>
