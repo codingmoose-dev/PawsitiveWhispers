@@ -8,38 +8,75 @@ class UserModel {
         $username = "root";
         $password = "";
         $dbname = "PawsitiveWellbeing";
-    
+
         $this->conn = new mysqli($servername, $username, $password, $dbname);
-    
+
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
     }
-    
-    // Fetch user from the specified table by email or ID
-    public function fetchUser($table, $idField, $emailOrId) {
-        $query = "SELECT * FROM $table WHERE Email = ? OR $idField = ?";
-        $stmt = $this->conn->prepare($query);
-    
-        if ($stmt === false) {
-            error_log("MySQL prepare error: " . $this->conn->error);
-            return false;
+
+    // Find user by email and verify password
+    public function findUserByEmail($email, $password) {
+        $email = filter_var(trim($email), FILTER_SANITIZE_EMAIL);
+
+        // Tables with their primary keys
+        $tables = [
+            'GeneralUsers' => 'GeneralUserID',
+            'Volunteers' => 'VolunteerID',
+            'Veterinarians' => 'VeterinarianID',
+            'Benefactors' => 'BenefactorID',
+        ];
+
+        foreach ($tables as $table => $primaryKey) {
+            $query = "SELECT $primaryKey, Password FROM $table WHERE Email = ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $user = $result->fetch_assoc();
+
+                // Verify password (either hashed or plain)
+                if (password_verify($password, $user['Password']) || $password === $user['Password']) {
+                    $user['table'] = $table;
+                    error_log("User found in table: $table");
+                    return $user;
+                } else {
+                    error_log("Password mismatch for table: $table");
+                }
+            }
         }
-    
-        $stmt->bind_param("ss", $emailOrId, $emailOrId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        }
-    
-        $stmt->close();
-        return false;
+
+        return null; // No user found in any table
     }
 
-        
+    
+    // Get available animals for adoption
+    public function getAnimals() {
+        $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, PicturePath 
+                FROM Animal 
+                WHERE AdoptionStatus = 'Available'";
+        $result = $this->conn->query($sql);
+
+        if (!$result) {
+            die('Error executing query: ' . $this->conn->error);
+        }
+
+        $animals = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $animals[] = $row;
+            }
+        }
+        return $animals;
+    }
+    
+    // Authenticate user with email/ID and password
     public function authenticateUser($emailOrId, $password) {
+        $emailOrId = filter_var(trim($emailOrId), FILTER_SANITIZE_STRING);
+
         $queryTemplates = [
             "SELECT GeneralUserID, FullName, Password FROM GeneralUsers WHERE Email = ? OR GeneralUserID = ?",
             "SELECT VolunteerID, FullName, Password FROM Volunteers WHERE Email = ? OR VolunteerID = ?",
@@ -49,48 +86,23 @@ class UserModel {
 
         foreach ($queryTemplates as $query) {
             $stmt = $this->conn->prepare($query);
-            if ($stmt === false) {
-                die('MySQL prepare error: ' . $this->conn->error);
-            }
-
-            $stmt->bind_param("ss", $emailOrId, $emailOrId); // Bind email/ID twice
+            $stmt->bind_param("ss", $emailOrId, $emailOrId);
             $stmt->execute();
             $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) { 
+            if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
 
-                // Verify password
-                if (password_verify($password, $row['Password'])) {
-                    return $row; 
+                // Allow plain text or hashed password verification
+                if ($password === $row['Password'] || password_verify($password, $row['Password'])) {
+                    return $row;
                 }
             }
+
             $stmt->close();
         }
 
-        return false; // Return false if no matching user found
-    }
-
-    public function getAnimals() {
-        $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, PicturePath FROM Animal WHERE AdoptionStatus = 'Available'";
-        $result = $this->conn->query($sql);
-        
-        if (!$result) {
-            die('Error executing query: ' . $this->conn->error); // Debugging SQL errors
-        }
-        
-        $animals = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $animals[] = $row;
-            }
-        }
-        
-        // Debug output
-        var_dump($animals);
-        exit(); // Stop further execution to test the output
-        
-        return $animals;
+        return false;
     }
 
     // Destructor to close the connection

@@ -2,18 +2,18 @@
 require_once '../control/SignInController.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $emailOrId = trim($_POST['email_or_id']);
+    $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
     // Check for empty fields
-    if (empty($emailOrId) || empty($password)) {
+    if (empty($email) || empty($password)) {
         header("Location: ../view/SignIn.php?error=empty");
         exit;
     }
 
     // Initialize the controller and process the sign-in
     $userController = new UserController();
-    $userController->SignIn($emailOrId, $password);
+    $userController->SignIn($email, $password);
 }
 ?>
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-container">
             <h1>Sign In</h1>
             <form id="sign-in-form" action="" method="POST">
-                <input type="text" name="email_or_id" placeholder="Enter your Email or ID" required>
+                <input type="text" name="email" placeholder="Enter your Email" required>
                 <input type="password" name="password" placeholder="Enter your Password" required>
                 <button type="submit">Sign In</button>
             </form>
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <footer>
-        © 2025 PawsitiveWellbeing. All rights reserved.
+        © 2024 PawsitiveWellbeing. All rights reserved.
     </footer>
 </body>
 </html>
