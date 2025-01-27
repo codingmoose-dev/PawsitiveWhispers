@@ -1,25 +1,23 @@
 <?php
-require_once '../model/UserModel.php';
+include '../model/UserModel.php'; 
+$animalController = new AnimalController();
 
 class AnimalController {
     private $model;
 
     public function __construct() {
-        $this->model = new UserModel();
+        $this->model = new UserModel();  // Corrected to AnimalModel
     }
 
     public function index() {
-        $animals = $this->model->getAnimals();
+        $animals = $this->model->getAnimals();  // Fetch animals from AnimalModel
     
         if ($animals) {
-            echo "<pre>";
-            print_r($animals); // Output the array of animals for debugging
-            echo "</pre>";
-            require_once '../view/Adoption.php';
+            include '../view/Adoption.php';  // Display animals
         } else {
             echo "No animals available for adoption.<br>";
         }
     }
-    
 }
+
 ?>

@@ -53,17 +53,17 @@ class UserModel {
     }
 
     
-    // Get available animals for adoption
     public function getAnimals() {
         $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, PicturePath 
                 FROM Animal 
                 WHERE AdoptionStatus = 'Available'";
+        
         $result = $this->conn->query($sql);
-
-        if (!$result) {
+        
+        if ($result === false) {
             die('Error executing query: ' . $this->conn->error);
         }
-
+    
         $animals = [];
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -72,6 +72,7 @@ class UserModel {
         }
         return $animals;
     }
+    
     
     // Authenticate user with email/ID and password
     public function authenticateUser($emailOrId, $password) {
