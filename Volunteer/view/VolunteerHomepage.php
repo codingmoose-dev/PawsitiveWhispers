@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Volunteer Dashboard - PawsitiveWellbeing</title>
 <style>
-
         body {
 
             font-family: Arial, sans-serif;
@@ -172,12 +171,12 @@
 </section>
  
     <!-- Rescue Missions Section -->
-<section id="missions">
-<h2>View & Respond to Rescue Missions</h2>
-<p>Check out assigned rescue cases or ongoing missions. Update case statuses, upload animal condition reports, and track your progress.</p>
-<a href="ViewMissions.php" class="btn">View Missions</a>
-<a href="UpdateCase.php" class="btn">Update Case</a>
-</section>
+    <section id="missions">
+    <h2>View & Respond to Rescue Missions</h2>
+    <p>Check out assigned rescue cases or ongoing missions. Update case statuses, upload animal condition reports, and track your progress.</p>
+    <a href="ViewMissions.php" class="btn">View Missions</a>
+    <a href="UpdateCase.php" class="btn">Update Case</a>
+    </section>
  
     <!-- Adoption Section -->
 <section id="adoption">
