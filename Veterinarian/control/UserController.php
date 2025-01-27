@@ -1,5 +1,5 @@
 <?php
-
+include '../model/VetModel.php';
 class UserController {
     private $veterinarianModel;
 
@@ -14,6 +14,10 @@ class UserController {
 
     public function searchById($id) {
         return $this->veterinarianModel->getVeterinarianById($id);
+    }
+
+    public function getMissions() {
+        return $this->veterinarianModel->getRescueMissions();
     }
 }
 ?>
