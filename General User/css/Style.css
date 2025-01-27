@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+header nav {
+    margin: 10px 0;
+}
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.1em;
+}
+header div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+header img {
+    height: 60px;
+}
+section {
+    padding: 20px;
+}
+section h2 {
+    color: #2c3e50;
+}
+#home {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 40px 20px;
+}
+#submit-case, #adoption, #donate, #resources {
+    background-color: #eaeaea;
+    margin: 20px 0;
+    padding: 40px 20px;
+}
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+.btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.btn:hover {
+    background-color: #2980b9;
+}
+form input, form textarea, form button {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    font-size: 1em;
+}
+form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+form button:hover {
+    background-color: #2980b9;
+}
