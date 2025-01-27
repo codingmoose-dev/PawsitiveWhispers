@@ -1,7 +1,8 @@
 <?php
-include '../control/HomepageDisplayRequests.php';
+include '../control/HomepageDisplayRequests.php'; 
 $homepageController = new HomepageDisplayRequests();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +36,7 @@ $homepageController = new HomepageDisplayRequests();
         <p>Empowering change through compassion. Be a part of our mission to rescue, rehabilitate, and support animals in need.</p>
         <p>Whether you're an individual donor, a corporate sponsor, or an NGO partner, your contributions make a lasting difference!</p>
     </section>
-
+    
     <!-- Donate Section -->
     <section id="donate">
         <h2>Donate to Make a Difference</h2>
@@ -45,40 +46,50 @@ $homepageController = new HomepageDisplayRequests();
         <!-- Hidden Content -->
         <div id="donate-more-content" style="display: none;">
             <!-- Campaigns Section -->
+            <h3>Ongoing Campaigns</h3>
             <div id="campaigns">
-                <h3>Ongoing Campaigns</h3>
-                <table>
-                    <thead>
-                        <tr>
+                <?php
+                // Check if there are campaigns available
+                if (!empty($campaigns)) {
+                    // Start the table with proper HTML tags
+                    echo "<table border='1' cellpadding='10' cellspacing='0'>";
+                    echo "<tr>
+                            <th>Campaign ID</th>
                             <th>Campaign Name</th>
                             <th>Description</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Goal Amount</th>
                             <th>Raised Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!empty($campaigns)): ?>
-                            <?php foreach ($campaigns as $campaign): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($campaign['CampaignName']); ?></td>
-                                    <td><?php echo htmlspecialchars($campaign['Description']); ?></td>
-                                    <td><?php echo htmlspecialchars($campaign['StartDate']); ?></td>
-                                    <td><?php echo htmlspecialchars($campaign['EndDate']); ?></td>
-                                    <td><?php echo htmlspecialchars($campaign['GoalAmount']); ?></td>
-                                    <td><?php echo htmlspecialchars($campaign['RaisedAmount']); ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="6">No ongoing campaigns at the moment.</td>
-                            </tr>
-                        <?php endif; ?>
+                            <th>Created By</th>
+                        </tr>";
 
-                    </tbody>
-                </table>
+                    // Loop through campaigns and display them row by row
+                    foreach ($campaigns as $campaign) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($campaign['CampaignID']) . "</td>";
+                        echo "<td>" . htmlspecialchars($campaign['CampaignName']) . "</td>";
+                        echo "<td>" . htmlspecialchars($campaign['Description']) . "</td>";
+                        echo "<td>" . htmlspecialchars($campaign['StartDate']) . "</td>";
+                        echo "<td>" . htmlspecialchars($campaign['EndDate']) . "</td>";
+                        echo "<td>" . htmlspecialchars($campaign['GoalAmount']) . "</td>";
+                        echo "<td>" . htmlspecialchars($campaign['RaisedAmount']) . "</td>";
+                        echo "<td>" . htmlspecialchars($campaign['CreatedBy']) . "</td>";
+                        echo "</tr>";
+                    }
+
+                    // Close the table tag
+                    echo "</table>";
+                } else {
+                    // If no campaigns are available, show this message and dump the raw data
+                    echo "<p>No campaigns available.</p>";
+                    var_dump($campaigns);  // This will show the raw data if empty
+                }
+                ?>
             </div>
+        </div>
+    </section>
+
 
             <!-- Animal Cases Section -->
             <div id="animals">

@@ -8,7 +8,6 @@ class BenefactorModel {
         $this->conn = $this->openConn();
     }
 
-    // Method to open the connection
     private function openConn() {
         $servername = "localhost";
         $username = "root";
@@ -20,6 +19,7 @@ class BenefactorModel {
         }
         return $conn;
     }
+    
 
     // Function to register a benefactor
     public function registerBenefactor($fullName, $email, $phone, $password, $address, $organizationType, $donationType, $preferredCampaign, $availability, $paymentMethod, $savePayment, $sponsorEvents, $ngoPartnership, $additionalNotes) {
@@ -78,23 +78,19 @@ class BenefactorModel {
         return $stmt->affected_rows > 0;
     }
 
-
     public function getOngoingCampaigns() {
-        // No need to filter by date, fetch all campaigns
-        $sql = "SELECT CampaignID, CampaignName, Description, StartDate, EndDate, GoalAmount, RaisedAmount 
-                FROM Campaigns";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    
+        $query = "SELECT * FROM Campaigns";
+        $result = $this->conn->query($query);
         $campaigns = [];
+    
         while ($row = $result->fetch_assoc()) {
             $campaigns[] = $row;
         }
-    
-        return $campaigns;  // Return campaigns data
-    }
-    
+
+        var_dump($campaigns);  // This will print the campaigns array
+        
+        return $campaigns;
+    }   
 
     public function closeConnection() {
         if (isset($this->conn)) {
