@@ -11,11 +11,11 @@
         <table>
             <tr>
                 <td>Email:</td>
-                <td><input type="text" name="Email" required></td>
+                <td><input type="text" name="Email" ></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input type="password" name="Password" required></td>
+                <td><input type="password" name="Password" ></td>
             </tr>
         </table>
     </fieldset>

@@ -24,7 +24,7 @@ function validateForm() {
 
     // Validation checks and error messages
     if (fullName === "") {
-        document.getElementById("fullNameError").innerHTML = "Full Name is required.";
+        document.getElementById("fullNameError").innerHTML = "Full Name is .";
         isValid = false;
     }
 
@@ -39,7 +39,7 @@ function validateForm() {
     }
 
     if (password === "") {
-        document.getElementById("passwordError").innerHTML = "Password is required.";
+        document.getElementById("passwordError").innerHTML = "Password is .";
         isValid = false;
     }
 
@@ -49,12 +49,12 @@ function validateForm() {
     }
 
     if (address === "") {
-        document.getElementById("addressError").innerHTML = "Address is required.";
+        document.getElementById("addressError").innerHTML = "Address is .";
         isValid = false;
     }
 
     if (cityStateCountry === "") {
-        document.getElementById("cityStateCountryError").innerHTML = "City/State/Country is required.";
+        document.getElementById("cityStateCountryError").innerHTML = "City/State/Country is .";
         isValid = false;
     }
 
@@ -80,7 +80,7 @@ function validateForm() {
 
     const profilePicture = document.forms["registrationForm"]["ProfilePicture"].value;
     if (!profilePicture) {
-        document.getElementById("profilePictureError").innerHTML = "Profile picture is required.";
+        document.getElementById("profilePictureError").innerHTML = "Profile picture is .";
         isValid = false;
     }
 
