@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vet_id'])) {
     <h2>Search Veterinarian by ID</h2>
     <form method="POST">
         <label for="vet_id">Veterinarian ID:</label>
-        <input type="text" id="vet_id" name="vet_id" required>
+        <input type="text" id="vet_id" name="vet_id" >
         <button type="submit">Search</button>
     </form>
 

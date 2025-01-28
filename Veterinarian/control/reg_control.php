@@ -6,21 +6,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     if (empty($_POST["username"])) {
-        $errors[] = "Full Name is required.";
+        $errors[] = "Full Name is .";
     } elseif (strlen($_POST["username"]) > 50) {
         $errors[] = "Full Name must be less than 50 characters.";
     }
 
     
     if (empty($_POST["phone"])) {
-        $errors[] = "Phone number is required.";
+        $errors[] = "Phone number is .";
     } elseif (!preg_match("/^0[0-9]{9}$/", $_POST["phone"])) {
         $errors[] = "Phone number must start with 0 and be 10 digits long.";
     }
 
     
     if (empty($_POST["password"])) {
-        $errors[] = "Password is required.";
+        $errors[] = "Password is .";
     } elseif (strlen($_POST["password"]) < 6 || !preg_match("/[a-z]/", $_POST["password"])) {
         $errors[] = "Password must be at least 6 characters long and contain at least one lowercase letter.";
     }
