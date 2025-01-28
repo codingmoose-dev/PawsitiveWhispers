@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-container">
             <h1>Sign In</h1>
             <form id="sign-in-form" action="" method="POST">
-                <input type="text" name="email" placeholder="Enter your Email" required>
-                <input type="password" name="password" placeholder="Enter your Password" required>
+                <input type="text" name="email" placeholder="Enter your Email" >
+                <input type="password" name="password" placeholder="Enter your Password" >
                 <button type="submit">Sign In</button>
             </form>
 
