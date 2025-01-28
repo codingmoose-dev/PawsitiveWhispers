@@ -91,7 +91,7 @@ $benefactors = $userModel->getAllBenefactors();
     <h2>Delete Benefactor</h2>
     <form method="POST" action="../control/user_control.php">
         <label for="id">Enter Benefactor ID to delete:</label>
-        <input type="number" name="id" id="id" required>
+        <input type="number" name="id" id="id" >
         <button type="submit" name="delete_benefactor">Delete Benefactor</button>
     </form>
 </body>

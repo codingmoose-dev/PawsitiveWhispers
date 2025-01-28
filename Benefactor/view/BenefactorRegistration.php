@@ -27,19 +27,19 @@
                 <legend>Personal Information</legend>
                 <div class="form-grid">
                     <label for="fname">Full Name (or Organization Name):</label>
-                    <input type="text" id="fname" name="fname" placeholder="David Carter | Paws NGO" required>
+                    <input type="text" id="fname" name="fname" placeholder="David Carter | Paws NGO" >
                     
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="davidcarter@email.com" required>
+                    <input type="email" id="email" name="email" placeholder="davidcarter@email.com" >
                     
                     <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+1 234-567-8901" required>
+                    <input type="tel" id="phone" name="phone" placeholder="+1 234-567-8901" >
                     
                     <label for="pwd">Password:</label>
-                    <input type="password" id="pwd" name="pwd" required>
+                    <input type="password" id="pwd" name="pwd" >
                     
                     <label for="cpwd">Confirm Password:</label>
-                    <input type="password" id="cpwd" name="cpwd" required>
+                    <input type="password" id="cpwd" name="cpwd" >
                 </div>
             </fieldset>
 
@@ -48,7 +48,7 @@
                 <legend>Address Information</legend>
                 <div class="form-grid">
                     <label for="address">Address:</label>
-                    <textarea id="address" name="address" rows="3" placeholder="1234 Main St, City, Country" required></textarea>
+                    <textarea id="address" name="address" rows="3" placeholder="1234 Main St, City, Country" ></textarea>
                 </div>
             </fieldset>
 
@@ -74,7 +74,7 @@
                 <div class="form-grid">
                     <label>Preferred Donation Type:</label>
                     <div>
-                        <input type="radio" id="onetime" name="donationtype" value="One-time Donations" required>
+                        <input type="radio" id="onetime" name="donationtype" value="One-time Donations" >
                         <label for="onetime">One-time Donations</label>
                         <input type="radio" id="MonthlySubscription" name="donationtype" value="Monthly Subscription">
                         <label for="MonthlySubscription">Monthly Subscription</label>
@@ -96,7 +96,7 @@
             <legend>Convenience Information</legend>
             <div class="form-grid">
                 <label for="availability">Availability (Days/Hours):</label>
-                <input type="text" id="availability" name="availability" placeholder="e.g., Weekends, 4-6 hours" required>
+                <input type="text" id="availability" name="availability" placeholder="e.g., Weekends, 4-6 hours" >
             </div>
         </fieldset>
 
@@ -106,14 +106,14 @@
             <div class="form-grid">
                 <label>Payment Method:</label>
                 <div>
-                    <input type="radio" id="credit-card" name="payment-method" value="credit-card" required> Credit Card
+                    <input type="radio" id="credit-card" name="payment-method" value="credit-card" > Credit Card
                     <input type="radio" id="paypal" name="payment-method" value="paypal"> PayPal
                     <input type="radio" id="other" name="payment-method" value="other"> Other
                 </div>
 
                 <label>Save Payment Info for Future Donations:</label>
                 <div>
-                    <input type="radio" id="save-yes" name="save-payment" value="yes" required> Yes
+                    <input type="radio" id="save-yes" name="save-payment" value="yes" > Yes
                     <input type="radio" id="save-no" name="save-payment" value="no"> No
                 </div>
             </div>
@@ -142,11 +142,11 @@
             <legend>Security</legend>
             <div class="form-grid">
                 <label for="captcha">Captcha Verification:</label>
-                <input type="text" id="captcha" name="captcha" placeholder="Enter Captcha" required>
+                <input type="text" id="captcha" name="captcha" placeholder="Enter Captcha" >
 
                 <label for="terms-conditions">Terms & Conditions:</label>
                 <div>
-                    <input type="checkbox" id="terms-conditions" name="terms-conditions" value="agree" required> I agree to the Terms & Conditions and Privacy Policy
+                    <input type="checkbox" id="terms-conditions" name="terms-conditions" value="agree" > I agree to the Terms & Conditions and Privacy Policy
                 </div>
             </div>
         </fieldset>
@@ -157,7 +157,7 @@
             <div class="form-grid">
                 <label for="email-verification">Email Verification:</label>
                 <div>
-                    <input type="checkbox" id="email-verification" name="email-verification" value="verified" required> I confirm my email verification
+                    <input type="checkbox" id="email-verification" name="email-verification" value="verified" > I confirm my email verification
                 </div>
             </div>
         </fieldset>
