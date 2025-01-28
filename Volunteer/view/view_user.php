@@ -101,20 +101,20 @@ $volunteers = $userModel->getAllVolunteers(); // Fetch all volunteers from the d
     <h2>Update User Information</h2>
     <form action="view_user.php" method="post">
         <input type="hidden" name="action" value="update">
-        <label for="user_id">User ID: </label><input type="text" id="user_id" name="user_id" required><br>
-        <label for="FullName">Full Name: </label><input type="text" id="FullName" name="FullName" required><br>
-        <label for="Email">Email: </label><input type="email" id="Email" name="Email" required><br>
-        <label for="Phone">Phone: </label><input type="text" id="Phone" name="Phone" required><br>
-        <label for="Password">Password: </label><input type="password" id="Password" name="Password" required><br>
-        <label for="HomeAddress">Home Address: </label><input type="text" id="HomeAddress" name="HomeAddress" required><br>
-        <label for="CityStateCountry">City, State, Country: </label><input type="text" id="CityStateCountry" name="CityStateCountry" required><br>
+        <label for="user_id">User ID: </label><input type="text" id="user_id" name="user_id" ><br>
+        <label for="FullName">Full Name: </label><input type="text" id="FullName" name="FullName" ><br>
+        <label for="Email">Email: </label><input type="email" id="Email" name="Email" ><br>
+        <label for="Phone">Phone: </label><input type="text" id="Phone" name="Phone" ><br>
+        <label for="Password">Password: </label><input type="password" id="Password" name="Password" ><br>
+        <label for="HomeAddress">Home Address: </label><input type="text" id="HomeAddress" name="HomeAddress" ><br>
+        <label for="CityStateCountry">City, State, Country: </label><input type="text" id="CityStateCountry" name="CityStateCountry" ><br>
         <label for="LocationEnabled">Location Enabled: </label><input type="checkbox" id="LocationEnabled" name="LocationEnabled"><br>
         <label for="EmergencyRescue">Emergency Rescue: </label><input type="checkbox" id="EmergencyRescue" name="EmergencyRescue"><br>
         <label for="OrganizeCampaigns">Organize Campaigns: </label><input type="checkbox" id="OrganizeCampaigns" name="OrganizeCampaigns"><br>
         <label for="ManageAdoption">Manage Adoption: </label><input type="checkbox" id="ManageAdoption" name="ManageAdoption"><br>
         <label for="Skills">Skills: </label> <input type="text" id="Skills" name="Skills" value="<?= isset($user['Skills']) ? htmlspecialchars($user['Skills']) : '' ?>"><br>
-        <label for="ExperienceYears">Experience Years: </label><input type="number" id="ExperienceYears" name="ExperienceYears" required><br>
-        <label for="Availability">Availability: </label><input type="text" id="Availability" name="Availability" required><br>
+        <label for="ExperienceYears">Experience Years: </label><input type="number" id="ExperienceYears" name="ExperienceYears" ><br>
+        <label for="Availability">Availability: </label><input type="text" id="Availability" name="Availability" ><br>
         <input type="submit" value="Update">
     </form>
 </body>

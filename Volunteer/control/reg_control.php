@@ -3,22 +3,22 @@ $errors = [];
 
 
 if (empty($_POST['name'])) {
-    $errors[] = "Full Name is required.";
+    $errors[] = "Full Name is .";
 }
 if (empty($_POST['email'])) {
-    $errors[] = "Email is required.";
+    $errors[] = "Email is .";
 } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
     $errors[] = "Invalid email format.";
 }
 
 if (empty($_POST['phone'])) {
-    $errors[] = "Phone number is required.";
+    $errors[] = "Phone number is .";
 } elseif (!preg_match('/^\d{3}[-.\s]?\d{3}[-.\s]?\d{4}$/', $_POST['phone'])) {
     $errors[] = "Phone number format should be 123-456-7890, 123.456.7890, or 123 456 7890.";
 }
 
 if (empty($_POST['password']) || empty($_POST['confirm_password'])) {
-    $errors[] = "Password and Confirm Password are required.";
+    $errors[] = "Password and Confirm Password are .";
 } elseif ($_POST['password'] !== $_POST['confirm_password']) {
     $errors[] = "Passwords do not match.";
 }
@@ -32,7 +32,7 @@ if (empty($_POST['volunteer_type'])) {
 }
 
 if (!isset($_POST['experience_level']) || $_POST['experience_level'] === "") {
-    $errors[] = "Experience Level is required.";
+    $errors[] = "Experience Level is .";
 }
 
 if (!empty($_POST['emergency_contact']) && !preg_match('/^\+\d{3}-\d{8,10}$/', $_POST['emergency_contact'])) {
