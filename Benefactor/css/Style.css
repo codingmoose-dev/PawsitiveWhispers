@@ -218,4 +218,34 @@ footer {
     max-width: fit-content; /* Limits button width to its content */
     padding: 10px 20px; /* Keeps desired padding */
 }
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers the cards */
+    gap: 20px; /* Adds space between cards */
+}
 
+.animal-card {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    width: 250px; /* Fixed card width */
+    text-align: center;
+    background-color: #f9f9f9; /* Optional: subtle background for the card */
+}
+
+.animal-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%; /* Scales down the image to fit the card width */
+    max-height: 150px; /* Limits height to maintain flashcard proportions */
+    width: auto; /* Maintains the image aspect ratio */
+    height: auto; /* Prevents distortion */
+    object-fit: cover; /* Ensures the image fits inside the container */
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

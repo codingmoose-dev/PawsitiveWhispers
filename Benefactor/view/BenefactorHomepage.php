@@ -88,8 +88,6 @@ $homepageController = new HomepageDisplayRequests();
                 ?>
             </div>
         </div>
-    </section>
-
 
             <!-- Animal Cases Section -->
             <div id="animals">
@@ -127,7 +125,7 @@ $homepageController = new HomepageDisplayRequests();
     <section id="impact">
         <h2>See the Impact of Your Donations</h2>
         <p>Stay connected with the causes you support. View updates, success stories, and the outcomes of your generous contributions.</p>
-        <a href="Impact.php" class="btn">View Updates</a>
+        <a href="DonationImpact.php" class="btn">View Updates</a>
     </section>
 
     <!-- Transparency Section -->

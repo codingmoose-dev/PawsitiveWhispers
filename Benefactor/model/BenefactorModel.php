@@ -92,6 +92,31 @@ class BenefactorModel {
         return $campaigns;
     }   
 
+    // Method to get donations by BenefactorID
+    public function getDonationsByBenefactor($benefactorID) {
+        $sql = "SELECT Donations.DonationAmount, Donations.DonationDate, 
+                    Campaigns.CampaignName, Animal.Name AS AnimalName, Animal.Species AS AnimalSpecies, 
+                    Animal.Breed AS AnimalBreed, Animal.Age AS AnimalAge, Animal.AnimalCondition, 
+                    Animal.PicturePath 
+                    FROM Donations 
+                    JOIN Campaigns ON Donations.CampaignID = Campaigns.CampaignID
+                    JOIN Animal ON Campaigns.CampaignID = Animal.ShelterID
+                    WHERE Donations.BenefactorID = ?";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $benefactorID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $donations = [];
+        while ($row = $result->fetch_assoc()) {
+            $donations[] = $row;
+        }
+
+        $stmt->close();
+        return $donations;
+    }
+
     public function closeConnection() {
         if (isset($this->conn)) {
             $this->conn->close();
