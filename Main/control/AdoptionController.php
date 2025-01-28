@@ -1,23 +1,16 @@
 <?php
-include '../model/UserModel.php'; 
-$animalController = new AnimalController();
+include '../model/UserModel.php';
 
 class AnimalController {
     private $model;
 
     public function __construct() {
-        $this->model = new UserModel();  // Corrected to AnimalModel
+        $this->model = new UserModel();
     }
 
-    public function index() {
-        $animals = $this->model->getAnimals();  // Fetch animals from AnimalModel
-    
-        if ($animals) {
-            include '../view/Adoption.php';  // Display animals
-        } else {
-            echo "No animals available for adoption.<br>";
-        }
+    // Fetch animals with AdoptionStatus = 'Available'
+    public function getAvailableAnimals() {
+        return $this->model->getAnimalsByStatus('Available');
     }
 }
-
 ?>

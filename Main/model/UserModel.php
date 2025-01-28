@@ -12,7 +12,7 @@ class UserModel {
         $this->conn = new mysqli($servername, $username, $password, $dbname);
 
         if ($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
+            die("Database connection failed: " . $this->conn->connect_error);
         }
     }
 
@@ -52,58 +52,24 @@ class UserModel {
         return null; // No user found in any table
     }
 
-    
-    public function getAnimals() {
-        $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, PicturePath 
+
+    // Fetch animals with the specified adoption status
+    public function getAnimalsByStatus($status) {
+        $sql = "SELECT AnimalID, Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath 
                 FROM Animal 
-                WHERE AdoptionStatus = 'Available'";
-        
-        $result = $this->conn->query($sql);
-        
-        if ($result === false) {
-            die('Error executing query: ' . $this->conn->error);
-        }
-    
+                WHERE AdoptionStatus = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $status);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
         $animals = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $animals[] = $row;
-            }
+        while ($row = $result->fetch_assoc()) {
+            $animals[] = $row;
         }
+
+        $stmt->close();
         return $animals;
-    }
-    
-    
-    // Authenticate user with email/ID and password
-    public function authenticateUser($emailOrId, $password) {
-        $emailOrId = filter_var(trim($emailOrId), FILTER_SANITIZE_STRING);
-
-        $queryTemplates = [
-            "SELECT GeneralUserID, FullName, Password FROM GeneralUsers WHERE Email = ? OR GeneralUserID = ?",
-            "SELECT VolunteerID, FullName, Password FROM Volunteers WHERE Email = ? OR VolunteerID = ?",
-            "SELECT VeterinarianID, FullName, Password FROM Veterinarians WHERE Email = ? OR VeterinarianID = ?",
-            "SELECT BenefactorID, FullName, Password FROM Benefactors WHERE Email = ? OR BenefactorID = ?"
-        ];
-
-        foreach ($queryTemplates as $query) {
-            $stmt = $this->conn->prepare($query);
-            $stmt->bind_param("ss", $emailOrId, $emailOrId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-
-                // Allow plain text or hashed password verification
-                if ($password === $row['Password'] || password_verify($password, $row['Password'])) {
-                    return $row;
-                }
-            }
-
-            $stmt->close();
-        }
-
-        return false;
     }
 
     // Destructor to close the connection
