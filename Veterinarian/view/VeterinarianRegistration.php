@@ -6,7 +6,7 @@
     <script src="../js/myjs.js" defer></script>
 </head>
 <body>
-<form name="registrationForm" method="POST" action="" onsubmit="return validateForm()" enctype="multipart/form-data">>
+<form name="registrationForm" method="POST" action="" onsubmit="return validateForm()" enctype="multipart/form-data">
 <fieldset>
             <legend>Personal Information</legend>
             <table>
