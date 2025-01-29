@@ -1,5 +1,5 @@
 <?php
-require_once '../control/reg_control.php';
+include '../control/reg_control.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userController = new UserController();
