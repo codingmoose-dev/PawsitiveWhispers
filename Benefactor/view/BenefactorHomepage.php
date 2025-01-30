@@ -13,7 +13,6 @@ $animals = $homepageController->showAnimalsUnderCare();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PawsitiveWellbeing - Benefactor</title>
     <link rel="stylesheet" href="../css/Style.css">
-    <script src="../js/ShowDetailHomepage.js"></script>
 
 </head>
 <body>
@@ -215,5 +214,8 @@ $animals = $homepageController->showAnimalsUnderCare();
             <a href="#">Instagram</a>
         </p>
     </footer>
+
+    <script src="../js/ShowDetailHomepage.js"></script>
+    
 </body>
 </html>

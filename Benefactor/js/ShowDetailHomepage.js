@@ -1,4 +1,4 @@
-// ShowDetailHomepage.js
+// Show Details in Homepage when the user clicks on the "Donate Now" button
 document.addEventListener('DOMContentLoaded', function () {
     const donateButton = document.getElementById('show-more-donate');
     const donateContent = document.getElementById('donate-more-content');
