@@ -52,7 +52,7 @@
 
     <!-- Resources Section -->
     <section id="resources">
-        <h2>Educational Content & Emergency Hotlines</h2>
+        <h2>Educational Content & Emergency Hotlines (Coming Soon!)</h2>
         <p>Access a library of animal care videos and guides. Need urgent help? Contact our emergency hotline for immediate assistance.</p>
         <a href="Resources.php" class="btn">View Resources</a>
     </section>
