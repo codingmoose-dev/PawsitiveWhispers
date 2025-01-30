@@ -12,7 +12,7 @@ class BenefactorController {
     public function __construct() {
         $this->benefactorModel = new BenefactorModel();  // Initialize the BenefactorModel
     }
-
+    
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Collecting form data
@@ -31,24 +31,26 @@ class BenefactorController {
             $ngoPartnership = $_POST['ngo-partnership'];
             $additionalNotes = $_POST['notes'];
 
-            // Check if the email already exists
             if ($this->benefactorModel->isEmailExists($email)) {
-                echo "Email already exists. Please try a different email.";
+                echo "<script>document.getElementById('message').innerHTML = 'Email already exists. Please try a different email.';</script>";
                 return;
             }
-
-            // Register user in the database
+    
             $result = $this->benefactorModel->registerBenefactor($fullName, $email, $phone, $password, $address, $organizationType, $donationType, $preferredCampaign, $availability, $paymentMethod, $savePayment, $sponsorEvents, $ngoPartnership, $additionalNotes);
-
+    
             if ($result) {
-                echo "Registration successful!";
-            } else {
-                echo "There was an error registering. Please try again.";
+                echo "<script>document.getElementById('message').innerHTML = 'Registration successful!';</script>";
+                header("Refresh: 3; Location: /PawsitiveWellbeing/Benefactor/view/BenefactorHomepage.php"); // Redirect after 3 seconds
+                exit();
+            }
+            else {
+                echo "<script>document.getElementById('message').innerHTML = 'There was an error registering. Please try again.';</script>";
             }
         } else {
             include '../view/BenefactorRegistration.php';
         }
     }
+    
 }
 
 // Initialize the Controller class

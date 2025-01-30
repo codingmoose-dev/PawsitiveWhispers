@@ -57,7 +57,7 @@ section {
     padding: 20px;
 }
 
-#home, #donate, #adoption, #impact, #about, #transparency {
+#home, #donate, #adoption, #impact, #about, #transparency, #faq {
     padding: 40px 20px;
     margin: 20px 0;
 }
@@ -67,14 +67,15 @@ section {
     text-align: center;
 }
 
-#home h2, #donate h2, #adoption h2, #impact h2, #about h2, #transparency h2 {
+#home h2, #donate h2, #adoption h2, #impact h2, #about h2, #transparency h2, #faq h2 {
     color: #2c3e50;
 }
 
+#faq h3 {
+    text-align: left;
+}
 
 #donate {
-    text-align: center; /* Centers the button */
-    padding: 20px; /* Adjust padding if necessary */
     background-color: #eaeaea;
 }
 
@@ -83,6 +84,14 @@ section {
 }
 
 #impact {
+    background-color: #eaeaea;
+}
+
+#transparency {
+    background-color: #f4f4f4;
+}
+
+#faq {
     background-color: #eaeaea;
 }
 
@@ -152,7 +161,7 @@ button, form button {
     cursor: pointer;
     border-radius: 5px;
     padding: 10px 20px;
-    text-align: center;
+    text-align: left;
 }
 
 button:hover, form button:hover {
@@ -198,6 +207,10 @@ footer {
 
 /* Button Styles */
 .btn {
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+    max-width: fit-content;
     background-color: #3498db;
     color: white;
     border: none;
@@ -211,13 +224,6 @@ footer {
     background-color: #2980b9;
 }
 
-#show-more-donate {
-    display: inline-block; /* Ensures the button takes only the space it needs */
-    text-align: center; /* Centers text within the button */
-    margin: 0 auto; /* Removes any default margin causing stretching */
-    max-width: fit-content; /* Limits button width to its content */
-    padding: 10px 20px; /* Keeps desired padding */
-}
 .grid-container {
     display: flex;
     flex-wrap: wrap;

@@ -1,6 +1,8 @@
 <?php
 include '../control/HomepageDisplayRequests.php'; 
 $homepageController = new HomepageDisplayRequests();
+$campaigns = $homepageController->displayOngoingCampaigns();
+$animals = $homepageController->showAnimalsUnderCare();
 ?>
 
 
@@ -27,6 +29,7 @@ $homepageController = new HomepageDisplayRequests();
             <a href="#adoption">Adopt an Animal</a>
             <a href="#impact">Impact & Updates</a>
             <a href="#transparency">Transparency</a>
+            <a href="#faq">Frequently Asked Questions</a>
         </nav>
     </header>
 
@@ -47,6 +50,7 @@ $homepageController = new HomepageDisplayRequests();
         <div id="donate-more-content" style="display: none;">
             <!-- Campaigns Section -->
             <h3>Ongoing Campaigns</h3>
+            <p>Choose a campaign to support and make a positive impact on the lives of animals in need.</p>
             <div id="campaigns">
                 <?php
                 // Check if there are campaigns available
@@ -83,22 +87,53 @@ $homepageController = new HomepageDisplayRequests();
                 } else {
                     // If no campaigns are available, show this message and dump the raw data
                     echo "<p>No campaigns available.</p>";
-                    var_dump($campaigns);  // This will show the raw data if empty
                 }
                 ?>
             </div>
-        </div>
+            <label for="campaign-id">Campaign ID:</label>
+            <input type="number" id="campaign-id" name="campaign-id">
+            <label for="campaign-amount">Amount:</label>
+            <input type="number" id="campaign-amount" name="campaign-amount">
+            <button class="btn">Donate</button>
+            <br>
 
             <!-- Animal Cases Section -->
+            <h3>Support Specific Animals</h3>
+            <p>Choose an animal in need and donate directly to their well-being.</p>
             <div id="animals">
-                <h3>Support Specific Animals</h3>
-                <div id="animal-list"></div> <!-- Dynamically load animal cases -->
+                <div class="grid-container">
+                    <?php foreach ($animals as $animal): ?>
+                        <div class="animal-card">
+                            <img src="../../Main/<?php echo $animal['PicturePath']; ?>.jpg" alt="<?php echo $animal['Name']; ?>" class="animal-image">
+                            <h4><?php echo $animal['Name']; ?></h4>
+                            <p>Species: <?php echo $animal['Species']; ?></p>
+                            <p>Breed: <?php echo $animal['Breed']; ?></p>
+                            <p>Age: <?php echo $animal['Age']; ?> years</p>
+                            <p>Condition: <?php echo $animal['AnimalCondition']; ?></p>
+
+
+                            <label for="donate-amount-<?php echo $animal['Name']; ?>">Amount:</label>
+                            <input type="number" id="donate-amount-<?php echo $animal['Name']; ?>" name="donate-amount">
+                            
+                            <label for="donate-for-<?php echo $animal['Name']; ?>">Donate For:</label>
+                            <select id="donate-for-<?php echo $animal['Name']; ?>" name="donate-for">
+                                <option value="food">Animal Food</option>
+                                <option value="medicine">Medicine</option>
+                                <option value="all">All</option>
+                                <option value="clothing">Clothing</option>
+                                <option value="transport">Transport</option>
+                            </select>
+                            
+                            <button class="btn">Donate</button>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
 
             <!-- General Fund Donation -->
+            <h3>General Fund Donations</h3>
+            <p>Make a one-time or recurring donation to support all our efforts.</p>
             <div id="general-fund">
-                <h3>General Fund Donations</h3>
-                <p>Make a one-time or recurring donation to support all our efforts.</p>
                 <form id="general-donation-form">
                     <label for="donation-amount">Amount:</label>
                     <input type="number" id="donation-amount" name="donation-amount" >
@@ -112,7 +147,6 @@ $homepageController = new HomepageDisplayRequests();
             </div>
         </div> 
     </section> 
-
 
     <!-- Adoption Section -->
     <section id="adoption">
@@ -130,7 +164,7 @@ $homepageController = new HomepageDisplayRequests();
 
     <!-- Transparency Section -->
     <section id="transparency">
-        <h2>Financial Transparency</h2>
+        <h2>Financial Transparency (Coming Soon!)</h2>
         <p>We value your trust. Access detailed reports on how your funds are utilized for rescues, treatments, and operations. Transparency is our priority!</p>
         <a href="Transparency.php" class="btn">View Reports</a>
     </section>
@@ -140,7 +174,7 @@ $homepageController = new HomepageDisplayRequests();
         <h2>Frequently Asked Questions</h2>
         <div>
             <h3>What is the role of a Benefactor in PawsitiveWellbeing?</h3>
-            <p>As a Benefactor, your main role is to contribute financially to the organization’s cause. Your generous donations support animal rescues, rehabilitation, and various campaigns aimed at improving the well-being of animals in need.</p>
+            <p>As a Benefactor, your main role is to contribute financially to the organization's cause. Your generous donations support animal rescues, rehabilitation, and various campaigns aimed at improving the well-being of animals in need.</p>
 
             <h3>How can I donate to PawsitiveWellbeing?</h3>
             <p>You can donate through our website by choosing to support specific animal cases, campaigns, or contribute to our general fund. Donations can be one-time or monthly.</p>
@@ -174,7 +208,7 @@ $homepageController = new HomepageDisplayRequests();
 
     <!-- Footer -->
     <footer>
-        <p>© 2025 PawsitiveWellbeing. All rights reserved.</p>
+        <p>© 2024 PawsitiveWellbeing. All rights reserved.</p>
         <p>Follow us on: 
             <a href="#">Facebook</a> | 
             <a href="#">Twitter</a> | 

@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Animal Care Benefactor Registration</title>
-    <script src="../js/FormValidation.js"></script>
+    <script src="../js/FormValidation.js"></script>    
     <link rel="stylesheet" href="../css/Style.css">
-    
 </head>
 <body>
     <header>
@@ -21,7 +20,10 @@
     </section>
 
     <section id="registration">
-        <form action="" method="post" onsubmit="return validateForm()">
+        <form action="../control/reg_control.php" method="post" onsubmit="return validateForm()">
+            <!-- Error message container -->
+            <div id="error-messages" style="color: red;"></div>
+
             <!-- Personal Information -->
             <fieldset>
                 <legend>Personal Information</legend>
@@ -66,7 +68,6 @@
                     <label for="ngopartner">NGO Partner</label>
                 </div>
             </fieldset>
-
 
             <!-- Donation Preferences -->
             <fieldset>
@@ -171,7 +172,6 @@
                 <textarea id="notes" name="notes" rows="4" placeholder="Let us know if you have any specific preferences or concerns."></textarea>
             </div>
         </fieldset>
-
 
             <button type="submit">Submit</button>
         </form>

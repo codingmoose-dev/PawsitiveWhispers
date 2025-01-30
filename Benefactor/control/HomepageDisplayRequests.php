@@ -10,15 +10,17 @@ class HomepageDisplayRequests {
 
     // Method to display ongoing campaigns (if needed for other use cases)
     public function displayOngoingCampaigns() {
-        $campaigns = $this->model->getOngoingCampaigns();
-        var_dump($campaigns);  // Add this for debugging (if necessary)
-        include '../view/BenefactorHomepage.php';
+        return $this->model->getOngoingCampaigns();
     }
 
     // Method to get donation impact based on BenefactorID
     public function getDonationImpact($benefactorID) {
         return $this->model->getDonationsByBenefactor($benefactorID);
     }
+
+    public function showAnimalsUnderCare() {
+        return $this->model->getAnimalsUnderCare();
+    }   
 }
 
 // If the form is submitted

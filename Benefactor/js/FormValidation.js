@@ -1,28 +1,80 @@
 function validateForm() {
-    const errorDiv = document.getElementById('error-messages');
-    errorDiv.innerHTML = ""; 
-    
-    // Validate Full Name
-    const fullName = document.getElementById('fname').value.trim();
-    if (!fullName) {
-        errorDiv.innerHTML = "Please enter your full name or organization name.";
-        return false;
+    let isValid = true;
+    let errors = "";
+
+    // Get form values
+    let fullName = document.getElementById("fname").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let password = document.getElementById("pwd").value;
+    let confirmPassword = document.getElementById("cpwd").value;
+    let address = document.getElementById("address").value.trim();
+    let captcha = document.getElementById("captcha").value.trim();
+    let termsChecked = document.getElementById("terms-conditions").checked;
+
+    // Error display container
+    let errorContainer = document.getElementById("error-messages");
+    if (!errorContainer) {
+        errorContainer = document.createElement("div");
+        errorContainer.id = "error-messages";
+        errorContainer.style.color = "red";
+        document.querySelector("form").prepend(errorContainer);
+    }
+    errorContainer.innerHTML = ""; 
+
+    // Full name validation
+    if (fullName === "") {
+        errors += "<p>Full Name is required.</p>";
+        isValid = false;
     }
 
-    // Validate Email
-    const email = document.getElementById('email').value.trim();
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-        errorDiv.innerHTML = "Please enter a valid email address.";
-        return false;
+    // Email validation
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.match(emailPattern)) {
+        errors += "<p>Enter a valid email.</p>";
+        isValid = false;
     }
 
-    // Validate Captcha
-    const captcha = document.getElementById('captcha').value.trim();
-    if (!captcha) {
-        errorDiv.innerHTML = "Captcha field cannot be empty.";
-        return false;
+    // Phone validation
+    let phonePattern = /^\+?\d{1,3}[-.\s]?\d{3}[-.\s]?\d{3,4}[-.\s]?\d{4}$/;
+    if (!phone.match(phonePattern)) {
+        errors += "<p>Enter a valid phone number.</p>";
+        isValid = false;
     }
 
-    // All validations passed
-    return true;
+    // Password validation
+    if (password.length < 6) {
+        errors += "<p>Password must be at least 6 characters.</p>";
+        isValid = false;
+    }
+
+    if (password !== confirmPassword) {
+        errors += "<p>Passwords do not match.</p>";
+        isValid = false;
+    }
+
+    // Address validation
+    if (address === "") {
+        errors += "<p>Address is required.</p>";
+        isValid = false;
+    }
+
+    // Captcha validation
+    if (captcha !== "3bIHDas") {
+        errors += "<p>Captcha did not match.</p>";
+        isValid = false;
+    }
+
+    // Terms and conditions validation
+    if (!termsChecked) {
+        errors += "<p>You must agree to the Terms & Conditions.</p>";
+        isValid = false;
+    }lluijj
+
+    // Display errors or submit form
+    if (!isValid) {
+        errorContainer.innerHTML = errors;
+    }
+
+    return isValid;
 }

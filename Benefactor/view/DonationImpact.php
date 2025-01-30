@@ -17,7 +17,7 @@
         <form method="post" action="../control/HomepageDisplayRequests.php">
             <label for="benefactor_id">Enter your Benefactor ID:</label>
             <input type="number" name="benefactor_id" id="benefactor_id" >
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn">Submit</button>
         </form>
 
         <!-- Check if donations data is available -->

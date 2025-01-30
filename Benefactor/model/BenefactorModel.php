@@ -85,10 +85,7 @@ class BenefactorModel {
     
         while ($row = $result->fetch_assoc()) {
             $campaigns[] = $row;
-        }
-
-        var_dump($campaigns);  // This will print the campaigns array
-        
+        }       
         return $campaigns;
     }   
 
@@ -115,6 +112,19 @@ class BenefactorModel {
 
         $stmt->close();
         return $donations;
+    }
+
+    public function getAnimalsUnderCare() {
+        $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath, RescueDate, AdoptionStatus, ShelterID FROM Animal WHERE AdoptionStatus IN ('Available', 'UnderCare')";
+        $result = $this->conn->query($sql);
+        $animals = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $animals[] = $row;
+            }
+        }
+        return $animals;
+
     }
 
     public function closeConnection() {
