@@ -1,8 +1,6 @@
 <?php
-// Include the UserModel file
-require_once '../model/user_model.php'; // Adjust the path as needed
-// Instantiate the UserModel
-$userModel = new UserModel();
+include '../model/VolunteerModel.php'; 
+$userModel = new VolunteerModel();
 
 // Retrieve data if needed
 $connection = $userModel->getConnection();
@@ -15,7 +13,7 @@ class UserController {
 
     public function __construct() {
         // Initialize the model
-        $this->userModel = new UserModel();
+        $this->userModel = new VolunteerModel();
     }
 
     public function handleRequest() {
