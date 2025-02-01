@@ -76,6 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $SESSION['UNAME']=$username;
 header('location: ../reg/vet_control.php');
 exit();
-
-    ?>
+}
+?>
     

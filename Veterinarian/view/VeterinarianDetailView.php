@@ -1,20 +1,5 @@
 <?php
-require_once '../model/VetModel.php';
-require_once '../control/UserController.php';
-
-$vetModel = new VetModel();
-$userController = new UserController($vetModel);
-
-$message = "";
-$veterinarians = $userController->viewAllVeterinarians();
-$veterinarian = null;
-
-// Handle search
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vet_id'])) {
-    $vetId = intval($_POST['vet_id']);
-    $veterinarian = $userController->searchById($vetId);
-    $message = $veterinarian ? "" : "Veterinarian not found.";
-}
+include '../control/UserController.php'
 ?>
 
 <!DOCTYPE html>
@@ -26,10 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vet_id'])) {
 </head>
 <body>
     <h1>All Veterinarians</h1>
-
-    <!-- Display message -->
-    <p><?php echo htmlspecialchars($message); ?></p>
-
     <!-- Veterinarian Table -->
     <table border="1">
         <thead>
@@ -92,16 +73,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vet_id'])) {
 
     <!-- Display search result -->
     <?php if ($veterinarian) { ?>
-        <h3>Veterinarian Details</h3>
-        <table border="1">
-            <?php foreach ($veterinarian as $key => $value) { ?>
-                <tr>
-                    <th><?php echo htmlspecialchars($key); ?></th>
-                    <td><?php echo htmlspecialchars($value); ?></td>
-                </tr>
-            <?php } ?>
-        </table>
+    <h3>Veterinarian Details</h3>
+    <table border="1">
+        <?php foreach ($veterinarian as $key => $value) { ?>
+            <tr>
+                <th><?php echo htmlspecialchars($key); ?></th>
+                <td><?php echo htmlspecialchars($value); ?></td>
+            </tr>
+        <?php } ?>
+    </table>
+    <?php } else { ?>
+        <p>No veterinarian found.</p>
     <?php } ?>
+
 </body>
 </html>
-<?php $vetModel->closeConnection(); ?>
