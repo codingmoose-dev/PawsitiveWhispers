@@ -10,34 +10,33 @@ class VetModel {
         }
     }
 
-    // Add a new veterinarian
-        // Add a new veterinarian (register)
-        public function addVeterinarian($data) {
-            $query = "INSERT INTO Veterinarians (FullName, Email, Phone, Password, ClinicAddress, LocationEnabled, License, ClinicName, Speciality, Services, WorkingHours, VetLicensePath, GovIDPath, TrainingMaterialsPath, HostTraining) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
-            $stmt = $this->conn->prepare($query);
-            $stmt->bind_param(
-                'sssssiissssssss',
-                $data['FullName'],
-                $data['Email'],
-                $data['Phone'],
-                $data['Password'],
-                $data['ClinicAddress'],
-                $data['LocationEnabled'],
-                $data['License'],
-                $data['ClinicName'],
-                $data['Speciality'],
-                $data['Services'],
-                $data['WorkingHours'],
-                $data['VetLicensePath'],
-                $data['GovIDPath'],
-                $data['TrainingMaterialsPath'],
-                $data['HostTraining']
-            );
-    
-            return $stmt->execute();
-        }
+    // Add a new veterinarian (register)
+    public function addVeterinarian($data) {
+        $query = "INSERT INTO Veterinarians (FullName, Email, Phone, Password, ClinicAddress, LocationEnabled, License, ClinicName, Speciality, Services, WorkingHours, VetLicensePath, GovIDPath, TrainingMaterialsPath, HostTraining) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param(
+            'sssssiissssssss',
+            $data['FullName'],
+            $data['Email'],
+            $data['Phone'],
+            $data['Password'],
+            $data['ClinicAddress'],
+            $data['LocationEnabled'],
+            $data['License'],
+            $data['ClinicName'],
+            $data['Speciality'],
+            $data['Services'],
+            $data['WorkingHours'],
+            $data['VetLicensePath'],
+            $data['GovIDPath'],
+            $data['TrainingMaterialsPath'],
+            $data['HostTraining']
+        );
+
+        return $stmt->execute();
+    }
 
     // Fetch all veterinarians
     public function getAllVeterinarians() {
@@ -77,6 +76,14 @@ class VetModel {
         return $rescuemissions;
     }
 
+    // Function to update mission status
+    public function updateMissionStatusDB($missionID, $newStatus) {
+        $query = "UPDATE RescueMissions SET Status = ? WHERE MissionID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('si', $newStatus, $missionID);
+        return $stmt->execute();
+    }  
+    
     public function getConnection() {
         return $this->conn;
     }

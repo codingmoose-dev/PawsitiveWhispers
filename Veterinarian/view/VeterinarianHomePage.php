@@ -1,6 +1,5 @@
-<?
+<?php
 include '../control/UserController.php';
-echo $message;
 ?>
 
 <!DOCTYPE html>
@@ -16,14 +15,15 @@ echo $message;
     <header>
         <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
             <img src="../../Main/images/Icon.png" alt="Veterinarian Logo" style="height: 60px;">
-            <h1>Veterinarian Dashboard</h1>
+            <h1>Veterinarian Homepage</h1>
         </div>
         <nav>
             <a href="#home">Home</a>
             <a href="#rescue-missions">Rescue Missions</a>
             <a href="#case-assessment">Case Assessment</a>
-            <a href="#medical-records">Medical Records</a>
             <a href="#training">Training & Education</a>
+            <a href="#adoption">Adopt an Animal</a>
+            <a href="#medical-records">Medical Records</a>
             <a href="#funds">Funds</a>
         </nav>
     </header>
@@ -38,15 +38,13 @@ echo $message;
     <section id="rescue-missions">
         <h2>View and Respond to Rescue Missions</h2>
         <p>Access and respond to rescue cases assigned to you. Review mission details and provide the necessary care for animals in need.</p>
-        <a href="RescueMissions.php" class="btn">View Rescue Missions</a>
-        
         <button id="show-rescue-missions" class="btn">View Rescue Missions</button>
         <div id="rescue-missions-content" style="display: none;">
             <!-- Rescue Missions Section -->
             <h3>Ongoing Rescue Missions</h3>
             <p>Choose a mission to support and help in the rescue efforts.</p>
             <div id="missions">
-                <?php
+            <?php
                 // Check if there are rescue missions available
                 if (!empty($rescueMissions)) {
                     // Start the table with proper HTML tags
@@ -60,11 +58,12 @@ echo $message;
                             <th>Location</th>
                             <th>Status</th>
                             <th>Priority Level</th>
+                            <th>Action</th>
                         </tr>";
 
                     // Loop through rescue missions and display them row by row
                     foreach ($rescueMissions as $mission) {
-                        echo "<tr>";
+                        echo "<tr id='mission-" . htmlspecialchars($mission['MissionID']) . "'>";
                         echo "<td>" . htmlspecialchars($mission['MissionID']) . "</td>";
                         echo "<td>" . htmlspecialchars($mission['MissionName']) . "</td>";
                         echo "<td>" . htmlspecialchars($mission['Description']) . "</td>";
@@ -73,7 +72,16 @@ echo $message;
                         echo "<td>" . htmlspecialchars($mission['Location']) . "</td>";
                         echo "<td>" . htmlspecialchars($mission['Status']) . "</td>";
                         echo "<td>" . htmlspecialchars($mission['PriorityLevel']) . "</td>";
+                        if ($mission['Status'] == 'In Progress') {
+                            echo "<td><button class='btn' onclick='completeMission(" . htmlspecialchars($mission['MissionID']) . ")'>Complete</button></td>";
+                        } elseif ($mission['Status'] == 'Pending') {
+                            echo "<td><button class='btn' onclick='acceptMission(" . htmlspecialchars($mission['MissionID']) . ")'>Accept</button></td>";
+                        } else {
+                            echo "<td></td>";  
+                        }                        
+                        
                         echo "</tr>";
+                        
                     }
 
                     // Close the table tag
@@ -82,7 +90,8 @@ echo $message;
                     // If no rescue missions are available, show this message
                     echo "<p>No rescue missions available.</p>";
                 }
-                ?>
+            ?>
+
             </div>
         </div>  
     </section>
@@ -99,6 +108,12 @@ echo $message;
         <h2>Manage Medical Records  (Coming Soon!)</h2>
         <p>Upload and track treatment plans, monitor recovery progress, and maintain comprehensive medical records for animals under your care.</p>
         <a href="MedicalRecords.php" class="btn">Manage Records</a>
+    </section>
+
+    <section id="adoption">
+        <h2>Adopt an Animal</h2>
+        <p>View animals available for adoption and help them find their forever homes.</p>
+        <a href="../../Main/view/Adoption.php" class="btn">View Animals</a>
     </section>
 
     <!-- Training Section -->
@@ -124,5 +139,8 @@ echo $message;
             <a href="#">Instagram</a>
         </p>
     </footer>
+
+    <script src="../js/HomepageContent.js"></script>
+
 </body>
 </html>

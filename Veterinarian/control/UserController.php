@@ -26,6 +26,10 @@ class UserController {
     public function displayOngoingRescueMissions() {
         return $this->veterinarianModel->getOngoingRescueMissions();
     }
+
+    public function updateMissionStatus($missionID, $newStatus) {
+        return $this->veterinarianModel->updateMissionStatusDB($missionID, $newStatus); 
+    }
 }
 
 $userController = new UserController();
@@ -80,5 +84,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vet_id'])) {
     $veterinarian = $userController->HandleSearchById($vetId);
     $message = $veterinarian ? "" : "No veterinarian found with ID $vetId.";
 }
+
+// Display ongoing rescue missions
+$rescueMissions = $userController->displayOngoingRescueMissions();
+
+// Handling mission status update
+if (isset($_POST['missionID']) && isset($_POST['status'])) {
+    $missionID = $_POST['missionID'];
+    $status = $_POST['status'];
+    $updateSuccess = $userController->updateMissionStatus($missionID, $status);
+    if ($updateSuccess) {
+        echo "success"; 
+    } else {
+        echo "failed";  
+    }
+}
+
 
 ?>
