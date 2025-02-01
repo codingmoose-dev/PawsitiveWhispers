@@ -1,20 +1,5 @@
 <?php
-require_once '../control/SignInController.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-
-    // Check for empty fields
-    if (empty($email) || empty($password)) {
-        header("Location: ../view/SignIn.php?error=empty");
-        exit;
-    }
-
-    // Initialize the controller and process the sign-in
-    $userController = new UserController();
-    $userController->SignIn($email, $password);
-}
+include '../control/SignInController.php';
 ?>
 
 <!DOCTYPE html>

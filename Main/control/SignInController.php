@@ -1,5 +1,5 @@
 <?php
-require_once '../model/UserModel.php';
+include '../model/UserModel.php';
 
 class UserController {
     private $userModel;
@@ -42,5 +42,21 @@ class UserController {
             exit();
         }
     }
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    // Check for empty fields
+    if (empty($email) || empty($password)) {
+        header("Location: ../view/SignIn.php?error=empty");
+        exit;
+    }
+
+    // Initialize the controller and process the sign-in
+    $userController = new UserController();
+    $userController->SignIn($email, $password);
 }
 ?>
