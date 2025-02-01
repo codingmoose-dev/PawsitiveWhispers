@@ -1,3 +1,8 @@
+<?
+include '../control/UserController.php';
+echo $message;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -56,13 +56,6 @@ header img {
 section {
     padding: 20px;
 }
-<a href="#home">Home</a>
-<a href="#rescue-missions">Rescue Missions</a>
-<a href="#case-assessment">Case Assessment</a>
-<a href="#medical-records">Medical Records</a>
-<a href="#training">Training & Education</a>
-<a href="#funds">Funds</a>
-</nav>
 
 #home, #rescue-missions, #case-assessment, #medical-records, #training, #funds {
     padding: 40px 20px;
@@ -92,10 +85,6 @@ section {
 
 #funds {
     background-color: #eaeaea;
-}
-
-#about {
-    background-color: #f4f4f4;
 }
 
 /* Message Styles */
