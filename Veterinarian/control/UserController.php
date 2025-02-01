@@ -16,8 +16,9 @@ class UserController {
         return $this->veterinarianModel->getVeterinarianById($id);
     }
 
-    public function getMissions() {
-        return $this->veterinarianModel->getRescueMissions();
+    public function displayOngoingRescueMissions() {
+        return $this->model->getOngoingRescueMissions();
     }
 }
+
 ?>

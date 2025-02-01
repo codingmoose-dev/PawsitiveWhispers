@@ -27,16 +27,22 @@ class VetModel {
         return $result->fetch_assoc();
     }
 
-    public function getRescueMissions() {
-        $sql = "SELECT MissionID, MissionName, Description, Location, Status, PriorityLevel, RegisteredDate 
-                FROM RescueMissions";
-        $result = $this->conn->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
+    public function getOngoingRescueMissions() {
+        $query = "SELECT * FROM RescueMissions WHERE Status IN ('In Progress', 'Pending')";
+        $result = $this->connection->query($query);
+        $rescuemissions = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $rescuemissions[] = $row;
+            }
+        }
+        return $rescuemissions;
     }
 
-    // Close the database connection
-    public function closeConnection() {
-        $this->conn->close();
+    public function getConnection() {
+        return $this->connection;
     }
+
 }
 ?>

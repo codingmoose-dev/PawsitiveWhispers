@@ -4,79 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veterinarian Homepage</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        header nav {
-            margin: 10px 0;
-        }
-        header nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.1em;
-        }
-        header div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        header img {
-            height: 60px;
-        }
-        section {
-            padding: 20px;
-        }
-        section h2 {
-            color: #2c3e50;
-        }
-        #home {
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 40px 20px;
-        }
-        #rescue-missions, #case-assessment, #medical-records, #training, #funds {
-            background-color: #eaeaea;
-            margin: 20px 0;
-            padding: 40px 20px;
-        }
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 20px;
-        }
-        .btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            display: inline-block;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background-color: #2980b9;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/Style.css"></link>
 </head>
 <body>
     <!-- Header -->
@@ -106,6 +34,52 @@
         <h2>View and Respond to Rescue Missions</h2>
         <p>Access and respond to rescue cases assigned to you. Review mission details and provide the necessary care for animals in need.</p>
         <a href="RescueMissions.php" class="btn">View Rescue Missions</a>
+        
+        <button id="show-rescue-missions" class="btn">View Rescue Missions</button>
+        <div id="rescue-missions-content" style="display: none;">
+            <!-- Rescue Missions Section -->
+            <h3>Ongoing Rescue Missions</h3>
+            <p>Choose a mission to support and help in the rescue efforts.</p>
+            <div id="missions">
+                <?php
+                // Check if there are rescue missions available
+                if (!empty($rescueMissions)) {
+                    // Start the table with proper HTML tags
+                    echo "<table border='1' cellpadding='10' cellspacing='0'>";
+                    echo "<tr>
+                            <th>Mission ID</th>
+                            <th>Mission Name</th>
+                            <th>Description</th>
+                            <th>Reported By</th>
+                            <th>Assigned To</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Priority Level</th>
+                        </tr>";
+
+                    // Loop through rescue missions and display them row by row
+                    foreach ($rescueMissions as $mission) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($mission['MissionID']) . "</td>";
+                        echo "<td>" . htmlspecialchars($mission['MissionName']) . "</td>";
+                        echo "<td>" . htmlspecialchars($mission['Description']) . "</td>";
+                        echo "<td>" . htmlspecialchars($mission['ReportedBy']) . "</td>";
+                        echo "<td>" . htmlspecialchars($mission['AssignedTo']) . "</td>";
+                        echo "<td>" . htmlspecialchars($mission['Location']) . "</td>";
+                        echo "<td>" . htmlspecialchars($mission['Status']) . "</td>";
+                        echo "<td>" . htmlspecialchars($mission['PriorityLevel']) . "</td>";
+                        echo "</tr>";
+                    }
+
+                    // Close the table tag
+                    echo "</table>";
+                } else {
+                    // If no rescue missions are available, show this message
+                    echo "<p>No rescue missions available.</p>";
+                }
+                ?>
+            </div>
+        </div>  
     </section>
 
     <!-- Case Assessment Section -->
@@ -117,21 +91,21 @@
 
     <!-- Medical Records Section -->
     <section id="medical-records">
-        <h2>Manage Medical Records</h2>
+        <h2>Manage Medical Records  (Coming Soon!)</h2>
         <p>Upload and track treatment plans, monitor recovery progress, and maintain comprehensive medical records for animals under your care.</p>
         <a href="MedicalRecords.php" class="btn">Manage Records</a>
     </section>
 
     <!-- Training Section -->
     <section id="training">
-        <h2>Volunteer Training & Educational Resources</h2>
+        <h2>Volunteer Training & Educational Resources (Coming Soon!)</h2>
         <p>Conduct training sessions and upload educational materials to equip volunteers with the knowledge to assist in rescue missions.</p>
         <a href="TrainingResources.php" class="btn">View Training Resources</a>
     </section>
 
     <!-- Funds Section -->
     <section id="funds">
-        <h2>Receive Allocated Funds</h2>
+        <h2>Receive Allocated Funds (Coming Soon!)</h2>
         <p>Access and manage funds allocated for treatment fees, ensuring every animal gets the care they need.</p>
         <a href="Funds.php" class="btn">View Funds</a>
     </section>
