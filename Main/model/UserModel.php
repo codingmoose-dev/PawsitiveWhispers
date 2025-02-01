@@ -53,25 +53,34 @@ class UserModel {
     }
 
 
-    // Fetch animals with the specified adoption status
-    public function getAnimalsByStatus($status) {
-        $sql = "SELECT AnimalID, Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath 
-                FROM Animal 
-                WHERE AdoptionStatus = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("s", $status);
+    public function getAnimalsByStatus($status = null) {
+        if ($status) {
+            // Fetch only the animals with the specified status
+            $sql = "SELECT AnimalID, Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath, AdoptionStatus 
+                    FROM Animal 
+                    WHERE AdoptionStatus = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("s", $status);
+        } else {
+            // Fetch animals with any status (Available or Pending)
+            $sql = "SELECT AnimalID, Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath, AdoptionStatus 
+                    FROM Animal 
+                    WHERE AdoptionStatus IN ('Available', 'Pending')";
+            $stmt = $this->conn->prepare($sql);
+        }
+    
         $stmt->execute();
         $result = $stmt->get_result();
-
+    
         $animals = [];
         while ($row = $result->fetch_assoc()) {
             $animals[] = $row;
         }
-
+    
         $stmt->close();
         return $animals;
     }
-
+    
     // Destructor to close the connection
     public function __destruct() {
         $this->conn->close();

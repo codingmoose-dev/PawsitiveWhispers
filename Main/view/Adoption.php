@@ -1,9 +1,6 @@
 <?php
 include '../control/AdoptionController.php';
-
-// Initialize the controller and fetch available animals
 $animalController = new AnimalController();
-$availableAnimals = $animalController->getAvailableAnimals();
 ?>
 
 <!DOCTYPE html>
@@ -25,31 +22,41 @@ $availableAnimals = $animalController->getAvailableAnimals();
     <section id="adoption">
     <h2>Available Animals</h2>
 
-    <!-- Grid container for the cards -->
-    <?php $availableAnimals = $animalController->getAvailableAnimals(); ?>
-    <?php if (isset($availableAnimals) && !empty($availableAnimals)): ?>
-        <div class="grid-container">
-            <?php foreach ($availableAnimals as $animal): ?>
-                <div class="animal-card">
-                    <img src="../../Main/<?php echo $animal['PicturePath']; ?>.jpg" alt="<?php echo $animal['Name']; ?>" class="animal-image">
-                    <h3><?php echo $animal['Name']; ?></h3>
-                    <p>Species: <?php echo $animal['Species']; ?></p>
-                    <p>Breed: <?php echo $animal['Breed']; ?></p>
-                    <p>Age: <?php echo $animal['Age']; ?> years</p>
-                    <p>Gender: <?php echo $animal['Gender']; ?></p>
-                    <p>Condition: <?php echo $animal['AnimalCondition']; ?></p>
-                    <button>Adopt Me</button>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php else: ?>
-        <p>No animals are available for adoption at the moment.</p>
-    <?php endif; ?>
-</section>
+  <!-- Grid container for the cards -->
+<?php $allAnimals = $animalController->getAllAnimals(); ?>
+<?php if (isset($allAnimals) && !empty($allAnimals)): ?>
+    <div class="grid-container">
+        <?php foreach ($allAnimals as $animal): ?>
+            <div class="animal-card">
+                <img src="../../Main/<?php echo $animal['PicturePath']; ?>.jpg" alt="<?php echo htmlspecialchars($animal['Name']); ?>" class="animal-image">
+                <h3><?php echo htmlspecialchars($animal['Name']); ?></h3>
+                <p>Species: <?php echo htmlspecialchars($animal['Species']); ?></p>
+                <p>Breed: <?php echo htmlspecialchars($animal['Breed']); ?></p>
+                <p>Age: <?php echo htmlspecialchars($animal['Age']); ?> years</p>
+                <p>Gender: <?php echo htmlspecialchars($animal['Gender']); ?></p>
+                <p>Condition: <?php echo htmlspecialchars($animal['AnimalCondition']); ?></p>
+                
+                <!-- Update button text and color based on the adoption status -->
+                <button class="adopt-btn" data-id="<?php echo $animal['AnimalID']; ?>" 
+                    <?php echo ($animal['AdoptionStatus'] === 'Pending') ? 'style="background-color: green; color: white;" disabled' : ''; ?>>
+                    <?php echo ($animal['AdoptionStatus'] === 'Pending') ? 'Pending' : 'Adopt Me'; ?>
+                </button>
+            </div>
+        <?php endforeach; ?>
+    </div>
+   
+
+<?php else: ?>
+    <p>No animals are available for adoption at the moment.</p>
+<?php endif; ?>
+
 
 
     <footer>
         <p>© 2024 PawsitiveWellbeing | All Rights Reserved</p>
     </footer>
+   
+<script src="../js/AnimalProcess.js"></script>
+
 </body>
 </html>
