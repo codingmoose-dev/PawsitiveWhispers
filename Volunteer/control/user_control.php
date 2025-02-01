@@ -19,11 +19,11 @@ class UserController {
     public function handleRequest() {
         // Check if the form is submitted for updating user data
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update') {
-            $this->updateUser();
+            $this->updateVolunteer();
         }
     }
 
-    private function updateUser() {
+    private function updateVolunteer() {
         // Collect user input from the form
         $userId = $_POST['user_id'];
         $fullName = $_POST['FullName'];

@@ -1,8 +1,6 @@
 <?php
-require_once '../model/user_model.php'; // Adjust the path accordingly
-
-$userModel = new UserModel(); // Instantiate UserModel
-$connection = $userModel->getConnection();
+include '../model/VolunteerModel/php';
+$userModel = new VetModel();
 
 // Handle the request to update user data
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update') {
