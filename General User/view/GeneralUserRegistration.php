@@ -1,6 +1,5 @@
 <?php
 include '../control/reg_control.php';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userController = new UserController();
     $result = $userController->register($_POST, $_FILES);

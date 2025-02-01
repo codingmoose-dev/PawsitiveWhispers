@@ -66,8 +66,4 @@ class UserController {
         }
     }
 }
-
-// Instantiate the controller and call the register method
-$controller = new UserController();
-$controller->register();
 ?>
