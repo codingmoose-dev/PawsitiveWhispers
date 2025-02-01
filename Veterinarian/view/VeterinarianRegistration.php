@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Registration</title>
+    <link rel="stylesheet" href="../css/Style.css">
 </head>
 <body>
 <form name="registrationForm" method="POST" action="" onsubmit="return validateForm()" enctype="multipart/form-data">
