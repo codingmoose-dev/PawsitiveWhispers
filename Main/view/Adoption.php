@@ -1,6 +1,5 @@
 <?php
 include '../control/AdoptionController.php';
-$animalController = new AnimalController();
 ?>
 
 <!DOCTYPE html>

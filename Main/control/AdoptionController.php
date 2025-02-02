@@ -7,21 +7,18 @@ class AnimalController {
     public function __construct() {
         $this->model = new UserModel();
     }
+
     public function getAllAnimals() {
         return $this->model->getAnimalsByStatus(); // Fetch both available and pending
     }
-    
 
     public function updateAnimalStatus($animalId, $status) {
-        $sql = "UPDATE Animal SET AdoptionStatus = ? WHERE AnimalID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("si", $status, $animalId);
-        $result = $stmt->execute();
-        $stmt->close();
-        return $result;
+        return $this->model->updateAnimalStatus($animalId, $status); // Delegate update to UserModel
     }
-    
 }
+
+// Create an instance of AnimalController
+$animalController = new AnimalController();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['adopt_id'])) {
     $animalId = $_POST['adopt_id'];
@@ -33,5 +30,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['adopt_id'])) {
     }
     exit;
 }
-
 ?>
