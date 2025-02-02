@@ -1,5 +1,12 @@
 <?php
-include ''
+session_start();
+
+if (isset($_SESSION['registration_success'])) {
+    echo "<p>Registration successful! Welcome to the team!</p>";
+    unset($_SESSION['registration_success']);
+}
+
+include '../control/HomeControls.php'
 ?>
 
 <!DOCTYPE html>

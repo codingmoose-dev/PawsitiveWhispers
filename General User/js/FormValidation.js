@@ -7,7 +7,7 @@ function validateForm() {
     const confirmPassword = document.forms["registrationForm"]["ConfirmPassword"].value;
     const address = document.forms["registrationForm"]["Address"].value.trim();
     const cityStateCountry = document.forms["registrationForm"]["CityStateCountry"].value.trim();
-    const location = document.forms["registrationForm"]["Location"].value;
+    const location = document.querySelector('input[name="Location"]:checked');
     const adoptionNotifications = document.forms["registrationForm"]["AdoptionNotifications"].value;
     const donationCampaigns = document.forms["registrationForm"]["DonationCampaigns"].value;
     const newsletterSubscription = document.forms["registrationForm"]["NewsletterSubscription"].value;
@@ -24,7 +24,7 @@ function validateForm() {
 
     // Validation checks and error messages
     if (fullName === "") {
-        document.getElementById("fullNameError").innerHTML = "Full Name is .";
+        document.getElementById("fullNameError").innerHTML = "Full Name is required.";
         isValid = false;
     }
 
@@ -39,29 +39,29 @@ function validateForm() {
     }
 
     if (password === "") {
-        document.getElementById("passwordError").innerHTML = "Password is .";
+        document.getElementById("passwordError").innerHTML = "Password is required.";
         isValid = false;
     }
-
-    if (password !== confirmPassword) {
+    
+    if (password.trim() !== confirmPassword.trim()) {  
         document.getElementById("confirmPasswordError").innerHTML = "Passwords do not match.";
         isValid = false;
-    }
+    }    
 
     if (address === "") {
-        document.getElementById("addressError").innerHTML = "Address is .";
+        document.getElementById("addressError").innerHTML = "Address is required";
         isValid = false;
     }
 
     if (cityStateCountry === "") {
-        document.getElementById("cityStateCountryError").innerHTML = "City/State/Country is .";
+        document.getElementById("cityStateCountryError").innerHTML = "City/State/Country is required";
         isValid = false;
     }
 
     if (!location) {
-        document.getElementById("locationError").innerHTML = "Please select an option for Location Services.";
+        document.getElementById("locationError").innerHTML = "Please select an option.";
         isValid = false;
-    }
+    }    
 
     if (!adoptionNotifications) {
         document.getElementById("adoptionNotificationsError").innerHTML = "Please select an option for Adoption Notifications.";
@@ -80,11 +80,12 @@ function validateForm() {
 
     const profilePicture = document.forms["registrationForm"]["ProfilePicture"].value;
     if (!profilePicture) {
-        document.getElementById("profilePictureError").innerHTML = "Profile picture is .";
+        document.getElementById("profilePictureError").innerHTML = "Please upload a profile picture.";
         isValid = false;
     }
 
-    const socialMediaLink = document.forms["registrationForm"]["SocialMediaLink"].value.trim();
+    const socialMediaLink = document.forms["registrationForm"]["SocialMediaLinks"].value.trim();
+
     const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
     if (socialMediaLink && !urlPattern.test(socialMediaLink)) {
         document.getElementById("socialMediaLinkError").innerHTML = "Enter a valid URL.";

@@ -156,33 +156,45 @@ button:hover, form button:hover {
     background-color: #2980b9;
 }
 
-/* Radio and Checkbox Styles */
-input[type="radio"], input[type="checkbox"] {
-    margin: 0;
-    padding: 0;
-    vertical-align: middle;
-}
-
-input[type="radio"] + label, input[type="checkbox"] + label {
-    margin: 0;
-    padding: 0;
-    vertical-align: middle;
-    display: inline-block;
-    width: auto;
-    height: auto;  
-}
 
 div {
     display: flex;
-    align-items: center;
+    align-items: left;
     gap: 0;
+} 
+
+.preference-item {
+    display: inline-flex;
+    align-items: center; /* Ensures the label and radio button align horizontally */
+    margin-bottom: 10px;
+    gap: 5px; /* Adjust spacing between radio button and label */
+}
+
+input[type="radio"] {
+    width: 15px; /* Adjust the size of the radio button */
+    height: 15px;
+    transform: scale(1); /* Adjust this scale if needed */
 }
 
 label {
+    margin-left: 10px; /* Space between radio button and label */
     cursor: pointer;
-    padding: 15px;
-    margin: 0;
 }
+
+.preference-item label {
+    width: 200px; /* Adjust width as needed */
+    font-weight: bold;
+}
+
+.preference-item input {
+    margin-left: 10px;
+}
+
+.error {
+    color: red;
+    margin-left: 10px;
+}
+
 
 /* Footer Styles */
 footer {
