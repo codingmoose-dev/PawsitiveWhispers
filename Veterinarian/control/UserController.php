@@ -1,6 +1,6 @@
 <?php
 include '../model/VetModel.php';
-
+session_start();
 class UserController {
     private $veterinarianModel;
 
@@ -35,6 +35,64 @@ class UserController {
 $userController = new UserController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $confirmPassword = trim($_POST['confirm_password']);
+
+    // ✅ Email Validation
+    //if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+       // $_SESSION['error'] = "Invalid email format.";
+       // header("Location: ../view/VeterinarianRegistration.php");
+       // exit;
+   // }
+
+    // ✅ Password Validation (ADD THIS SECTION)
+    if (empty($password)) {
+        $_SESSION['error'] = "Password cannot be empty.";
+        header("Location: ../view/VeterinarianRegistration.php");
+        exit;
+    }
+
+    if (strlen($password) < 6) {
+        $_SESSION['error'] = "Password must be at least 6 characters long.";
+        header("Location: ../view/VeterinarianRegistration.php");
+        exit;
+    }
+
+    if (!preg_match('/[A-Z]/', $password)) {
+        $_SESSION['error'] = "Password must contain at least one uppercase letter.";
+        header("Location: ../view/VeterinarianRegistration.php");
+        exit;
+    }
+
+    if (!preg_match('/\d/', $password)) {
+        $_SESSION['error'] = "Password must contain at least one number.";
+        header("Location: ../view/VeterinarianRegistration.php");
+        exit;
+    }
+
+    if ($password !== $confirmPassword) {
+        $_SESSION['error'] = "Passwords do not match.";
+        header("Location: ../view/VeterinarianRegistration.php");
+        exit;
+    }
+
+    // ✅ Hash the password before storing it
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    // ✅ Save veterinarian data in the database
+    $stmt = $conn->prepare("INSERT INTO veterinarians (email, password, clinicname, speciality) VALUES (?, ?, ?, ?)");
+    if ($stmt->execute([$email, $hashedPassword, $_POST['clinicname'], $_POST['speciality']])) {
+        $_SESSION['success'] = "Veterinarian registration successful!";
+        header("Location: ../view/VeterinarianLogin.php");
+        exit;
+    } else {
+        $_SESSION['error'] = "Error: Registration failed.";
+        header("Location: ../view/VeterinarianRegistration.php");
+        exit;
+    } 
+
     $uploadDir = "../uploads/medical-license/"; 
 
     $vetLicensePath = $_FILES['VetLicensePath']['name'] ? $uploadDir . basename($_FILES['VetLicensePath']['name']) : null;
