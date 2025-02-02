@@ -12,23 +12,22 @@ class VolunteerController {
         // Check if the form is submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Sanitize the input data
-            $fullName = htmlspecialchars($_POST['full_name']);
-            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-            $phone = htmlspecialchars($_POST['phone']);
-            $password = $_POST['password'];
-            $confirmPassword = $_POST['confirm_password'];
-            $homeAddress = htmlspecialchars($_POST['home_address']);
-            $cityStateCountry = htmlspecialchars($_POST['city_state_country']);
-            $locationEnabled = isset($_POST['location_enabled']) && $_POST['location_enabled'] == 'Yes' ? true : false;
-            $emergencyRescue = isset($_POST['emergency_rescue']) && $_POST['emergency_rescue'] == 'yes' ? true : false;
-            $organizeCampaigns = isset($_POST['organize_campaigns']) && $_POST['organize_campaigns'] == 'yes' ? true : false;
-            $manageAdoption = isset($_POST['manage_adoption']) && $_POST['manage_adoption'] == 'yes' ? true : false;
-            $skills = htmlspecialchars($_POST['skills']);
-            $experienceYears = (int)$_POST['experience_years'];
-            $availability = $_POST['availability'];
+            $fullName = htmlspecialchars($_POST['FullName']);
+            $email = filter_var($_POST['Email'], FILTER_SANITIZE_EMAIL);
+            $phone = htmlspecialchars($_POST['Phone']);
+            $password = $_POST['Password'];
+            $confirmPassword = $_POST['ConfirmPassword'];
+            $homeAddress = htmlspecialchars($_POST['HomeAddress']);
+            $cityStateCountry = htmlspecialchars($_POST['CityStateCountry']);
+            $locationEnabled = isset($_POST['LocationEnabled']) && $_POST['LocationEnabled'] == 'Yes' ? true : false;
+            $emergencyRescue = isset($_POST['EmergencyRescue']) && $_POST['EmergencyRescue'] == 'Yes' ? true : false;
+            $organizeCampaigns = isset($_POST['OrganizeCampaigns']) && $_POST['OrganizeCampaigns'] == 'Yes' ? true : false;
+            $manageAdoption = isset($_POST['ManageAdoption']) && $_POST['ManageAdoption'] == 'Yes' ? true : false;
+            $skills = htmlspecialchars($_POST['Skills']);
+            $experienceYears = (int)$_POST['ExperienceYears'];
+            $availability = $_POST['Availability'];
 
             if ($this->volunteermodel->registerVolunteer($fullName, $email, $phone, $password, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability)) {
-                // Set success message and redirect
                 session_start();
                 $_SESSION['registration_success'] = true;
                 header('Location: ../view/VolunteerHomepage.php');
