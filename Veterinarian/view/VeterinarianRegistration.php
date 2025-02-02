@@ -9,7 +9,7 @@ include '../control/UserController.php';
     <link rel="stylesheet" type="text/css" href="../css/Style.css">
 </head>
 <body>
-<header>
+    <header>
         <div id="logo-container">
             <img src="../../Main/images/Icon.png" alt="PawsitiveWellbeing Logo">
             <h1>Pawsitive Wellbeing</h1>
