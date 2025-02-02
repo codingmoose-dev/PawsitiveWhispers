@@ -20,9 +20,9 @@ include '../control/UserController.php';
         <nav>
             <a href="#home">Home</a>
             <a href="#rescue-missions">Rescue Missions</a>
-            <a href="#case-assessment">Case Assessment</a>
-            <a href="#training">Training & Education</a>
             <a href="#adoption">Adopt an Animal</a>
+            <!--<a href="#case-assessment">Case Assessment</a>-->
+            <a href="#training">Training & Education</a>
             <a href="#medical-records">Medical Records</a>
             <a href="#funds">Funds</a>
         </nav>
@@ -96,26 +96,13 @@ include '../control/UserController.php';
         </div>  
     </section>
 
-    <!-- Case Assessment Section -->
-    <section id="case-assessment">
-        <h2>Review and Assess Cases</h2>
-        <p>Review cases submitted by users, assess conditions, and update case statuses for rescue or medical follow-ups.</p>
-        <a href="CaseAssessment.php" class="btn">Review Cases</a>
-    </section>
-
-    <!-- Medical Records Section -->
-    <section id="medical-records">
-        <h2>Manage Medical Records  (Coming Soon!)</h2>
-        <p>Upload and track treatment plans, monitor recovery progress, and maintain comprehensive medical records for animals under your care.</p>
-        <a href="MedicalRecords.php" class="btn">Manage Records</a>
-    </section>
-
     <section id="adoption">
         <h2>Adopt an Animal</h2>
         <p>View animals available for adoption and help them find their forever homes.</p>
         <a href="../../Main/view/Adoption.php" class="btn">View Animals</a>
     </section>
 
+    
     <!-- Training Section -->
     <section id="training">
         <h2>Volunteer Training & Educational Resources (Coming Soon!)</h2>
@@ -123,11 +110,26 @@ include '../control/UserController.php';
         <a href="TrainingResources.php" class="btn">View Training Resources</a>
     </section>
 
+    <!-- Medical Records Section -->
+    <section id="medical-records">
+        <h2>Manage Medical Records  (Coming Soon!)</h2>
+        <p>Upload and track treatment plans, monitor recovery progress, and maintain comprehensive medical records for animals under your care.</p>
+        <a class="btn">Manage Records</a>
+    </section>
+
+    <!-- Case Assessment Section 
+    <section id="case-assessment">
+        <h2>Review and Assess Cases</h2>
+        <p>Review cases submitted by users, assess conditions, and update case statuses for rescue or medical follow-ups.</p>
+        <a href="CaseAssessment.php" class="btn">Review Cases</a>
+    </section>
+    -->
+
     <!-- Funds Section -->
     <section id="funds">
         <h2>Receive Allocated Funds (Coming Soon!)</h2>
         <p>Access and manage funds allocated for treatment fees, ensuring every animal gets the care they need.</p>
-        <a href="Funds.php" class="btn">View Funds</a>
+        <a class="btn">View Funds</a>
     </section>
 
     <!-- Footer -->
