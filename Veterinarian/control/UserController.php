@@ -38,36 +38,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $password = trim($_POST['password']);
     $confirmPassword = trim($_POST['confirm_password']);
 
-    // Password Validation
+    // Initialize an empty array to hold error messages
+    $errorMessages = [];
+
     if (empty($password)) {
-        $_SESSION['error'] = "Password cannot be empty.";
-        header("Location: ../view/VeterinarianRegistration.php");
-        exit;
+        $errorMessages[] = "Password cannot be empty.";
     }
 
     if (strlen($password) < 6) {
-        $_SESSION['error'] = "Password must be at least 6 characters long.";
-        header("Location: ../view/VeterinarianRegistration.php");
-        exit;
+        $errorMessages[] = "Password must be at least 6 characters long.";
     }
 
     if (!preg_match('/[A-Z]/', $password)) {
-        $_SESSION['error'] = "Password must contain at least one uppercase letter.";
-        header("Location: ../view/VeterinarianRegistration.php");
-        exit;
+        $errorMessages[] = "Password must contain at least one uppercase letter.";
     }
 
     if (!preg_match('/\d/', $password)) {
-        $_SESSION['error'] = "Password must contain at least one number.";
+        $errorMessages[] = "Password must contain at least one number.";
+    }
+
+    if ($password !== $confirmPassword) {
+        $errorMessages[] = "Passwords do not match.";
+    }
+
+    // Check if there are any errors and set them in session
+    if (!empty($errorMessages)) {
+        $_SESSION['error'] = implode(" ", $errorMessages);  // Combine all messages into one string
         header("Location: ../view/VeterinarianRegistration.php");
         exit;
     }
 
-    if ($password !== $confirmPassword) {
-        $_SESSION['error'] = "Passwords do not match.";
-        header("Location: ../view/VeterinarianRegistration.php");
-        exit;
-    }
 
     // Hash the password before storing it
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
