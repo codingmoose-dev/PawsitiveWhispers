@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../model/VolunteerModel.php'; 
 
 class VolunteerController {
@@ -28,7 +29,6 @@ class VolunteerController {
             $availability = $_POST['Availability'];
 
             if ($this->volunteermodel->registerVolunteer($fullName, $email, $phone, $password, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability)) {
-                session_start();
                 $_SESSION['registration_success'] = true;
                 header('Location: ../view/VolunteerHomepage.php');
                 exit();
