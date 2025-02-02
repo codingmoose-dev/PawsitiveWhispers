@@ -1,85 +1,45 @@
 <?php
 include '../model/VolunteerModel.php'; 
-$userModel = new VolunteerModel();
 
-// Retrieve data if needed
-$connection = $userModel->getConnection();
-
-// Optionally pass the model or data to the view
-include '../view/view_user.php';
-
-class UserController {
-    private $userModel;
+class VolunteerController {
+    private $volunteermodel;
 
     public function __construct() {
-        // Initialize the model
-        $this->userModel = new VolunteerModel();
+        $this->volunteermodel = new VolunteerModel();
     }
 
-    public function handleRequest() {
-        // Check if the form is submitted for updating user data
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update') {
-            $this->updateVolunteer();
-        }
-    }
+    public function register() {
+        // Check if the form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize the input data
+            $fullName = htmlspecialchars($_POST['full_name']);
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+            $phone = htmlspecialchars($_POST['phone']);
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $homeAddress = htmlspecialchars($_POST['home_address']);
+            $cityStateCountry = htmlspecialchars($_POST['city_state_country']);
+            $locationEnabled = isset($_POST['location_enabled']) && $_POST['location_enabled'] == 'Yes' ? true : false;
+            $emergencyRescue = isset($_POST['emergency_rescue']) && $_POST['emergency_rescue'] == 'yes' ? true : false;
+            $organizeCampaigns = isset($_POST['organize_campaigns']) && $_POST['organize_campaigns'] == 'yes' ? true : false;
+            $manageAdoption = isset($_POST['manage_adoption']) && $_POST['manage_adoption'] == 'yes' ? true : false;
+            $skills = htmlspecialchars($_POST['skills']);
+            $experienceYears = (int)$_POST['experience_years'];
+            $availability = $_POST['availability'];
 
-    private function updateVolunteer() {
-        // Collect user input from the form
-        $userId = $_POST['user_id'];
-        $fullName = $_POST['FullName'];
-        $email = $_POST['Email'];
-        $phone = $_POST['Phone'];
-        $password = $_POST['Password'];
-        $homeAddress = $_POST['HomeAddress'];
-        $cityStateCountry = $_POST['CityStateCountry'];
-        $locationEnabled = isset($_POST['LocationEnabled']) ? 1 : 0;
-        $emergencyRescue = isset($_POST['EmergencyRescue']) ? 1 : 0;
-        $organizeCampaigns = isset($_POST['OrganizeCampaigns']) ? 1 : 0;
-        $manageAdoption = isset($_POST['ManageAdoption']) ? 1 : 0;
-        $skills = $_POST['Skills'];
-        $experienceYears = $_POST['ExperienceYears'];
-        $availability = $_POST['Availability'];
-
-        // Update user data in the database
-        $updateQuery = "UPDATE Volunteers SET FullName=?, Email=?, Phone=?, Password=?, HomeAddress=?, CityStateCountry=?, LocationEnabled=?, EmergencyRescue=?, OrganizeCampaigns=?, ManageAdoption=?, Skills=?, ExperienceYears=?, Availability=? WHERE VolunteerID=?";
-
-        // Prepare the SQL statement
-        if ($stmt = $this->userModel->getConnection()->prepare($updateQuery)) {
-            // Bind parameters
-            $stmt->bind_param(
-                'ssssssiiiiissi',
-                $fullName,
-                $email,
-                $phone,
-                $password,
-                $homeAddress,
-                $cityStateCountry,
-                $locationEnabled,
-                $emergencyRescue,
-                $organizeCampaigns,
-                $manageAdoption,
-                $skills,
-                $experienceYears,
-                $availability,
-                $userId
-            );
-
-            // Execute the query
-            if ($stmt->execute()) {
-                // Redirect with a success message and trigger the refresh
-                header('Location: view_user.php?success=update');
+            if ($this->volunteermodel->registerVolunteer($fullName, $email, $phone, $password, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability)) {
+                // Set success message and redirect
+                session_start();
+                $_SESSION['registration_success'] = true;
+                header('Location: ../view/VolunteerHomepage.php');
                 exit();
             } else {
-                // Redirect with an error message
-                header('Location: view_user.php?error=true');
-                exit();
+                return "Registration failed. Please try again.";
             }
-        } else {
-            // Redirect with an error if the statement could not be prepared
-            header('Location: view_user.php?error=true');
-            exit();
         }
-
     }
 }
+
+$volunteerController = new VolunteerController();
+$volunteerController->register();
 ?>

@@ -12,3 +12,6 @@ class VolunteerHomeControls {
         return $this->model->getOngoingRescueMissions();
     }
 }
+
+$volunteerController = new VolunteerHomeControls();
+$rescueMissions = $volunteerController->displayOngoingRescueMissions();

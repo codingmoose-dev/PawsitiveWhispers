@@ -10,6 +10,20 @@ class VolunteerModel {
         }
     }
 
+
+    // Register a new volunteer
+    public function registerVolunteer($fullName, $email, $phone, $password, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability) {
+        $query = "INSERT INTO Volunteers (FullName, Email, Phone, Password, HomeAddress, CityStateCountry, LocationEnabled, EmergencyRescue, OrganizeCampaigns, ManageAdoption, Skills, ExperienceYears, Availability) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        if ($stmt = $this->connection->prepare($query)) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);  
+            $stmt->bind_param('ssssssssssssi', $fullName, $email, $phone, $hashedPassword, $homeAddress, $cityStateCountry, $locationEnabled, $emergencyRescue, $organizeCampaigns, $manageAdoption, $skills, $experienceYears, $availability);
+            return $stmt->execute();
+        } else {
+            return false;
+        }
+    }    
+
     public function getOngoingRescueMissions() {
         $query = "SELECT * FROM RescueMissions WHERE Status IN ('In Progress', 'Pending')";
         $result = $this->connection->query($query);
