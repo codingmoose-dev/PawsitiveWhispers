@@ -1,4 +1,6 @@
 <?php
+// Start the session
+session_start();
 include '../model/UserModel.php';
 
 class UserController {
@@ -9,12 +11,15 @@ class UserController {
     }
 
     // SignIn method to authenticate the user
+
+
     public function SignIn($email, $password) {
         $user = $this->userModel->findUserByEmail($email, $password);
 
         if ($user) {
-            // Log the successful sign-in
-            error_log("User email: $email, User table: {$user['table']}");
+            // Set session variables for user details
+            $_SESSION['user_full_name'] = $user['FullName'];
+            $_SESSION['user_id'] = $user['GeneralUserID'] ?? $user['VolunteerID'] ?? $user['VeterinarianID'] ?? $user['BenefactorID']; // Dynamic ID based on the table
 
             // Redirect based on the user's table
             switch ($user['table']) {
@@ -30,9 +35,6 @@ class UserController {
                 case 'Benefactors':
                     header("Location: ../../Benefactor/view/BenefactorHomepage.php");
                     break;
-                default:
-                    header("Location: ../view/Error.php");
-                    break;
             }
             exit();
         } else {
@@ -42,6 +44,7 @@ class UserController {
             exit();
         }
     }
+
 }
 
 
