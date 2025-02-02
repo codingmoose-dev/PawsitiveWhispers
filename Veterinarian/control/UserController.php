@@ -1,6 +1,5 @@
 <?php
 include '../model/VetModel.php';
-session_start();
 
 class UserController {
     private $veterinarianModel;
@@ -77,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $data = [
         'Email' => $email,
         'Password' => $hashedPassword,
-        'ClinicName' => $_POST['clinicname'],
-        'Speciality' => $_POST['speciality'],
+        'ClinicName' => $_POST['ClinicName'],
+        'Speciality' => $_POST['Speciality'],
         'FullName' => $_POST['FullName'],
         'Phone' => $_POST['Phone'],
         'ClinicAddress' => $_POST['ClinicAddress'],
