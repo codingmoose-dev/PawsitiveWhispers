@@ -25,15 +25,15 @@ class AnimalShelterModel {
         );
         $stmt->bind_param(
             "sssissssi",
-            $data['name'], 
-            $data['species'], 
-            $data['breed'], 
-            $data['age'], 
-            $data['gender'], 
-            $data['animalCondition'], 
-            $data['rescueDate'], 
-            $data['adoptionStatus'], 
-            $data['shelterID']
+            $data['Name'], 
+            $data['Species'], 
+            $data['Breed'], 
+            $data['Age'], 
+            $data['Gender'], 
+            $data['AnimalCondition'], 
+            $data['RescueDate'], 
+            $data['AdoptionStatus'], 
+            $data['ShelterID']
         );
 
         return $stmt->execute();

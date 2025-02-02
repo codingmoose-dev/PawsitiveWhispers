@@ -27,8 +27,8 @@ include '../control/HomeControls.php'
         <nav>
             <a href="#home">Home</a>
             <a href="#submit-case">Submit a Case</a>
-            <a href="#donate">Donate</a>
             <a href="#adoption">Adopt an Animal</a>
+            <a href="#donate">Donate</a>
             <a href="#resources">Educational Resources</a>
         </nav>
     </header>
@@ -49,72 +49,73 @@ include '../control/HomeControls.php'
             <!-- Hidden Form for animal case submission -->
            <div id="SubmitCaseContent" class="grid-container" style="display: none;">
                 <h1>Submit an Animal Case</h1>
-
-                <!-- Message display area -->
-                <div id="message" style="color: green; font-weight: bold; margin-bottom: 10px;"></div>
-
                 <!-- Form for animal case submission -->
                 <form id="animalForm" enctype="multipart/form-data">
-                    <label for="name">Animal Name:</label>
-                    <input type="text" id="name" name="name"><br>
-
-                    <label for="species">Species:</label>
-                    <input type="text" id="species" name="species"><br>
-
-                    <label for="breed">Breed:</label>
-                    <input type="text" id="breed" name="breed"><br>
-
-                    <label for="age">Age:</label>
-                    <input type="number" id="age" name="age"><br>
-
-                    <label for="gender">Gender:</label>
-                    <select id="gender" name="gender">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Unknown">Unknown</option>
-                    </select><br>
-
-                    <label for="animal_condition">Animal Condition:</label>
-                    <textarea id="animal_condition" name="animal_condition"></textarea><br>
-
-                    <label for="rescue_date">Rescue Date:</label>
-                    <input type="date" id="rescue_date" name="rescue_date"><br>
-
-                    <label for="adoption_status">Adoption Status:</label>
-                    <select id="adoption_status" name="adoption_status">
-                        <option value="UnderCare">Under Care</option>
-                        <option value="Adopted">Adopted</option>
-                        <option value="Available">Available</option>
-                    </select><br>
-
-                    <label for="case_type">Case Type:</label>
-                    <select id="case_type" name="case_type">
-                        <option value="injured">Injured</option>
-                        <option value="adoption">Adoption</option>
-                    </select><br>
-
-                    <!-- Shelter dropdown (hidden initially) -->
-                    <div id="shelterDropdown" style="display: none;">
-                        <label for="shelter">Select Shelter:</label>
-                        <select id="shelter" name="shelter"></select><br>
+                    <div class="form-grid">
+                        <label for="Name">Animal Name:</label>
+                        <input type="text" id="Name" name="Name">
                     </div>
 
-                    <!-- Image upload for PicturePath -->
-                    <label for="picture">Animal Picture:</label>
-                    <input type="file" id="picture" name="picture" accept="image/*"><br>
+                    <div class="form-grid">
+                        <label for="Species">Species:</label>
+                        <input type="text" id="Species" name="Species">
+                    </div>
+
+                    <div class="form-grid">
+                        <label for="Breed">Breed:</label>
+                        <input type="text" id="Breed" name="Breed">
+                    </div>
+
+                    <div class="form-grid">
+                        <label for="Age">Age:</label>
+                        <input type="number" id="Age" name="Age">
+                    </div>
+
+                    <div class="form-grid">
+                        <label for="Gender">Gender:</label>
+                        <select id="Gender" name="Gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grid">
+                        <label for="AnimalCondition">Animal Condition:</label>
+                        <select id="AnimalCondition" name="AnimalCondition">
+                            <option value="Healthy">Healthy</option>
+                            <option value="Injured">Injured</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grid">
+                        <label for="RescueDate">Rescue Date:</label>
+                        <input type="date" id="RescueDate" name="RescueDate">
+                    </div>
+
+                    <div class="form-grid">
+                        <label for="AdoptionStatus">Adoption Status:</label>
+                        <select id="AdoptionStatus" name="AdoptionStatus">
+                            <option value="UnderCare">Under Care</option>
+                            <option value="Adopted">Adopted</option>
+                            <option value="Available">Available</option>
+                        </select>
+                    </div>
+
+                    <div id="shelterDropdown" class="form-grid">
+                        <label for="ShelterID">Select Shelter:</label>
+                        <select id="ShelterID" name="ShelterID"></select>
+                    </div>
+
+
+                    <div class="form-grid">
+                        <label for="picture">Animal Picture:</label>
+                        <input type="file" id="picture" name="picture" accept="image/*">
+                    </div>
 
                     <button type="submit">Submit</button>
                 </form>
-
-                <script src="../js/Script.js"></script>
             </div>
-    </section>
-
-    <!-- Donate Section -->
-    <section id="donate">
-        <h2>Donate</h2>
-        <p>Support our mission by donating to specific rescue cases or general campaigns. Your contributions save lives!</p>
-        <a href="Donate.php" class="btn">Make a Donation</a>
     </section>
 
     <!-- Adoption Section -->
@@ -122,6 +123,13 @@ include '../control/HomeControls.php'
         <h2>Animal Adoption</h2>
         <p>Looking to adopt? Browse available animals and apply for adoption. Track your application status and give a furry friend a forever home.</p>
         <a href="../../Main/view/Adoption.php" class="btn">Adopt an Animal</a>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate">
+        <h2>Donate</h2>
+        <p>Support our mission by donating to specific rescue cases or general campaigns. Your contributions save lives!</p>
+        <a class="btn">Make a Donation</a>
     </section>
 
     <!-- Resources Section -->

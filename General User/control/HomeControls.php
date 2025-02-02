@@ -1,30 +1,91 @@
 <?php
 include '../model/AnimalShelterModel.php';
 
-$model = new AnimalShelterModel();
+class AnimalShelterController
+{
+    private $model;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle form submission
-    $data = [
-        'name' => $_POST['name'],
-        'species' => $_POST['species'],
-        'breed' => $_POST['breed'],
-        'age' => $_POST['age'],
-        'gender' => $_POST['gender'],
-        'animalCondition' => $_POST['animal_condition'],
-        'rescueDate' => $_POST['rescue_date'],
-        'adoptionStatus' => ($_POST['case_type'] === 'adoption') ? 'Available' : 'UnderCare',
-        'shelterID' => ($_POST['case_type'] === 'adoption') ? $_POST['shelter'] : null
-    ];
-
-    if ($model->addAnimal($data)) {
-        echo json_encode(['success' => true, 'message' => 'Animal added successfully!']);
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to add the animal.']);
+    public function __construct()
+    {
+        $this->model = new AnimalShelterModel();
     }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['fetchShelters'])) {
-    // Handle shelter data fetching
-    $shelters = $model->getAllShelters();
-    echo json_encode($shelters); // Return as JSON
+
+    public function handlePostRequest()
+    {
+        $errors = [];
+
+        if (!isset($_POST['Name']) || empty($_POST['Name'])) {
+            $errors[] = 'Name is required.';
+        }
+        if (!isset($_POST['Species']) || empty($_POST['Species'])) {
+            $errors[] = 'Species is required.';
+        }
+        if (!isset($_POST['Breed']) || empty($_POST['Breed'])) {
+            $errors[] = 'Breed is required.';
+        }
+        if (!isset($_POST['Age']) || empty($_POST['Age'])) {
+            $errors[] = 'Age is required.';
+        }
+        if (!isset($_POST['Gender']) || empty($_POST['Gender'])) {
+            $errors[] = 'Gender is required.';
+        }
+        if (!isset($_POST['AnimalCondition']) || empty($_POST['AnimalCondition'])) {
+            $errors[] = 'Animal condition is required.';
+        }
+        if (!isset($_POST['RescueDate']) || empty($_POST['RescueDate'])) {
+            $errors[] = 'Rescue date is required.';
+        }
+
+        if (empty($errors)) {
+            $data = [
+                'Name' => $_POST['Name'],
+                'Species' => $_POST['Species'],
+                'Breed' => $_POST['Breed'],
+                'Age' => $_POST['Age'],
+                'Gender' => $_POST['Gender'],
+                'AnimalCondition' => $_POST['AnimalCondition'],
+                'RescueDate' => $_POST['RescueDate'],
+                'AdoptionStatus' => ($_POST['CaseType'] === 'adoption') ? 'Available' : 'UnderCare',
+                'ShelterID' => ($_POST['CaseType'] === 'adoption' && isset($_POST['ShelterID'])) ? $_POST['ShelterID'] : null
+            ];
+
+            if ($this->model->addAnimal($data)) {
+                echo 'Animal added successfully!';
+            } else {
+                echo 'Failed to add the animal.';
+            }
+        } else {
+            foreach ($errors as $error) {
+                echo $error . '<br>';
+            }
+        }
+    }
+
+    public function handleGetRequest()
+    {
+        if (isset($_GET['fetchShelters'])) {
+            $shelters = $this->model->getAllShelters();
+
+            if ($shelters) {
+                echo '<select id="ShelterID" name="ShelterID">';
+                foreach ($shelters as $shelter) {
+                    echo '<option value="' . htmlspecialchars($shelter['ShelterID']) . '">' . htmlspecialchars($shelter['ShelterName']) . '</option>';
+                }
+                echo '</select>';
+            } else {
+                echo 'No shelters found.';
+            }
+        }
+    }
+}
+
+// Instantiate the controller
+$controller = new AnimalShelterController();
+
+// Determine the request type and call appropriate method
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller->handlePostRequest();
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $controller->handleGetRequest();
 }
 ?>
