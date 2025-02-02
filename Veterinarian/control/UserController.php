@@ -1,6 +1,7 @@
 <?php
 include '../model/VetModel.php';
 session_start();
+
 class UserController {
     private $veterinarianModel;
 
@@ -8,15 +9,13 @@ class UserController {
         $this->veterinarianModel = new VetModel();
     }
 
-    //For Registering a new Veterinarian
+    // For Registering a new Veterinarian
     public function registerVeterinarian($data) {
         return $this->veterinarianModel->addVeterinarian($data);
     }
 
-
     public function viewAllVeterinarians() {
-        $veterinarians = $this->veterinarianModel->getAllVeterinarians();
-        return $veterinarians;
+        return $this->veterinarianModel->getAllVeterinarians();
     }
 
     public function HandleSearchById($id) {
@@ -40,14 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $password = trim($_POST['password']);
     $confirmPassword = trim($_POST['confirm_password']);
 
-    // ✅ Email Validation
-    //if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-       // $_SESSION['error'] = "Invalid email format.";
-       // header("Location: ../view/VeterinarianRegistration.php");
-       // exit;
-   // }
-
-    // ✅ Password Validation (ADD THIS SECTION)
+    // Password Validation
     if (empty($password)) {
         $_SESSION['error'] = "Password cannot be empty.";
         header("Location: ../view/VeterinarianRegistration.php");
@@ -78,65 +70,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         exit;
     }
 
-    // ✅ Hash the password before storing it
+    // Hash the password before storing it
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // ✅ Save veterinarian data in the database
-    $stmt = $conn->prepare("INSERT INTO veterinarians (email, password, clinicname, speciality) VALUES (?, ?, ?, ?)");
-    if ($stmt->execute([$email, $hashedPassword, $_POST['clinicname'], $_POST['speciality']])) {
-        $_SESSION['success'] = "Veterinarian registration successful!";
-        header("Location: ../view/VeterinarianLogin.php");
-        exit;
-    } else {
-        $_SESSION['error'] = "Error: Registration failed.";
-        header("Location: ../view/VeterinarianRegistration.php");
-        exit;
-    } 
-
-    $uploadDir = "../uploads/medical-license/"; 
-
-    $vetLicensePath = $_FILES['VetLicensePath']['name'] ? $uploadDir . basename($_FILES['VetLicensePath']['name']) : null;
-    $govIDPath = $_FILES['GovIDPath']['name'] ? $uploadDir . basename($_FILES['GovIDPath']['name']) : null;
-    $trainingMaterialsPath = $_FILES['TrainingMaterialsPath']['name'] ? $uploadDir . basename($_FILES['TrainingMaterialsPath']['name']) : null;
-
-    // Move uploaded files to the target directory
-    move_uploaded_file($_FILES['VetLicensePath']['tmp_name'], $vetLicensePath);
-    move_uploaded_file($_FILES['GovIDPath']['tmp_name'], $govIDPath);
-    move_uploaded_file($_FILES['TrainingMaterialsPath']['tmp_name'], $trainingMaterialsPath);
-
+    // Prepare data array
     $data = [
+        'Email' => $email,
+        'Password' => $hashedPassword,
+        'ClinicName' => $_POST['clinicname'],
+        'Speciality' => $_POST['speciality'],
         'FullName' => $_POST['FullName'],
-        'Email' => $_POST['Email'],
         'Phone' => $_POST['Phone'],
-        'Password' => password_hash($_POST['Password'], PASSWORD_BCRYPT), 
         'ClinicAddress' => $_POST['ClinicAddress'],
         'LocationEnabled' => $_POST['LocationEnabled'],
         'License' => $_POST['License'],
-        'ClinicName' => $_POST['ClinicName'],
-        'Speciality' => $_POST['Speciality'],
         'Services' => $_POST['Services'],
         'WorkingHours' => $_POST['WorkingHours'],
-        'VetLicensePath' => $vetLicensePath, 
-        'GovIDPath' => $govIDPath,
-        'TrainingMaterialsPath' => $trainingMaterialsPath,
-        'HostTraining' => $_POST['HostTraining'],
     ];
 
+    // Add veterinarian to the database
     $result = $userController->registerVeterinarian($data);
-    $message = $result ? "Veterinarian registered successfully." : "Failed to register veterinarian.";
-    echo $message;
-    // Redirect to homepage after successful registration
+    
     if ($result) {
-        header("Location: ../view/VeterinarianHomePage.php");
-        exit(); 
+        $_SESSION['success'] = "Veterinarian registered successfully.";
+
+        // Handle file uploads
+        $uploadDir = "../uploads/medical-license/";
+
+        // Move uploaded files to the target directory
+        $vetLicensePath = $_FILES['VetLicensePath']['name'] ? $uploadDir . basename($_FILES['VetLicensePath']['name']) : null;
+        $govIDPath = $_FILES['GovIDPath']['name'] ? $uploadDir . basename($_FILES['GovIDPath']['name']) : null;
+        $trainingMaterialsPath = $_FILES['TrainingMaterialsPath']['name'] ? $uploadDir . basename($_FILES['TrainingMaterialsPath']['name']) : null;
+
+        // Ensure files are uploaded
+        if ($vetLicensePath) move_uploaded_file($_FILES['VetLicensePath']['tmp_name'], $vetLicensePath);
+        if ($govIDPath) move_uploaded_file($_FILES['GovIDPath']['tmp_name'], $govIDPath);
+        if ($trainingMaterialsPath) move_uploaded_file($_FILES['TrainingMaterialsPath']['tmp_name'], $trainingMaterialsPath);
+
+        // Add paths to database (you should update this part inside `VetModel` for better separation)
+        $vetLicensePath = $vetLicensePath ?: null;
+        $govIDPath = $govIDPath ?: null;
+        $trainingMaterialsPath = $trainingMaterialsPath ?: null;
+
+        // Save the file paths in the database
+        $this->veterinarianModel->updateVeterinarianFiles($result, $vetLicensePath, $govIDPath, $trainingMaterialsPath);
+
+        // Redirect after success
+        header("Location: ../view/VeterinarianHomepage.php");
+        exit();
     } else {
-        echo "Failed to register veterinarian.";
+        $_SESSION['error'] = "Failed to register veterinarian.";
+        header("Location: ../view/VeterinarianRegistration.php");
+        exit();
     }
 }
 
-
-// Handling search by ID
-$veterinarians = $userController->viewAllVeterinarians();
+// Handle search by ID
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vet_id'])) {
     $vetId = intval($_POST['vet_id']);
     $veterinarian = $userController->HandleSearchById($vetId);
@@ -151,12 +140,7 @@ if (isset($_POST['missionID']) && isset($_POST['status'])) {
     $missionID = $_POST['missionID'];
     $status = $_POST['status'];
     $updateSuccess = $userController->updateMissionStatus($missionID, $status);
-    if ($updateSuccess) {
-        echo "success"; 
-    } else {
-        echo "failed";  
-    }
+    echo $updateSuccess ? "success" : "failed";
 }
-
 
 ?>

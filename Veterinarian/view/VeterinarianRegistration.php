@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../control/UserController.php';
 ?>
 
@@ -24,6 +25,26 @@ include '../control/UserController.php';
     <section id="registration">
         <h2>Veterinarian Registration Form</h2>
         <p>Fill in the form below to register as a veterinarian on our platform.</p>
+
+
+    <!-- PHP Error and Success Message Display -->
+    <?php if (isset($_SESSION['error'])): ?>
+        <div id="errorMessages">
+            <ul>
+                <li><?php echo $_SESSION['error']; ?></li>
+            </ul>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['success'])): ?>
+        <div id="successMessages">
+            <ul>
+                <li><?php echo $_SESSION['success']; ?></li>
+            </ul>
+        </div>
+        <?php unset($_SESSION['success']); ?>
+    <?php endif; ?>
 
         <form name="registrationForm" method="POST" action="" onsubmit="return validateForm()" enctype="multipart/form-data">
             <fieldset>

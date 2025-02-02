@@ -6,18 +6,16 @@ function validateForm() {
     const FullName = document.forms["registrationForm"]["FullName"].value;
     const Email = document.forms["registrationForm"]["Email"].value;
     const Phone = document.forms["registrationForm"]["Phone"].value;
-    //const Password = document.forms["registrationForm"]["Password"].value;
-    //const ConfirmPassword = document.forms["registrationForm"]["ConfirmPassword"].value;
     const ClinicAddress = document.forms["registrationForm"]["ClinicAddress"].value;
     const License = document.forms["registrationForm"]["License"].value;
     const ClinicName = document.forms["registrationForm"]["ClinicName"].value;
     const Speciality = document.forms["registrationForm"]["Speciality"].value;
-   // const Services = document.forms["registrationForm"]["Services"].value;
- //   const WorkingHours = document.forms["registrationForm"]["WorkingHours"].value;
-   // const VetLicensePath = document.forms["registrationForm"]["VetLicensePath"].value;
-    //const GovIDPath = document.forms["registrationForm"]["GovIDPath"].value;
-   // const TrainingMaterialsPath = document.forms["registrationForm"]["TrainingMaterialsPath"].value;
-    //const HostTraining = document.forms["registrationForm"]["HostTraining"].value;
+    const Services = document.forms["registrationForm"]["Services"].value;
+    const WorkingHours = document.forms["registrationForm"]["WorkingHours"].value;
+    const VetLicensePath = document.forms["registrationForm"]["VetLicensePath"].value;
+    const GovIDPath = document.forms["registrationForm"]["GovIDPath"].value;
+    const TrainingMaterialsPath = document.forms["registrationForm"]["TrainingMaterialsPath"].value;
+    const HostTraining = document.forms["registrationForm"]["HostTraining"].value;
 
     // Validate Full Name
     if (FullName === "") {
@@ -35,19 +33,6 @@ function validateForm() {
     if (Phone === "" || !Phone.match(phoneRegex)) {
         errors.push("Please enter a valid phone number (11 digits).");
     }
-
-    // Validate Password
-   // if (Password === "") {
-    //    errors.push("Password is required.");
-    //}
-
-    //if (ConfirmPassword === "") {
-      //  errors.push("Please confirm your password.");
-    //}
-    
-    //if (Password !== ConfirmPassword) {
-      //  errors.push("Passwords do not match.");
-    //}
 
     // Validate Clinic Address
     if (ClinicAddress === "") {
@@ -70,27 +55,27 @@ function validateForm() {
     }
 
     // Validate Offered Services
-   // if (Services === "") {
-       // errors.push("Please select at least one service offered.");
-   // }
+    if (Services === "") {
+        errors.push("Please select at least one service offered.");
+    }
 
     // Validate Working Hours
-   // if (WorkingHours === "") {
-        //errors.push("Availability Schedule is required.");
-   // }
+    if (WorkingHours === "") {
+        errors.push("Availability Schedule is required.");
+    }
 
     // Validate File Uploads
-    //if (VetLicensePath === "") {
-    //    errors.push("Please upload your Veterinary or Medical License.");
-   // }
-   // if (GovIDPath === "") {
-   //     errors.push("Please upload your Government-issued ID.");
-   // }
+    if (VetLicensePath === "") {
+        errors.push("Please upload your Veterinary or Medical License.");
+    }
+    if (GovIDPath === "") {
+        errors.push("Please upload your Government-issued ID.");
+    }
 
     // Validate Training Materials (optional)
-   // if (HostTraining === "") {
-       // errors.push("Please select whether you want to host training sessions.");
-   // }
+    if (HostTraining === "") {
+        errors.push("Please select whether you want to host training sessions.");
+    }
 
     if (errors.length > 0) {
         errorContainer.innerHTML = "<ul><li>" + errors.join("</li><li>") + "</li></ul>";
