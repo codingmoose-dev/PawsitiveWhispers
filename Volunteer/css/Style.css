@@ -96,6 +96,19 @@ section {
     font-size: 1.8em;
 }
 
+#error-messages {
+    color: red;
+    background-color: #ffcccc; /* Softer background for contrast */
+    font-size: 14px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#error-list li {
+    font-weight: bold; /* Makes error messages stand out */
+}
+
 /* Registration Form Styles */
 #registration {
     background-color: #f4f4f4;
