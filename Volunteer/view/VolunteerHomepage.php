@@ -31,81 +31,90 @@ include '../control/VolunteerHomeControls.php';
         <a href="#adoption">Adopt an Animal</a>
     </nav>
 </header>
- 
-    <!-- Home Section -->
+
+<!-- Home Section -->
 <section id="home">
-<h2>WELCOME, VOLUNTEER!</h2>
-<p>Join hands with other volunteers to respond to rescue missions, coordinate adoptions, and make a positive impact on animal welfare.</p>
-<p>Your contributions save lives. Let's make a difference together!</p>
+    <h2>WELCOME, VOLUNTEER!</h2>
+    <p>Join hands with other volunteers to respond to rescue missions, coordinate adoptions, and make a positive impact on animal welfare.</p>
+    <p>Your contributions save lives. Let's make a difference together!</p>
 </section>
- 
-    <!-- Rescue Missions Section -->
-    <section id="missions">
+
+<!-- Rescue Missions Section -->
+<section id="missions">
     <h2>View & Respond to Rescue Missions</h2>
     <p>Check out assigned rescue cases or ongoing missions. Update case statuses, upload animal condition reports, and track your progress.</p>
     <button id="show-rescue-missions" class="btn">View Rescue Missions</button>
-        <div id="rescue-missions-content" style="display: none;">
-            <!-- Rescue Missions Section -->
-            <h3>Ongoing Rescue Missions</h3>
-            <p>Choose a mission to support and help in the rescue efforts.</p>
-            <div id="missions">
-                <?php
-                // Check if there are rescue missions available
-                if (!empty($rescueMissions)) {
-                    // Start the table with proper HTML tags
-                    echo "<table border='1' cellpadding='10' cellspacing='0'>";
-                    echo "<tr>
-                            <th>Mission ID</th>
-                            <th>Mission Name</th>
-                            <th>Description</th>
-                            <th>Reported By</th>
-                            <th>Assigned To</th>
-                            <th>Location</th>
-                            <th>Status</th>
-                            <th>Priority Level</th>
-                        </tr>";
+    <div id="rescue-missions-content" style="display: none;">
+        <h3>Ongoing Rescue Missions</h3>
+        <p>Choose a mission to support and help in the rescue efforts.</p>
+        <div id="missions">
+            <?php
+            if (!empty($rescueMissions)) {
+                echo "<table border='1' cellpadding='10' cellspacing='0'>";
+                echo "<tr>
+                        <th>Mission ID</th>
+                        <th>Mission Name</th>
+                        <th>Description</th>
+                        <th>Reported By</th>
+                        <th>Assigned To</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Priority Level</th>
+                        <th>Actions</th>
+                    </tr>";
 
-                    // Loop through rescue missions and display them row by row
-                    foreach ($rescueMissions as $mission) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($mission['MissionID']) . "</td>";
-                        echo "<td>" . htmlspecialchars($mission['MissionName']) . "</td>";
-                        echo "<td>" . htmlspecialchars($mission['Description']) . "</td>";
-                        echo "<td>" . htmlspecialchars($mission['ReportedBy']) . "</td>";
-                        echo "<td>" . htmlspecialchars($mission['AssignedTo']) . "</td>";
-                        echo "<td>" . htmlspecialchars($mission['Location']) . "</td>";
-                        echo "<td>" . htmlspecialchars($mission['Status']) . "</td>";
-                        echo "<td>" . htmlspecialchars($mission['PriorityLevel']) . "</td>";
-                        echo "</tr>";
-                    }
-
-                    // Close the table tag
-                    echo "</table>";
-                } else {
-                    // If no rescue missions are available, show this message
-                    echo "<p>No rescue missions available.</p>";
+                foreach ($rescueMissions as $mission) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($mission['MissionID']) . "</td>";
+                    echo "<td>" . htmlspecialchars($mission['MissionName']) . "</td>";
+                    echo "<td>" . htmlspecialchars($mission['Description']) . "</td>";
+                    echo "<td>" . htmlspecialchars($mission['ReportedBy']) . "</td>";
+                    echo "<td>" . htmlspecialchars($mission['AssignedTo']) . "</td>";
+                    echo "<td>" . htmlspecialchars($mission['Location']) . "</td>";
+                    echo "<td>" . htmlspecialchars($mission['Status']) . "</td>";
+                    echo "<td>" . htmlspecialchars($mission['PriorityLevel']) . "</td>";
+                    echo "<td><button class='btn join-btn'>Join</button></td>";
+                    echo "</tr>";
                 }
-                ?>
-            </div>
-        </div>  
-    <a href="UpdateCase.php" class="btn">Update Case</a>
-    </section>
- 
-    <!-- Volunteer Collaboration Section -->
-<section id="volunteers">
-<h2>Collaborate with Other Volunteers</h2>
-<p>Connect with fellow volunteers for collaborative rescue missions. Share updates, plan strategies, and make teamwork seamless.</p>
-<a href="VolunteerCollaboration.php" class="btn">Collaborate</a>
+                echo "</table>";
+            } else {
+                echo "<p>No rescue missions available.</p>";
+            }
+            ?>
+        </div>
+    </div>
 </section>
 
-    <!-- Adoption Section -->
-    <section id="adoption">
-<h2>Animal Adoption</h2>
-<p>Help manage the adoption process. Review applications, coordinate handovers, and track the journey of animals finding their forever homes.</p>
-<a href="../../Main/view/Adoption.php" class="btn">Adopt an Animal</a>
+<!-- Volunteer Collaboration Section -->
+<section id="volunteers">
+    <h2>Collaborate with Other Volunteers</h2>
+    <p>Connect with fellow volunteers for collaborative rescue missions. Share updates, plan strategies, and make teamwork seamless.</p>
+    <button id="collaborate-btn" class="btn">Collaborate</button>
+
+    <!-- Search Bar (Initially Hidden) -->
+    <div id="search-bar" style="display: none;">
+        <input type="number" id="volunteer-id" name="volunteerID" placeholder="Enter Volunteer ID">
+        <button id="search-btn" class="btn">Search</button>
+    </div>
+
+    <!-- Volunteer Details Table (Initially Hidden) -->
+    <div id="volunteer-details" style="display: none;">
+        <h3>Volunteer Details</h3>
+        <table id="volunteer-table" border="1" cellpadding="10" cellspacing="0">
+            <!-- Table will be populated dynamically -->
+        </table>
+        <button id="connect-btn" class="btn">Connect</button>
+    </div>
 </section>
- 
-    <!-- Footer -->
+
+<!-- Adoption Section -->
+<section id="adoption">
+    <h2>Animal Adoption</h2>
+    <p>Help manage the adoption process. Review applications, coordinate handovers, and track the journey of animals finding their forever homes.</p>
+    <a href="../../Main/view/Adoption.php" class="btn">Adopt an Animal</a>
+</section>
+
+<!-- Footer -->
 <footer>
     <p>© 2024 PawsitiveWellbeing | All Rights Reserved</p>
     <p>Follow us on: 
@@ -114,10 +123,7 @@ include '../control/VolunteerHomeControls.php';
         <a href="#">Instagram</a>
     </p>
 </footer>
-            
-    <script src="../js/ShowDetailHomepage.js"></script>
 
+<script src="../js/ShowDetailHomepage.js"></script>
 </body>
 </html>
-
- 

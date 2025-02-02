@@ -11,6 +11,10 @@ class VolunteerHomeControls {
     public function displayOngoingRescueMissions() {
         return $this->model->getOngoingRescueMissions();
     }
+
+    public function displayVolunteerByID($volunteerID) {
+        return $this->model->getVolunteerByID($volunteerID);
+    }
 }
 
 $volunteerController = new VolunteerHomeControls();

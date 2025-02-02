@@ -73,5 +73,27 @@ class VolunteerModel {
     return false;
     }
 
+
+    public function getVolunteerByID($volunteerID) {
+        // SQL query to fetch volunteer details by ID
+        $sql = "SELECT * FROM Volunteers WHERE VolunteerID = ?";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bind_param("i", $volunteerID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $volunteer = null;
+        if ($result->num_rows > 0) {
+            $volunteer = $result->fetch_assoc(); // Fetch the volunteer details
+        }
+
+        $stmt->close();
+        return $volunteer;
     }
+
+    public function __destruct() {
+        $this->connection->close(); // Close the database connection
+    }
+
+}
 ?>
