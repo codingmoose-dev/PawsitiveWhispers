@@ -1,8 +1,12 @@
 <?php
+session_start(); // Start the session to access the session variables
+var_dump($_SESSION); // Debug: Check session content
+if (isset($_SESSION['registration_success'])) {
+    echo "<p>Registration successful! Welcome to the team!</p>";
+    unset($_SESSION['registration_success']);
+}
+
 include '../control/HomepageDisplayRequests.php'; 
-$homepageController = new HomepageDisplayRequests();
-$campaigns = $homepageController->displayOngoingCampaigns();
-$animals = $homepageController->showAnimalsUnderCare();
 ?>
 
 
@@ -31,13 +35,24 @@ $animals = $homepageController->showAnimalsUnderCare();
             <a href="#faq">Frequently Asked Questions</a>
         </nav>
     </header>
+    <?php
 
-    <!-- Home Section -->
-    <section id="home">
-        <h2>Welcome, Generous Benefactors!</h2>
-        <p>Empowering change through compassion. Be a part of our mission to rescue, rehabilitate, and support animals in need.</p>
-        <p>Whether you're an individual donor, a corporate sponsor, or an NGO partner, your contributions make a lasting difference!</p>
-    </section>
+        // Check if the user is logged in (i.e., session variables are set)
+        if (isset($_SESSION['user_full_name']) && isset($_SESSION['user_id'])) {
+            $fullName = $_SESSION['user_full_name'];
+            $userID = $_SESSION['user_id'];
+            echo "<h2>Welcome, Generous Benefactor $fullName (ID: $userID)!</h2>"; // Display the welcome message inside the section
+        } else {
+            echo "<h2>Welcome, Generous Benefactor!</h2>"; // Default welcome message if not logged in
+        }
+        ?>
+
+        <!-- Home Section -->
+        <section id="home">
+            <h2>Welcome, Generous Benefactor!</h2>
+            <p>Empowering change through compassion. Join our mission to rescue, rehabilitate, and support animals in need.</p>
+            <p>Your contributions, whether as an individual donor, corporate sponsor, or NGO partner, make a meaningful and lasting impact on the lives of animals!</p>
+        </section>
     
     <!-- Donate Section -->
     <section id="donate">
@@ -89,11 +104,13 @@ $animals = $homepageController->showAnimalsUnderCare();
                 }
                 ?>
             </div>
-            <label for="campaign-id">Campaign ID:</label>
-            <input type="number" id="campaign-id" name="campaign-id">
-            <label for="campaign-amount">Amount:</label>
-            <input type="number" id="campaign-amount" name="campaign-amount">
-            <button class="btn">Donate</button>
+            <br>
+            <label for="campaign-id">Donate to a Cause</label><br>
+            <input type="number" id="campaign-id" name="campaign-id" placeholder="Enter Campaign ID"><br>
+            <label for="campaign-amount">Amount:</label><br>
+            <input type="number" id="campaign-amount" name="campaign-amount" placeholder="Enter Donation Amount">
+            <button class="btn">Donate</button>  
+            <br>
             <br>
 
             <!-- Animal Cases Section -->
@@ -114,7 +131,7 @@ $animals = $homepageController->showAnimalsUnderCare();
                             <label for="donate-amount-<?php echo $animal['Name']; ?>">Amount:</label>
                             <input type="number" id="donate-amount-<?php echo $animal['Name']; ?>" name="donate-amount">
                             
-                            <label for="donate-for-<?php echo $animal['Name']; ?>">Donate For:</label>
+                            <label for="donate-for-<?php echo $animal['Name']; ?>">Concern:</label>
                             <select id="donate-for-<?php echo $animal['Name']; ?>" name="donate-for">
                                 <option value="food">Animal Food</option>
                                 <option value="medicine">Medicine</option>
@@ -129,7 +146,7 @@ $animals = $homepageController->showAnimalsUnderCare();
                 </div>
             </div>
 
-            <!-- General Fund Donation -->
+            <!-- General Fund Donation
             <h3>General Fund Donations</h3>
             <p>Make a one-time or recurring donation to support all our efforts.</p>
             <div id="general-fund">
@@ -144,6 +161,7 @@ $animals = $homepageController->showAnimalsUnderCare();
                     <button type="submit" class="btn">Submit Donation</button>
                 </form>
             </div>
+            -->
         </div> 
     </section> 
 

@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 // Include the BenefactorModel
@@ -39,12 +38,11 @@ class BenefactorController {
             $result = $this->benefactorModel->registerBenefactor($fullName, $email, $phone, $password, $address, $organizationType, $donationType, $preferredCampaign, $availability, $paymentMethod, $savePayment, $sponsorEvents, $ngoPartnership, $additionalNotes);
     
             if ($result) {
-                echo "<script>document.getElementById('message').innerHTML = 'Registration successful!';</script>";
-                header("Refresh: 3; Location: /PawsitiveWellbeing/Benefactor/view/BenefactorHomepage.php"); // Redirect after 3 seconds
+                $_SESSION['registration_success'] = true;
+                header('Location: ../view/BenefactorHomepage.php');
                 exit();
-            }
-            else {
-                echo "<script>document.getElementById('message').innerHTML = 'There was an error registering. Please try again.';</script>";
+            } else {
+                return "Registration failed. Please try again.";
             }
         } else {
             include '../view/BenefactorRegistration.php';

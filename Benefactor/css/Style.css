@@ -1,9 +1,12 @@
 /* General Styles */ 
 body {
+    height: 100%;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column; /* Makes sure the content is stacked vertically */
 }
 
 /* Header Styles */
@@ -79,6 +82,10 @@ section {
     background-color: #eaeaea;
 }
 
+#donate h3 {
+    text-align: center;
+}
+
 #adoption {
     background-color: #f4f4f4;
 }
@@ -138,7 +145,7 @@ legend {
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 5px 5x;
+    gap: 5px 5px;
     align-items: left;
 }
 
@@ -157,7 +164,7 @@ textarea {
 button, form button {
     background-color: #3498db;
     color: white;
-    border: none;
+    border: 2px solid transparent; /* Changed to a proper border */
     cursor: pointer;
     border-radius: 5px;
     padding: 10px 20px;
@@ -166,6 +173,12 @@ button, form button {
 
 button:hover, form button:hover {
     background-color: #2980b9;
+}
+
+input[type="number"], input[type="text"], select {
+    width: 52%; /* This will set the width of the input field to 50% of its parent (you can adjust this) */
+    max-width: 400px; /* This will ensure the textbox never gets wider than 400px */
+    margin: 0 auto; /* Optional: centers the textbox */
 }
 
 /* Radio and Checkbox Styles */
@@ -202,7 +215,7 @@ footer {
     color: white;
     text-align: center;
     padding: 10px 0;
-    margin-top: 20px;
+    margin-top: auto;
 }
 
 /* Button Styles */
@@ -213,7 +226,7 @@ footer {
     max-width: fit-content;
     background-color: #3498db;
     color: white;
-    border: none;
+    border: 2px solid transparent; /* Added border */
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;

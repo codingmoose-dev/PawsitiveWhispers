@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Animal Care Benefactor Registration</title>
-    <script src="../js/FormValidation.js"></script>    
     <link rel="stylesheet" href="../css/Style.css">
 </head>
 <body>
@@ -172,13 +171,15 @@
                 <textarea id="notes" name="notes" rows="4" placeholder="Let us know if you have any specific preferences or concerns."></textarea>
             </div>
         </fieldset>
-
             <button type="submit">Submit</button>
         </form>
     </section>
 
     <footer>
-        <p>&copy; 2025 PawsitiveWellbeing. All rights reserved.</p>
+        <p>&copy; 2024 PawsitiveWellbeing. All rights reserved.</p>
     </footer>
+
+    <script src="../js/FormValidation.js"></script>    
+
 </body>
 </html>

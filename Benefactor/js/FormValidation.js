@@ -69,7 +69,7 @@ function validateForm() {
     if (!termsChecked) {
         errors += "<p>You must agree to the Terms & Conditions.</p>";
         isValid = false;
-    }lluijj
+    }
 
     // Display errors or submit form
     if (!isValid) {

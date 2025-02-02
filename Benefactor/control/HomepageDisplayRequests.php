@@ -22,12 +22,15 @@ class HomepageDisplayRequests {
         return $this->model->getAnimalsUnderCare();
     }   
 }
+$homepageController = new HomepageDisplayRequests();
+$campaigns = $homepageController->displayOngoingCampaigns();
+$animals = $homepageController->showAnimalsUnderCare();
 
 // If the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['benefactor_id'])) {
     $benefactorID = $_POST['benefactor_id'];
     $donationImpactController = new HomepageDisplayRequests();
     $donations = $donationImpactController->getDonationImpact($benefactorID);
-    include '../view/DonationImpact.php';  
 }
+
 ?>

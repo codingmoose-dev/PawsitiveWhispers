@@ -23,11 +23,11 @@ class BenefactorModel {
 
     // Function to register a benefactor
     public function registerBenefactor($fullName, $email, $phone, $password, $address, $organizationType, $donationType, $preferredCampaign, $availability, $paymentMethod, $savePayment, $sponsorEvents, $ngoPartnership, $additionalNotes) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $this->conn->prepare("INSERT INTO Benefactors (FullName, Email, Phone, Password, Address, OrganizationType, DonationType, PreferredCampaign, Availability, PaymentMethod, SavePayment, SponsorEvents, NgoPartnership, AdditionalNotes) 
                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssssssssss", $fullName, $email, $phone, $hashedPassword, $address, $organizationType, $donationType, $preferredCampaign, $availability, $paymentMethod, $savePayment, $sponsorEvents, $ngoPartnership, $additionalNotes);
+        $stmt->bind_param("ssssssssssssss", $fullName, $email, $phone, $password, $address, $organizationType, $donationType, $preferredCampaign, $availability, $paymentMethod, $savePayment, $sponsorEvents, $ngoPartnership, $additionalNotes);
         if ($stmt->execute()) {
             return true; 
         } else {

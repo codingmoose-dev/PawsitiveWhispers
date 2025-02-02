@@ -1,3 +1,7 @@
+<?php
+include '../control/HomepageDisplayRequests.php'
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +18,7 @@
 
     <section id="impact">
         <!-- Form to enter Benefactor ID -->
-        <form method="post" action="../control/HomepageDisplayRequests.php">
+        <form method="post" action="">
             <label for="benefactor_id">Enter your Benefactor ID:</label>
             <input type="number" name="benefactor_id" id="benefactor_id" >
             <button type="submit" class="btn">Submit</button>
