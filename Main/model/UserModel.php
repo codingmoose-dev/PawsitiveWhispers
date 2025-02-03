@@ -29,14 +29,8 @@ class UserModel {
         ];
 
         foreach ($tables as $table => $primaryKey) {
-            $query = "SELECT $primaryKey, Password FROM $table WHERE Email = ?";
+            $query = "SELECT FullName, $primaryKey, Password FROM $table WHERE Email = ?";
             $stmt = $this->conn->prepare($query);
-            
-            if (!$stmt) {
-                error_log("Error preparing statement for table $table: " . $this->conn->error);
-                continue; // Skip to the next table if preparation fails
-            }
-
             $stmt->bind_param("s", $email);
             $stmt->execute();
             $result = $stmt->get_result();

@@ -11,15 +11,15 @@ class UserController {
     }
 
     // SignIn method to authenticate the user
-
-
     public function SignIn($email, $password) {
         $user = $this->userModel->findUserByEmail($email, $password);
 
         if ($user) {
-            // Set session variables for user details
-            $_SESSION['user_full_name'] = $user['FullName'];
-            $_SESSION['user_id'] = $user['GeneralUserID'] ?? $user['VolunteerID'] ?? $user['VeterinarianID'] ?? $user['BenefactorID']; // Dynamic ID based on the table
+            if (isset($user['FullName']) && !empty($user['FullName'])) {
+                $_SESSION['user_full_name'] = $user['FullName'];
+            } 
+            // Set the user ID based on available fields
+            $_SESSION['user_id'] = $user['GeneralUserID'] ?? $user['VolunteerID'] ?? $user['VeterinarianID'] ?? $user['BenefactorID'] ?? null;
 
             // Redirect based on the user's table
             switch ($user['table']) {
@@ -39,7 +39,6 @@ class UserController {
             exit();
         } else {
             // Log when no user is found or password mismatch
-            error_log("Invalid login attempt for email: $email");
             header("Location: ../view/SignIn.php?error=invalid");
             exit();
         }
