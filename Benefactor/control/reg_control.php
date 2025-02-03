@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Include the BenefactorModel
 require_once '../model/BenefactorModel.php';
 
 class BenefactorController {
@@ -9,7 +7,7 @@ class BenefactorController {
     private $benefactorModel;
 
     public function __construct() {
-        $this->benefactorModel = new BenefactorModel();  // Initialize the BenefactorModel
+        $this->benefactorModel = new BenefactorModel();  
     }
     
     public function register() {
@@ -29,7 +27,16 @@ class BenefactorController {
             $sponsorEvents = $_POST['sponsor-events'];
             $ngoPartnership = $_POST['ngo-partnership'];
             $additionalNotes = $_POST['notes'];
-
+    
+            if (strlen($password) < 8 ||
+                !preg_match('/[A-Z]/', $password) ||  // At least one uppercase letter
+                !preg_match('/[a-z]/', $password) ||  // At least one lowercase letter
+                !preg_match('/[0-9]/', $password) ||  // At least one number
+                !preg_match('/[\W]/', $password)) {   // At least one special character
+                echo "<script>document.getElementById('message').innerHTML = 'Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.';</script>";
+                return;
+            }
+    
             if ($this->benefactorModel->isEmailExists($email)) {
                 echo "<script>document.getElementById('message').innerHTML = 'Email already exists. Please try a different email.';</script>";
                 return;
@@ -47,7 +54,7 @@ class BenefactorController {
         } else {
             include '../view/BenefactorRegistration.php';
         }
-    }
+    }    
 
     public function donate($campaignId, $donationAmount) {
         // Check if both campaign ID and donation amount are valid
@@ -74,20 +81,15 @@ class BenefactorController {
     }
 }
 
-// Initialize the Controller class
 $benefactorController = new BenefactorController();
-
-// Call the register method
 $benefactorController->register();
 
 // Handle the donation request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get campaign ID and donation amount from the POST request
     $campaignId = $_POST['campaign-id'];
     $donationAmount = $_POST['campaign-amount'];
     $result = $benefactorController->donate($campaignId, $donationAmount);
-
-    echo $result;  // Output success or failure
+    echo $result;  
 }
 ?>
 

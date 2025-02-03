@@ -42,12 +42,6 @@ function validateForm() {
         isValid = false;
     }
 
-    // Password validation
-    if (password.length < 6) {
-        errors += "<p>Password must be at least 6 characters.</p>";
-        isValid = false;
-    }
-
     if (password !== confirmPassword) {
         errors += "<p>Passwords do not match.</p>";
         isValid = false;
