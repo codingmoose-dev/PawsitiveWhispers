@@ -127,6 +127,32 @@ class BenefactorModel {
 
     }
 
+
+    public function getCurrentRaisedAmount($campaignId) {
+        // Query to get the current raised amount for the given campaign ID
+        $query = "SELECT RaisedAmount FROM Campaigns WHERE CampaignID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $campaignId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['RaisedAmount'];  // Return the current raised amount
+        }
+
+        return null;  // Return null if campaign not found
+    }
+
+    public function updateRaisedAmount($campaignId, $newRaisedAmount) {
+        // Query to update the raised amount in the database
+        $query = "UPDATE Campaigns SET RaisedAmount = ? WHERE CampaignID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("di", $newRaisedAmount, $campaignId);
+
+        return $stmt->execute();  // Return true if update is successful, false otherwise
+    }
+
     public function closeConnection() {
         if (isset($this->conn)) {
             $this->conn->close();

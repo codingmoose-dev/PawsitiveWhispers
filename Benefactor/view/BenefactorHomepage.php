@@ -1,11 +1,5 @@
 <?php
-session_start(); // Start the session to access the session variables
-var_dump($_SESSION); // Debug: Check session content
-if (isset($_SESSION['registration_success'])) {
-    echo "<p>Registration successful! Welcome to the team!</p>";
-    unset($_SESSION['registration_success']);
-}
-
+session_start(); 
 include '../control/HomepageDisplayRequests.php'; 
 ?>
 
@@ -35,25 +29,22 @@ include '../control/HomepageDisplayRequests.php';
             <a href="#faq">Frequently Asked Questions</a>
         </nav>
     </header>
-    <?php
 
+
+    <!-- Home Section -->
+    <section id="home">
+        <?php
         // Check if the user is logged in (i.e., session variables are set)
         if (isset($_SESSION['user_full_name']) && isset($_SESSION['user_id'])) {
             $fullName = $_SESSION['user_full_name'];
             $userID = $_SESSION['user_id'];
-            echo "<h2>Welcome, Generous Benefactor $fullName (ID: $userID)!</h2>"; // Display the welcome message inside the section
-        } else {
-            echo "<h2>Welcome, Generous Benefactor!</h2>"; // Default welcome message if not logged in
-        }
+            echo "<h2>Welcome, Generous Benefactor $fullName (ID: $userID)!</h2>";
+        } 
         ?>
+        <p>Empowering change through compassion. Join our mission to rescue, rehabilitate, and support animals in need.</p>
+        <p>Your contributions, whether as an individual donor, corporate sponsor, or NGO partner, make a meaningful and lasting impact on the lives of animals!</p>
+    </section>
 
-        <!-- Home Section -->
-        <section id="home">
-            <h2>Welcome, Generous Benefactor!</h2>
-            <p>Empowering change through compassion. Join our mission to rescue, rehabilitate, and support animals in need.</p>
-            <p>Your contributions, whether as an individual donor, corporate sponsor, or NGO partner, make a meaningful and lasting impact on the lives of animals!</p>
-        </section>
-    
     <!-- Donate Section -->
     <section id="donate">
         <h2>Donate to Make a Difference</h2>
@@ -104,15 +95,18 @@ include '../control/HomepageDisplayRequests.php';
                 }
                 ?>
             </div>
-            <br>
-            <label for="campaign-id">Donate to a Cause</label><br>
-            <input type="number" id="campaign-id" name="campaign-id" placeholder="Enter Campaign ID"><br>
-            <label for="campaign-amount">Amount:</label><br>
-            <input type="number" id="campaign-amount" name="campaign-amount" placeholder="Enter Donation Amount">
-            <button class="btn">Donate</button>  
-            <br>
-            <br>
 
+            <form id="donation-form">
+                <label for="campaign-id">Donate to a Cause</label><br>
+                <input type="number" id="campaign-id" name="campaign-id" placeholder="Enter Campaign ID">
+                <input type="number" id="campaign-amount" name="campaign-amount" placeholder="Enter Donation Amount">
+                <button class="btn" id="donate-btn">Donate</button>
+            </form>
+
+            <br>
+            <br>
+            <div id="message"></div> <!-- For displaying success or error messages -->
+    
             <!-- Animal Cases Section -->
             <h3>Support Specific Animals</h3>
             <p>Choose an animal in need and donate directly to their well-being.</p>
@@ -183,10 +177,11 @@ include '../control/HomepageDisplayRequests.php';
     <section id="transparency">
         <h2>Financial Transparency (Coming Soon!)</h2>
         <p>We value your trust. Access detailed reports on how your funds are utilized for rescues, treatments, and operations. Transparency is our priority!</p>
-        <a href="Transparency.php" class="btn">View Reports</a>
+        <a class="btn">View Reports</a>
     </section>
 
     <!-- FAQ Section -->
+         <!-- FAQ Section -->
     <section id="faq">
         <h2>Frequently Asked Questions</h2>
         <div>
@@ -221,7 +216,6 @@ include '../control/HomepageDisplayRequests.php';
             <p>Yes, we provide financial transparency in the "Transparency" section, where you can view detailed reports on how the funds raised are being spent. We prioritize openness and accountability to our donors.</p>
         </div>
     </section>
-
 
     <!-- Footer -->
     <footer>

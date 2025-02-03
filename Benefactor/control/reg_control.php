@@ -48,7 +48,30 @@ class BenefactorController {
             include '../view/BenefactorRegistration.php';
         }
     }
-    
+
+    public function donate($campaignId, $donationAmount) {
+        // Check if both campaign ID and donation amount are valid
+        if (!empty($campaignId) && !empty($donationAmount)) {
+            // Get the current raised amount for the campaign using the model
+            $currentAmount = $this->benefactorModel->getCurrentRaisedAmount($campaignId);
+
+            if ($currentAmount !== null) {
+                // Calculate the new raised amount
+                $newRaisedAmount = $currentAmount + $donationAmount;
+
+                // Update the raised amount in the database using the model
+                if ($this->benefactorModel->updateRaisedAmount($campaignId, $newRaisedAmount)) {
+                    return "success";  // Donation successful
+                } else {
+                    return "failure";  // Database update failed
+                }
+            } else {
+                return "failure";  // Campaign not found
+            }
+        } else {
+            return "failure";  // Invalid input
+        }
+    }
 }
 
 // Initialize the Controller class
@@ -57,4 +80,14 @@ $benefactorController = new BenefactorController();
 // Call the register method
 $benefactorController->register();
 
+// Handle the donation request
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get campaign ID and donation amount from the POST request
+    $campaignId = $_POST['campaign-id'];
+    $donationAmount = $_POST['campaign-amount'];
+    $result = $benefactorController->donate($campaignId, $donationAmount);
+
+    echo $result;  // Output success or failure
+}
 ?>
+
