@@ -28,13 +28,36 @@ class UserController {
         $socialMediaLink = trim($_POST['SocialMediaLinks'] ?? '');
         $emailVerified = isset($_POST['EmailVerification']) ? 1 : 0;
 
-        // File upload handling
+        // Validation for required fields
+        if (empty($fullName)) {
+            return "Full name is required.";
+        }
+        
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return "Invalid email format.";
+        }
+        
+        if (empty($phone)) {
+            return "Phone number is required.";
+        }
+        
+        if (empty($password) || strlen($password) < 6) {
+            return "Password is required and must be at least 6 characters long.";
+        }
+
+        // Validate file upload (if provided)
         $profilePicturePath = '';
         if (!empty($_FILES['ProfilePicture']['name']) && $_FILES['ProfilePicture']['error'] === UPLOAD_ERR_OK) {
             $profilePictureTempPath = $_FILES['ProfilePicture']['tmp_name'];
             $profilePictureName = basename($_FILES['ProfilePicture']['name']);
             $targetDirectory = "../files";
             $targetPath = $targetDirectory . DIRECTORY_SEPARATOR . $profilePictureName;
+
+            // Check if the file is an image
+            $fileType = mime_content_type($profilePictureTempPath);
+            if (strpos($fileType, 'image') === false) {
+                return "Profile picture must be an image.";
+            }
 
             if (move_uploaded_file($profilePictureTempPath, $targetPath)) {
                 $profilePicturePath = $targetPath;
@@ -57,7 +80,6 @@ class UserController {
         } else {
             return "Registration failed: " . htmlspecialchars($registrationStatus);
         }
-        
     }
 }
 
