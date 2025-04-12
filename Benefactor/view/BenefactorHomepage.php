@@ -105,7 +105,7 @@ include '../control/HomepageDisplayRequests.php';
 
             <br>
             <br>
-            <div id="message"></div> <!-- For displaying success or error messages -->
+            <div id="message" style="display: none;"></div> <!-- For displaying success or error messages -->
     
             <!-- Animal Cases Section -->
             <h3>Support Specific Animals</h3>
