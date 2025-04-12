@@ -1,9 +1,17 @@
-body {
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
     line-height: 1.6;
 }
+
+.page-wrapper {
+    flex: 1; /* Take remaining height */
+}
+
 header {
     background-color: #2c3e50;
     color: white;
@@ -42,8 +50,8 @@ footer {
     color: white;
     text-align: center;
     padding: 10px 0;
-    margin-top: 20px;
 }
+
 .btn {
     background-color: #3498db;
     color: white;
@@ -77,6 +85,11 @@ footer {
     text-align: center; /* Center align text */
     padding: 20px; /* Add spacing inside the card */
     transition: transform 0.3s, box-shadow 0.3s; /* Add a hover effect */
+}
+
+.animal-card h3,
+.animal-card p {
+    margin: 5px 0; /* You can adjust this value */
 }
 
 /* Add a hover effect */

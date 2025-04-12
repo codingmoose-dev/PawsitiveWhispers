@@ -1,33 +1,54 @@
-body {
-    font-family: Arial, sans-serif;
+/* Reset and base styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Wrapper to center content */
+.page-wrapper {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    line-height: 1.6;
 }
 
+/* Main container */
 .container {
-    background-color: white;
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 60%; /* Reduced width for a smaller container */
-    max-width: 500px; /* Adjusted max-width */
-    margin-bottom: 20px;
-    margin-top: 40px; /* Space above the container */
+    width: 90%;
+    max-width: 500px;
+    padding: 40px 20px;
 }
 
+/* Logo section */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
+.logo-container img {
+    height: 120px;
+}
 
+/* Headings and text */
 h1 {
     color: #2c3e50;
-    margin-bottom: 20px;
     font-size: 2.5em;
+    margin-bottom: 10px;
 }
 
 p {
@@ -35,13 +56,20 @@ p {
     margin-bottom: 20px;
 }
 
+/* Category buttons */
+.category-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
 .category-list button {
     background-color: #3498db;
-    color: white;
+    color: #fff;
     border: none;
-    padding: 15px 20px;
-    margin: 10px 0;
-    font-size: 1.2em;
+    padding: 12px 24px;
+    font-size: 1.1em;
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
@@ -53,30 +81,10 @@ p {
     background-color: #2980b9;
 }
 
+/* Footer */
 footer {
     background-color: #2c3e50;
-    color: white;
+    color: #fff;
     text-align: center;
     padding: 10px 0;
-    width: 100%;
-}
-
-/* Styling for logo and project name inside container */
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    margin-top: 30px; /* Pulls the logo down */
-}
-
-.logo-container img {
-    height: 120px; /* Increased logo size */
-}
-
-.logo-container h2 {
-    font-size: 2.5em; /* Increased font size for project name */
-    color: #3498db;
-    margin: 0;
 }
