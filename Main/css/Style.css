@@ -98,9 +98,11 @@ form button {
 form button:hover {
     background-color: #2980b9;
 }
+.navbar-brand img {
+    margin-right: 10px;
+}
 
 /* Adoption Styles */
-/* Grid container for the cards */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -108,14 +110,13 @@ form button:hover {
     padding: 20px;
 }
 
-/* Individual card styling */
 .animal-card {
-    background-color: #f8f8f8; /* Light background for cards */
+    background-color: #f8f8f8; 
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     overflow: hidden; /* Ensure child elements stay within the card */
-    text-align: center; /* Center align text */
-    padding: 20px; /* Add spacing inside the card */
+    text-align: center;
+    padding: 20px;
     transition: transform 0.3s, box-shadow 0.3s; /* Add a hover effect */
 }
 
@@ -125,16 +126,14 @@ form button:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow intensity */
 }
 
-/* Animal image styling */
 .animal-image {
     width: 100%;
     height: auto;
     border-radius: 10px 10px 0 0; /* Rounded top corners */
 }
 
-/* Button styling */
 .animal-card button {
-    background-color: #ff6f61; /* Accent color */
+    background-color: #ff6f61; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -146,14 +145,13 @@ form button:hover {
 }
 
 .animal-card button:hover {
-    background-color: #e65a50; /* Slightly darker on hover */
+    background-color: #e65a50;
 }
 
-/* Section title styling */
 #adoption h2 {
     text-align: center;
     margin: 20px 0;
-    color: #333; /* Neutral text color */
+    color: #333;
     font-size: 2rem;
 }
 
@@ -161,17 +159,16 @@ form button:hover {
     height: 600px;
     width: 100%;
     object-fit: cover;
-    object-position: center 100%; /* default bottom focus */
+    object-position: center 100%;
 }
 
 .carousel-caption {
     padding: 20px;
     border-radius: 0;
-    background: none; /* removes transparent background */
+    background: none; 
     text-align: center;
 }
 
-/* Make heading bigger and block letters */
 .carousel-caption h2 {
     font-size: 3rem;
     text-transform: uppercase;
@@ -179,8 +176,29 @@ form button:hover {
     color: #fff;
 }
 
-/* Make paragraph bigger but keep normal casing */
 .carousel-caption p {
     font-size: 1.3rem;
     color: #fff;   
+}
+
+.error-message {
+  max-width: 500px;
+  color: red;
+  background-color: #ffe5e5;
+  border: 1px solid #ff4d4d;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  font-size: 0.95em;
+}
+
+.success-message {
+  max-width: 500px;
+  color: green;
+  background-color: #e5ffe5;
+  border: 1px solid #4dff4d;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  font-size: 0.95em;
 }
