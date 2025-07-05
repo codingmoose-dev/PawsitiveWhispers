@@ -37,18 +37,16 @@ class UserModel {
 
             if ($result && $result->num_rows > 0) {
                 $user = $result->fetch_assoc();
-                $stmt->close();
+                $stmt->close();  // close here only if user found
 
-                // Verify password (hashed or plain)
                 if (password_verify($password, $user['Password']) || $password === $user['Password']) {
                     $user['table'] = $table;
                     return $user;
                 }
+            } else {
+                $stmt->close(); // close here if user not found
             }
-
-            $stmt->close();
         }
-
         return null; // No user found in any table
     }
 

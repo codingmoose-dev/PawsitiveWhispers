@@ -38,14 +38,13 @@ class UserController {
             }
             exit();
         } else {
-            // Log when no user is found or password mismatch
+            // When no user is found or password mismatch
             header("Location: ../view/SignIn.php?error=invalid");
             exit();
         }
     }
 
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
