@@ -158,7 +158,7 @@ form button:hover {
 }
 
 .carousel-image {
-    height: 650px;
+    height: 600px;
     width: 100%;
     object-fit: cover;
     object-position: center 100%; /* default bottom focus */
