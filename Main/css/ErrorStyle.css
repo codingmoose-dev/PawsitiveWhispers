@@ -1,0 +1,40 @@
+body {
+    background-color: #fefefe;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 60px 20px;
+    color: #2c3e50;
+}
+
+.logo img {
+    width: 300px;
+    max-width: 80%;
+}
+
+.error-code {
+    font-size: 100px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.error-message {
+    font-size: 24px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.btn-home {
+    margin-top: 60px;
+    padding: 12px 30px;
+    font-size: 18px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+.btn-home:hover {
+    background-color: #34495e;
+}
