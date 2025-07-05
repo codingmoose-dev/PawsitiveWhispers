@@ -156,3 +156,31 @@ form button:hover {
     color: #333; /* Neutral text color */
     font-size: 2rem;
 }
+
+.carousel-image {
+    height: 650px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center 100%; /* default bottom focus */
+}
+
+.carousel-caption {
+    padding: 20px;
+    border-radius: 0;
+    background: none; /* removes transparent background */
+    text-align: center;
+}
+
+/* Make heading bigger and block letters */
+.carousel-caption h2 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Make paragraph bigger but keep normal casing */
+.carousel-caption p {
+    font-size: 1.3rem;
+    color: #fff;   
+}
