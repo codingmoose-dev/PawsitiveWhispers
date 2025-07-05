@@ -15,9 +15,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2c3e50;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="../images/Icon.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top" />
-                PawsitiveWellbeing
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <img src="../images/Icon.png" alt="Logo" style="height: 50px; width: auto;" />
+                <span class="fs-4">PawsitiveWellbeing</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -85,14 +85,16 @@
     <section id="contact">
         <h2>Contact Us</h2>
         <p>If you'd like to learn more about our work or get involved, we'd love to hear from you!</p>
-        <form action="/submit" method="post">
-        <input type="text" name="name" placeholder="Full Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-        <button type="submit">Send Message</button>
+        <form action="../control/sendMessage.php" method="post">
+            <input type="text" name="name" placeholder="Full Name" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+            <div id="formAlert"></div>
         </form>
+
         <p>Or reach us directly:</p>
-        <p>Email: contact@pawsitivewellbeing.org</p>
+        <p>Email: contact.pawsitivewellbeing@gmail.com</p>
         <p>Phone: +123 456 7890</p>
     </section>
 
@@ -106,6 +108,9 @@
         </p>
     </footer>
     
+    <!-- Alert for form submission status -->
+    <script src="../js/formContactHandler.js"></script>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
