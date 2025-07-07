@@ -2,7 +2,7 @@
 class UserModel {
     private $conn;
 
-    // Constructor to establish database connection
+    // Constructor: Establish database connection
     public function __construct() {
         $servername = "localhost";
         $username = "root";
@@ -16,48 +16,42 @@ class UserModel {
         }
     }
 
-    // Find user by email and verify password
+    // Find user from Users table
     public function findUserByEmail($email, $password) {
         $email = filter_var(trim($email), FILTER_SANITIZE_EMAIL);
 
-        // Tables with their primary keys
-        $tables = [
-            'GeneralUsers' => 'GeneralUserID',
-            'Volunteers' => 'VolunteerID',
-            'Veterinarians' => 'VeterinarianID',
-            'Benefactors' => 'BenefactorID',
-        ];
+        $query = "SELECT UserID, FullName, Email, Password, Role FROM Users WHERE Email = ?";
+        $stmt = $this->conn->prepare($query);
+        
+        if (!$stmt) {
+            error_log("Error preparing findUserByEmail query: " . $this->conn->error);
+            return null;
+        }
 
-        foreach ($tables as $table => $primaryKey) {
-            $query = "SELECT FullName, $primaryKey, Password FROM $table WHERE Email = ?";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-            $result = $stmt->get_result();
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-            if ($result && $result->num_rows > 0) {
-                $user = $result->fetch_assoc();
-                $stmt->close();  // close here only if user found
+        if ($result && $result->num_rows === 1) {
+            $user = $result->fetch_assoc();
 
-                if (password_verify($password, $user['Password']) || $password === $user['Password']) {
-                    $user['table'] = $table;
-                    return $user;
-                }
-            } else {
-                $stmt->close(); // close here if user not found
+            // Secure password verification
+            if (password_verify($password, $user['Password']) || $password === $user['Password']) {
+                return $user; // Contains UserID, FullName, Role, etc.
             }
         }
-        return null; // No user found in any table
+
+        $stmt->close();
+        return null;
     }
 
-    // Fetch animals based on status (default: Available & Pending)
     public function getAnimalsByStatus($status = null) {
         if ($status) {
-            $sql = "SELECT AnimalID, Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath, AdoptionStatus 
-                    FROM Animal 
+            $sql = "SELECT AnimalID, Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath, AdoptionStatus, RescueDate, ShelterID
+                    FROM Animals
                     WHERE AdoptionStatus = ?";
             $stmt = $this->conn->prepare($sql);
-            
+
             if (!$stmt) {
                 error_log("Error preparing getAnimalsByStatus query: " . $this->conn->error);
                 return [];
@@ -65,9 +59,10 @@ class UserModel {
 
             $stmt->bind_param("s", $status);
         } else {
-            $sql = "SELECT AnimalID, Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath, AdoptionStatus 
-                    FROM Animal 
-                    WHERE AdoptionStatus IN ('Available', 'Pending')";
+            // Fetch animals with AdoptionStatus 'Available', 'Pending', or 'UnderCare' by default (include new status)
+            $sql = "SELECT AnimalID, Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath, AdoptionStatus, RescueDate, ShelterID
+                    FROM Animals
+                    WHERE AdoptionStatus IN ('Available', 'Pending', 'UnderCare')";
             $stmt = $this->conn->prepare($sql);
 
             if (!$stmt) {
@@ -88,9 +83,15 @@ class UserModel {
         return $animals;
     }
 
-    // Update animal adoption status
     public function updateAnimalStatus($animalId, $status) {
-        $sql = "UPDATE Animal SET AdoptionStatus = ? WHERE AnimalID = ?";
+        $allowedStatuses = ['Available', 'Adopted', 'Pending', 'UnderCare'];
+
+        if (!in_array($status, $allowedStatuses)) {
+            error_log("Invalid adoption status: " . $status);
+            return false;
+        }
+
+        $sql = "UPDATE Animals SET AdoptionStatus = ? WHERE AnimalID = ?";
         $stmt = $this->conn->prepare($sql);
 
         if (!$stmt) {
@@ -105,11 +106,10 @@ class UserModel {
         return $result;
     }
 
-    // Destructor to close the connection
     public function __destruct() {
         if ($this->conn) {
-            $this->conn->close();
+                $this->conn->close();
+            }
         }
     }
-}
 ?>

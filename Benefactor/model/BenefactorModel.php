@@ -19,89 +19,73 @@ class BenefactorModel {
         }
         return $conn;
     }
-    
-
-    // Function to register a benefactor
-    public function registerBenefactor($fullName, $email, $phone, $password, $address, $organizationType, $donationType, $preferredCampaign, $availability, $paymentMethod, $savePayment, $sponsorEvents, $ngoPartnership, $additionalNotes) {
-        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $stmt = $this->conn->prepare("INSERT INTO Benefactors (FullName, Email, Phone, Password, Address, OrganizationType, DonationType, PreferredCampaign, Availability, PaymentMethod, SavePayment, SponsorEvents, NgoPartnership, AdditionalNotes) 
-                                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssssssssss", $fullName, $email, $phone, $password, $address, $organizationType, $donationType, $preferredCampaign, $availability, $paymentMethod, $savePayment, $sponsorEvents, $ngoPartnership, $additionalNotes);
-        if ($stmt->execute()) {
-            return true; 
-        } else {
-            return false; 
-        }
-    }
-
-    // Function to check if the email already exists
-    public function isEmailExists($email) {
-        $stmt = $this->conn->prepare("SELECT Email FROM Benefactors WHERE Email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->num_rows > 0; // Return true if email exists, false otherwise
-    }
-
 
     // Get all benefactors from the database
     public function getAllBenefactors() {
-        $query = "SELECT 
-                    BenefactorID, FullName, Email, Phone, Password, Address, OrganizationType, 
-                    DonationType, PreferredCampaign, PaymentMethod, 
-                    SavePayment, SponsorEvents, NgoPartnership, AdditionalNotes
-                  FROM Benefactors"; 
+        $query = "
+            SELECT 
+                u.UserID, u.FullName, u.Email, u.Phone, u.HomeAddress, u.CityStateCountry,
+                b.OrganizationType, b.DonationType, b.PreferredCampaign, b.PaymentMethod,
+                b.SavePayment, b.SponsorEvents, b.NgoPartnership, b.AdditionalNotes,
+                g.LocationEnabled, g.AdoptionNotifications, g.DonationCampaignNotifications, g.NewsletterSubscription
+            FROM Users u
+            INNER JOIN BenefactorDetails b ON u.UserID = b.UserID
+            INNER JOIN GeneralUserPreferences g ON u.UserID = g.UserID
+            WHERE u.Role = 'Benefactor'
+        ";
+
         $stmt = $this->conn->prepare($query);
-        
         if ($stmt === false) {
             die("Error preparing statement: " . $this->conn->error);
         }
 
         if ($stmt->execute()) {
             $result = $stmt->get_result();
-            return $result->fetch_all(MYSQLI_ASSOC); // Fetch all rows as an associative array
+            return $result->fetch_all(MYSQLI_ASSOC);
         } else {
-            return []; // Return empty array if query fails
+            return [];
         }
     }
 
-
-    // Function to delete a user based on BenefactorID
-    public function deleteUser($id) {
-        $stmt = $this->conn->prepare("DELETE FROM Benefactors WHERE BenefactorID = ?");
-        $stmt->bind_param("i", $id); 
+    // Delete a benefactor user
+    public function deleteUser($userID) {
+        $stmt = $this->conn->prepare("DELETE FROM Users WHERE UserID = ? AND Role = 'Benefactor'");
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
 
-        // Return true if any row was affected, otherwise false
         return $stmt->affected_rows > 0;
     }
 
+    // Get all campaigns
     public function getOngoingCampaigns() {
         $query = "SELECT * FROM Campaigns";
         $result = $this->conn->query($query);
         $campaigns = [];
-    
+
         while ($row = $result->fetch_assoc()) {
             $campaigns[] = $row;
-        }       
-        return $campaigns;
-    }   
+        }
 
-    // Method to get donations by BenefactorID
-    public function getDonationsByBenefactor($benefactorID) {
-        $sql = "SELECT Donations.DonationAmount, Donations.DonationDate, 
-                    Campaigns.CampaignName, Animal.Name AS AnimalName, Animal.Species AS AnimalSpecies, 
-                    Animal.Breed AS AnimalBreed, Animal.Age AS AnimalAge, Animal.AnimalCondition, 
-                    Animal.PicturePath 
-                    FROM Donations 
-                    JOIN Campaigns ON Donations.CampaignID = Campaigns.CampaignID
-                    JOIN Animal ON Campaigns.CampaignID = Animal.ShelterID
-                    WHERE Donations.BenefactorID = ?";
+        return $campaigns;
+    }
+
+    // Get donations by benefactor's UserID
+    public function getDonationsByBenefactor($userID) {
+        $sql = "
+            SELECT 
+                d.DonationAmount, d.DonationDate, 
+                c.CampaignName, 
+                a.Name AS AnimalName, a.Species AS AnimalSpecies, 
+                a.Breed AS AnimalBreed, a.Age AS AnimalAge, 
+                a.AnimalCondition, a.PicturePath
+            FROM Donations d
+            LEFT JOIN Campaigns c ON d.CampaignID = c.CampaignID
+            LEFT JOIN Animals a ON d.AnimalID = a.AnimalID
+            WHERE d.DonorID = ?
+        ";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("i", $benefactorID);
+        $stmt->bind_param("i", $userID);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -114,22 +98,30 @@ class BenefactorModel {
         return $donations;
     }
 
+    // Get animals currently under care or available
     public function getAnimalsUnderCare() {
-        $sql = "SELECT Name, Species, Breed, Age, Gender, AnimalCondition, PicturePath, RescueDate, AdoptionStatus, ShelterID FROM Animal WHERE AdoptionStatus IN ('Available', 'UnderCare')";
+        $sql = "
+            SELECT 
+                AnimalID, Name, Species, Breed, Age, Gender, 
+                AnimalCondition, RescueDate, 
+                AdoptionStatus, ShelterID, PicturePath
+            FROM Animals
+            WHERE AdoptionStatus IN ('Available', 'UnderCare')
+        ";
         $result = $this->conn->query($sql);
         $animals = [];
+
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $animals[] = $row;
             }
         }
-        return $animals;
 
+        return $animals;
     }
 
-
+    // Get current raised amount for a campaign
     public function getCurrentRaisedAmount($campaignId) {
-        // Query to get the current raised amount for the given campaign ID
         $query = "SELECT RaisedAmount FROM Campaigns WHERE CampaignID = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $campaignId);
@@ -138,21 +130,21 @@ class BenefactorModel {
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            return $row['RaisedAmount'];  // Return the current raised amount
+            return $row['RaisedAmount'];
         }
 
-        return null;  // Return null if campaign not found
+        return null;
     }
 
+    // Update raised amount for a campaign
     public function updateRaisedAmount($campaignId, $newRaisedAmount) {
-        // Query to update the raised amount in the database
         $query = "UPDATE Campaigns SET RaisedAmount = ? WHERE CampaignID = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("di", $newRaisedAmount, $campaignId);
-
-        return $stmt->execute();  // Return true if update is successful, false otherwise
+        return $stmt->execute();
     }
 
+    // Close DB connection
     public function closeConnection() {
         if (isset($this->conn)) {
             $this->conn->close();

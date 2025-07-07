@@ -4,7 +4,6 @@ class AnimalShelterModel {
     private $db;
 
     public function __construct() {
-        // Database connection setup
         $host = "localhost";
         $username = "root";
         $password = "";
@@ -20,7 +19,7 @@ class AnimalShelterModel {
     // Add a new animal record
     public function addAnimal($data) {
         $stmt = $this->db->prepare(
-            "INSERT INTO Animal (Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, ShelterID) 
+            "INSERT INTO Animals (Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, ShelterID) 
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         $stmt->bind_param(
@@ -39,9 +38,8 @@ class AnimalShelterModel {
         return $stmt->execute();
     }
 
-    // Fetch all shelters from the database
     public function getAllShelters() {
-        $result = $this->db->query("SELECT ShelterID, Name FROM Shelter");
+        $result = $this->db->query("SELECT ShelterID, ShelterName FROM Shelter");
         return $result->fetch_all(MYSQLI_ASSOC); // Return as associative array
     }
 }
