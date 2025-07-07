@@ -1,4 +1,17 @@
 <?php
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../view/SignIn.php");
+    exit();
+}
+
+if ($_SESSION['user_role'] !== 'Veterinarian') {
+    header("Location: ../../view/SignIn.php?error=unauthorized");
+    exit();
+}
+
 include '../control/UserController.php';
 ?>
 

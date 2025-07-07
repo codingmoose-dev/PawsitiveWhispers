@@ -1,6 +1,16 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../view/SignIn.php");
+    exit();
+}
+
+if ($_SESSION['user_role'] !== 'Volunteer') {
+    header("Location: ../../view/SignIn.php?error=unauthorized");
+    exit();
+}
+
 if (isset($_SESSION['registration_success'])) {
     echo "<p>Registration successful! Welcome to the team!</p>";
     unset($_SESSION['registration_success']);

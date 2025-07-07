@@ -1,12 +1,17 @@
 <?php
 session_start();
 
-if (isset($_SESSION['registration_success'])) {
-    echo "<p>Registration successful! Welcome to the team!</p>";
-    unset($_SESSION['registration_success']);
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../view/SignIn.php");
+    exit();
 }
 
-include '../control/HomeControls.php'
+if ($_SESSION['user_role'] !== 'General') {
+    header("Location: ../../view/SignIn.php?error=unauthorized");
+    exit();
+}
+
+include '../control/HomeControls.php';
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +29,12 @@ include '../control/HomeControls.php'
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2c3e50;">
+        <?php
+        if (isset($_SESSION['registration_success'])) {
+            echo '<div class="alert alert-success">Registration successful! Welcome to the team!</div>';
+            unset($_SESSION['registration_success']);
+        }
+        ?>
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center gap-2" href="#">
                 <img src="../../Main/images/Icon.png" alt="Logo" style="height: 50px; width: auto;" />
@@ -39,6 +50,12 @@ include '../control/HomeControls.php'
                     <li class="nav-item"><a class="nav-link" href="#adoption">Adopt</a></li>
                     <li class="nav-item"><a class="nav-link" href="#donate">Donate</a></li>
                     <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+                    <!-- Logout Button -->
+                    <li class="nav-item">
+                        <form action="/PawsitiveWellbeing/Main/view/Logout.php" method="post" class="d-inline">
+                            <button type="submit" class="nav-link btn btn-link">Logout</button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -46,7 +63,11 @@ include '../control/HomeControls.php'
 
     <!-- Home Section -->
     <section id="home">
-        <h2>WELCOME USER!</h2>
+        <h2>WELCOME 
+            <?php
+            echo isset($_SESSION['user_full_name']) ? htmlspecialchars($_SESSION['user_full_name']) . "!" : 'Guest!';
+            ?>
+        </h2>
         <p>Your one-stop platform for animal rescue and welfare. Join us in saving lives and creating a positive change!</p>
         <p>Discover features like case reporting, adoptions, donations, and valuable educational resources.</p>
     </section>
