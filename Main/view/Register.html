@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | PawsitiveWellbeing</title>
+  <link rel="stylesheet" href="/PawsitiveWellbeing/Main/css/RegistrationStyle.css" />
+  <link rel="stylesheet" href="/PawsitiveWellbeing/Main/css/Style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="Homepage.html" class="back-link">&larr; Back to Home</a>
+      <div class="title-content">
+        <h1>PawsitiveWellbeing</h1>
+        <p>Join our mission to rescue and care for animals</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <form id="registrationForm" method="POST" action="/submit-registration" novalidate>
+      
+      <!-- Step 1: User Information -->
+      <section id="step1" class="step active">
+        <h2>User Information</h2>
+        <p>Fill out the form below to register.</p>
+
+        <fieldset>
+          <legend>Personal Information</legend>
+          <label for="fullName">Full Name *</label>
+          <input id="fullName" name="FullName" type="text" placeholder="Full Name" required />
+          
+          <label for="email">Email *</label>
+          <input id="email" name="Email" type="email" placeholder="Email" required />
+          
+          <label for="password">Password *</label>
+          <input id="password" name="Password" type="password" placeholder="Password" required />
+          
+          <label for="confirmPassword">Confirm Password *</label>
+          <input id="confirmPassword" name="ConfirmPassword" type="password" placeholder="Confirm Password" required />
+          
+          <label for="phoneNumber">Phone Number</label>
+          <input id="phoneNumber" name="PhoneNumber" type="tel" placeholder="Phone Number" />
+        </fieldset>
+
+        <fieldset>
+          <legend>Address</legend>
+          <label for="address">Address</label>
+          <input id="address" name="Address" type="text" placeholder="Address" />
+          
+          <label for="city">City</label>
+          <input id="city" name="City" type="text" placeholder="City" />
+          
+          <label for="state">State</label>
+          <input id="state" name="State" type="text" placeholder="State" />
+          
+          <label for="country">Country</label>
+          <input id="country" name="Country" type="text" placeholder="Country" />
+        </fieldset>
+
+        <fieldset>
+          <legend>Other Info (optional)</legend>
+          <label for="profilePicture">Profile Picture:</label>
+          <input id="profilePicture" type="file" name="ProfilePicture" accept="image/*" />
+          
+          <label for="socialMediaLinks">Social Media Links</label>
+          <input id="socialMediaLinks" name="SocialMediaLinks" type="text" placeholder="Social Media Links" />
+        </fieldset>
+
+        <button type="button" id="step1NextBtn">Next</button>
+      </section>
+
+      <!-- Step 2: Role Selection -->
+      <section id="step2" class="step">
+        <h2>Select Your Role</h2>
+        <p class="info-text">By default, you are registered as a <strong>General User</strong>.</p>
+        <input type="hidden" name="Role" id="selectedRoleInput" value="General" />
+
+        <div class="role-default">
+          <div class="flip-card selected" data-role="general" tabindex="0" role="button" aria-pressed="true">
+            <div class="flip-card-inner">
+              <div class="flip-card-front"><h3>General User</h3></div>
+              <div class="flip-card-back"><p>Browse and adopt animals, follow campaigns.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="optional-role-heading">Optional Roles to Contribute</h3>
+        <p class="info-text">Choose an additional role if you'd like to help more actively.</p>
+
+        <div class="role-options">
+          <div class="flip-card" data-role="volunteer" tabindex="0" role="button" aria-pressed="false">
+            <div class="flip-card-inner">
+              <div class="flip-card-front"><h3>Volunteer</h3></div>
+              <div class="flip-card-back"><p>Help in rescue, care, and shelter maintenance.</p></div>
+            </div>
+          </div>
+          <div class="flip-card" data-role="veterinarian" tabindex="0" role="button" aria-pressed="false">
+            <div class="flip-card-inner">
+              <div class="flip-card-front"><h3>Veterinarian</h3></div>
+              <div class="flip-card-back"><p>Provide medical aid, advice, and treatment.</p></div>
+            </div>
+          </div>
+          <div class="flip-card" data-role="benefactor" tabindex="0" role="button" aria-pressed="false">
+            <div class="flip-card-inner">
+              <div class="flip-card-front"><h3>Benefactor</h3></div>
+              <div class="flip-card-back"><p>Support with donations and sponsorships.</p></div>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="roleNextBtn">Continue</button>
+        <button type="button" id="roleBackBtn">Back</button>
+      </section>
+
+      <!-- Step 3: Role Details (dynamically inserted) -->
+
+      <!-- Step 4: Notification Preferences -->
+      <section id="step4" class="step">
+        <h2>Preferences</h2>
+        <fieldset>
+          <legend>Location Preferences</legend>
+          <label><input type="checkbox" name="LocationEnabled" /> Enable Location</label><br />
+        </fieldset>
+        <fieldset>
+          <legend>Preferences</legend>
+          <label><input type="checkbox" name="AdoptionNotifications" /> Adoption Notifications</label><br />
+          <label><input type="checkbox" name="DonationCampaignNotifications" /> Campaign Notifications</label><br />
+          <label><input type="checkbox" name="NewsletterSubscription" /> Subscribe to Newsletter</label><br />
+        </fieldset>
+        <button type="submit">Register</button>
+        <button type="button" id="preferencesBackBtn">Back</button>
+      </section>
+
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 PawsitiveWellbeing. All rights reserved.</p>
+  </footer>
+
+  <script src="/PawsitiveWellbeing/Main/js/formRegistrationHandler.js"></script>
+
+</body>
+</html>

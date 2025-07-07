@@ -1,0 +1,53 @@
+<form action="../control/user_control.php" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <label>Enable Location Services:
+            <input type="radio" name="LocationEnabled" value="Yes"> Yes
+            <input type="radio" name="LocationEnabled" value="No"> No
+        </label><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Preferences</legend>
+        <label>Emergency Rescue:
+            <input type="radio" name="EmergencyRescue" value="Yes"> Yes
+            <input type="radio" name="EmergencyRescue" value="No"> No
+        </label><br>
+        <label>Organize Campaigns:
+            <input type="radio" name="OrganizeCampaigns" value="Yes"> Yes
+            <input type="radio" name="OrganizeCampaigns" value="No"> No
+        </label><br>
+        <label>Manage Adoption:
+            <input type="radio" name="ManageAdoption" value="Yes"> Yes
+            <input type="radio" name="ManageAdoption" value="No"> No
+        </label><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Skills & Experience</legend>
+        <label>Skills:
+            <select name="Skills">
+                <option value="Animal Handling">Animal Handling</option>
+                <option value="First Aid for Animals">First Aid for Animals</option>
+                <option value="Driving">Driving</option>
+                <option value="Event Planning">Event Planning</option>
+                <option value="Social Media Management">Social Media Management</option>
+                <option value="Veterinary Assistance">Veterinary Assistance</option>
+            </select>
+        </label><br>
+        <label>Years of Experience: <input type="number" name="ExperienceYears" min="0" step="1"></label><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Availability</legend>
+        <label>
+            <select name="Availability">
+                <option value="Weekends">Weekends</option>
+                <option value="Weekdays">Weekdays</option>
+                <option value="Morning">Morning</option>
+                <option value="Afternoon">Afternoon</option>
+                <option value="Evening">Evening</option>
+                <option value="Anytime">Anytime</option>
+            </select>
+        </label>
+    </fieldset>
+</form>

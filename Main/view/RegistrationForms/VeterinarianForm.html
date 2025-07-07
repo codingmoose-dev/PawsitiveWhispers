@@ -1,0 +1,46 @@
+<form method="POST" action="../control/UserController.php" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Clinic Information</legend>
+        <label>Clinic Name: <input type="text" name="ClinicName"></label><br>
+        <label>Clinic Address: <textarea name="ClinicAddress" required></textarea></label><br>
+        <label>Enable Location:
+            <input type="radio" name="LocationEnabled" value="1" checked> Yes
+            <input type="radio" name="LocationEnabled" value="0"> No
+        </label><br>
+        <label>Working Hours: <input type="text" name="WorkingHours" placeholder="e.g., Mon–Fri, 9am–5pm"></label><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Professional Credentials</legend>
+        <label>License Number: <input type="number" name="License" required></label><br>
+        <label>Speciality:
+            <select name="Speciality">
+                <option value="Surgery">Surgery</option>
+                <option value="General Practice">General Practice</option>
+            </select>
+        </label><br>
+        <label>Services:
+            <select name="Services">
+                <option value="Emergency Care">Emergency Care</option>
+                <option value="Surgery">Surgery</option>
+                <option value="Vaccinations">Vaccinations</option>
+                <option value="Other">Other</option>
+            </select>
+        </label><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Documents Upload</legend>
+        <label>License Document: <input type="file" name="VetLicensePath"></label><br>
+        <label>Government ID: <input type="file" name="GovIDPath"></label><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Training Details (Optional)</legend>
+        <label>Upload Training Materials: <input type="file" name="TrainingMaterialsPath"></label><br>
+        <label>Host Training?
+            <input type="radio" name="HostTraining" value="Yes"> Yes
+            <input type="radio" name="HostTraining" value="No" checked> No
+        </label>
+    </fieldset>
+</form>

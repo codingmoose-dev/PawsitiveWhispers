@@ -31,7 +31,7 @@ include '../control/SignInController.php';
 
         <!-- Footer Links -->
         <div class="form-footer">
-          <p>Don't have an account? <a href="UserCategory.html">Sign Up</a></p>
+          <p>Don't have an account? <a href="Register.html">Sign Up</a></p>
 
           <!-- Error Message -->
           <?php if (isset($_GET['error'])): ?>

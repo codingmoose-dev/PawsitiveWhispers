@@ -1,0 +1,55 @@
+<form action="../control/reg_control.php" method="post" onsubmit="return validateForm()">
+    <fieldset>
+        <legend>Type of Organization</legend>
+        <label><input type="radio" name="otype" value="IndividualDonor"> Individual Donor</label>
+        <label><input type="radio" name="otype" value="CorporateSponsor"> Corporate Sponsor</label>
+        <label><input type="radio" name="otype" value="NgoPartner"> NGO Partner</label><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Participation & Partnership</legend>
+        <label>Availability: <input type="text" name="availability" placeholder="e.g., Weekdays after 6pm"></label><br>
+        <label>Interested in Sponsoring Events?
+            <input type="radio" name="sponsor-events" value="yes"> Yes
+            <input type="radio" name="sponsor-events" value="no"> No
+        </label><br>
+        <label>NGO Partnership Interested?
+            <input type="radio" name="ngo-partnership" value="yes"> Yes
+            <input type="radio" name="ngo-partnership" value="no"> No
+        </label><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Donation Details</legend>
+        <label>Donation Type:
+            <input type="radio" name="donationtype" value="One-time"> One-time
+            <input type="radio" name="donationtype" value="Monthly"> Monthly
+        </label><br>
+        <label>Preferred Campaign:
+            <input list="campaign" name="campaign">
+            <datalist id="campaign">
+                <option value="Emergency Rescue">
+                <option value="Veterinary Care">
+                <option value="Shelter Support">
+                <option value="Other">
+            </datalist>
+        </label>
+    </fieldset>
+
+    <fieldset>
+        <legend>Payment Information</legend>
+        <label>Payment Method:
+            <input type="radio" name="payment-method" value="credit-card"> Credit Card
+            <input type="radio" name="payment-method" value="paypal"> PayPal
+            <input type="radio" name="payment-method" value="other"> Other
+        </label><br>
+        <label>
+            <input type="checkbox" name="save-payment" value="yes"> Save Payment Information
+        </label><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Additional Comments</legend>
+        <label><textarea name="notes" rows="4" placeholder="Comments or special instructions"></textarea></label>
+    </fieldset>
+</form>
