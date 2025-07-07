@@ -15,23 +15,34 @@ include '../control/HomeControls.php'
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PawsitiveWellbeing</title>
-    <link rel="stylesheet" href="../css/Style.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/Style.css" />
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-            <img src="../../Main/images/Icon.png" alt="PawsitiveWellbeing Logo" style="height: 60px;">
-            <h1>PawsitiveWellbeing</h1>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2c3e50;">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <img src="../../Main/images/Icon.png" alt="Logo" style="height: 50px; width: auto;" />
+                <span class="fs-4">Pawsitive Wellbeing</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#submit-case">Submit a Case</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#adoption">Adopt</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#donate">Donate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+                </ul>
+            </div>
         </div>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#submit-case">Submit a Case</a>
-            <a href="#adoption">Adopt an Animal</a>
-            <a href="#donate">Donate</a>
-            <a href="#resources">Educational Resources</a>
-        </nav>
-    </header>
+    </nav>
 
     <!-- Home Section -->
     <section id="home">
@@ -46,76 +57,64 @@ include '../control/HomeControls.php'
         <p>Spotted an injured animal? Submit a case by providing details, photos/videos, and location. Our team will take it from there!</p>
         <button id="show-submit-case" class="btn">Submit a Case</button>
 
-            <!-- Hidden Form for animal case submission -->
-           <div id="SubmitCaseContent" class="grid-container" style="display: none;">
-                <h1>Submit an Animal Case</h1>
-                <!-- Form for animal case submission -->
-                <form id="animalForm" enctype="multipart/form-data">
-                    <div class="form-grid">
-                        <label for="Name">Animal Name:</label>
-                        <input type="text" id="Name" name="Name">
-                    </div>
-
-                    <div class="form-grid">
-                        <label for="Species">Species:</label>
-                        <input type="text" id="Species" name="Species">
-                    </div>
-
-                    <div class="form-grid">
-                        <label for="Breed">Breed:</label>
-                        <input type="text" id="Breed" name="Breed">
-                    </div>
-
-                    <div class="form-grid">
-                        <label for="Age">Age:</label>
-                        <input type="number" id="Age" name="Age">
-                    </div>
-
-                    <div class="form-grid">
-                        <label for="Gender">Gender:</label>
-                        <select id="Gender" name="Gender">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Unknown">Unknown</option>
-                        </select>
-                    </div>
-
-                    <div class="form-grid">
-                        <label for="AnimalCondition">Animal Condition:</label>
-                        <select id="AnimalCondition" name="AnimalCondition">
-                            <option value="Healthy">Healthy</option>
-                            <option value="Injured">Injured</option>
-                        </select>
-                    </div>
-
-                    <div class="form-grid">
-                        <label for="RescueDate">Rescue Date:</label>
-                        <input type="date" id="RescueDate" name="RescueDate">
-                    </div>
-
-                    <div class="form-grid">
-                        <label for="AdoptionStatus">Adoption Status:</label>
-                        <select id="AdoptionStatus" name="AdoptionStatus">
-                            <option value="UnderCare">Under Care</option>
-                            <option value="Adopted">Adopted</option>
-                            <option value="Available">Available</option>
-                        </select>
-                    </div>
-
-                    <div id="shelterDropdown" class="form-grid">
-                        <label for="ShelterID">Select Shelter:</label>
-                        <select id="ShelterID" name="ShelterID"></select>
-                    </div>
-
-
-                    <div class="form-grid">
-                        <label for="picture">Animal Picture:</label>
-                        <input type="file" id="picture" name="picture" accept="image/*">
-                    </div>
-
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+        <!-- Hidden Form for animal case submission -->
+        <div id="SubmitCaseContent" class="grid-container" style="display: none;">
+            <h1>Submit an Animal Case</h1>
+            <form id="animalForm" enctype="multipart/form-data">
+                <div class="form-grid">
+                    <label for="Name">Animal Name:</label>
+                    <input type="text" id="Name" name="Name">
+                </div>
+                <div class="form-grid">
+                    <label for="Species">Species:</label>
+                    <input type="text" id="Species" name="Species">
+                </div>
+                <div class="form-grid">
+                    <label for="Breed">Breed:</label>
+                    <input type="text" id="Breed" name="Breed">
+                </div>
+                <div class="form-grid">
+                    <label for="Age">Age:</label>
+                    <input type="number" id="Age" name="Age">
+                </div>
+                <div class="form-grid">
+                    <label for="Gender">Gender:</label>
+                    <select id="Gender" name="Gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Unknown">Unknown</option>
+                    </select>
+                </div>
+                <div class="form-grid">
+                    <label for="AnimalCondition">Animal Condition:</label>
+                    <select id="AnimalCondition" name="AnimalCondition">
+                        <option value="Healthy">Healthy</option>
+                        <option value="Injured">Injured</option>
+                    </select>
+                </div>
+                <div class="form-grid">
+                    <label for="RescueDate">Rescue Date:</label>
+                    <input type="date" id="RescueDate" name="RescueDate">
+                </div>
+                <div class="form-grid">
+                    <label for="AdoptionStatus">Adoption Status:</label>
+                    <select id="AdoptionStatus" name="AdoptionStatus">
+                        <option value="UnderCare">Under Care</option>
+                        <option value="Adopted">Adopted</option>
+                        <option value="Available">Available</option>
+                    </select>
+                </div>
+                <div id="shelterDropdown" class="form-grid">
+                    <label for="ShelterID">Select Shelter:</label>
+                    <select id="ShelterID" name="ShelterID"></select>
+                </div>
+                <div class="form-grid">
+                    <label for="picture">Animal Picture:</label>
+                    <input type="file" id="picture" name="picture" accept="image/*">
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </section>
 
     <!-- Adoption Section -->
@@ -149,6 +148,8 @@ include '../control/HomeControls.php'
         </p>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/ShowDetailHomepage.js"></script>
 
 </body>

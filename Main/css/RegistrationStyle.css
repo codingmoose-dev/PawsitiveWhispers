@@ -1,0 +1,62 @@
+.role-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 30px 0;
+  padding: 10x;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 200px;
+  height: 200px;
+  perspective: 1000px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  background-color: #f7f7f7;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  background-color: #e0f7fa;
+}
+
+/* Highlight selected role */
+.flip-card.selected .flip-card-inner {
+  border: 3px solid #2c3e50;
+  box-shadow: 0 0 10px #2c3e50;
+}

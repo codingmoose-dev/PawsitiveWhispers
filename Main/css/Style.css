@@ -4,61 +4,99 @@ body {
     padding: 0;
     line-height: 1.6;
 }
+
+/* Header Styles */
 header {
     background-color: #2c3e50;
     color: white;
     padding: 20px 0;
     text-align: center;
 }
+
 header h1 {
     margin: 0;
     font-size: 2.5em;
+    font-weight: 700;
 }
+
 header nav {
     margin: 10px 0;
 }
+
 header nav a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
     font-size: 1.1em;
+    display: inline-block;
 }
+
+nav {
+  text-align: center;
+}   
+
 header div {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
+
 header img {
     height: 60px;
+}
+
+#logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#logo-container img {
+    height: 60px;
+}
+
+.back-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
 }
 
 section {
     padding: 20px;
 }
+
 #home, #about, #contact {
     padding: 40px 20px;
     margin: 20px 0;
 }
+
 #home {
     background-color: #f4f4f4;
     text-align: center;
 }
+
 #home h2 {
     color: #2c3e50;
 }
+
 #about {
     background-color: #eaeaea;
 }
+
 #about h2 {
     color: #2c3e50;
 }
+
 #contact {
     background-color: #f4f4f4;
 }
+
 #contact h2 {
     color: #2c3e50;
 }
+
 footer {
     background-color: #2c3e50;
     color: white;
@@ -66,6 +104,7 @@ footer {
     padding: 10px 0;
     margin-top: 20px;
 }
+
 .btn {
     background-color: #3498db;
     color: white;
@@ -77,9 +116,11 @@ footer {
     cursor: pointer;
     border-radius: 5px;
 }
+
 .btn:hover {
     background-color: #2980b9;
 }
+
 form input, form textarea, form button {
     display: block;
     margin: 10px 0;
@@ -88,6 +129,7 @@ form input, form textarea, form button {
     padding: 10px;
     font-size: 1em;
 }
+
 form button {
     background-color: #3498db;
     color: white;
@@ -95,9 +137,11 @@ form button {
     cursor: pointer;
     border-radius: 5px;
 }
+
 form button:hover {
     background-color: #2980b9;
 }
+
 .navbar-brand img {
     margin-right: 10px;
 }
@@ -113,23 +157,22 @@ form button:hover {
 .animal-card {
     background-color: #f8f8f8; 
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    overflow: hidden; /* Ensure child elements stay within the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    overflow: hidden;
     text-align: center;
     padding: 20px;
-    transition: transform 0.3s, box-shadow 0.3s; /* Add a hover effect */
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Add a hover effect */
 .animal-card:hover {
-    transform: scale(1.05); /* Slightly zoom in */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow intensity */
+    transform: scale(1.05); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .animal-image {
     width: 100%;
     height: auto;
-    border-radius: 10px 10px 0 0; /* Rounded top corners */
+    border-radius: 10px 10px 0 0;
 }
 
 .animal-card button {
@@ -182,23 +225,23 @@ form button:hover {
 }
 
 .error-message {
-  max-width: 500px;
-  color: red;
-  background-color: #ffe5e5;
-  border: 1px solid #ff4d4d;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 15px;
-  font-size: 0.95em;
+    max-width: 500px;
+    color: red;
+    background-color: #ffe5e5;
+    border: 1px solid #ff4d4d;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-size: 0.95em;
 }
 
 .success-message {
-  max-width: 500px;
-  color: green;
-  background-color: #e5ffe5;
-  border: 1px solid #4dff4d;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 15px;
-  font-size: 0.95em;
+    max-width: 500px;
+    color: green;
+    background-color: #e5ffe5;
+    border: 1px solid #4dff4d;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-size: 0.95em;
 }
