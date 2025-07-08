@@ -32,5 +32,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['benefactor_id'])) {
     $donationImpactController = new HomepageDisplayRequests();
     $donations = $donationImpactController->getDonationImpact($benefactorID);
 }
-
 ?>

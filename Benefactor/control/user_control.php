@@ -1,5 +1,6 @@
 <?php
-include '../model/BenefactorModel.php';
+session_start();
+require_once '../model/BenefactorModel.php';
 
 class UserController {
     private $userModel;
@@ -9,30 +10,29 @@ class UserController {
     }
 
     public function handleRequest() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['delete_benefactor'])) {
-                $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
-                if ($id === false) {
-                    header('Location: ../view/view_user.php?error=invalid_id');
-                    exit();
-                }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_benefactor'])) {
+            $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
 
-                // Directly calling the deleteUser method
-                $success = $this->userModel->deleteUser($id);
-                if ($success) {
-                    header('Location: ../view/view_user.php?success=delete');
-                } else {
-                    header('Location: ../view/view_user.php?error=delete');
-                }
+            if ($id === false || $id <= 0) {
+                $_SESSION['error'] = 'Invalid user ID.';
+                header('Location: ../view/view_user.php');
                 exit();
             }
+
+            $success = $this->userModel->deleteUser($id);
+
+            if ($success) {
+                $_SESSION['success'] = 'Benefactor deleted successfully.';
+                header('Location: ../view/view_user.php');
+            } else {
+                $_SESSION['error'] = 'Failed to delete benefactor.';
+                header('Location: ../view/view_user.php');
+            }
+            exit();
         }
     }
 }
 
-// Initialize the controller
+// Execute the controller
 $userController = new UserController();
-
-// Handle the request (this will process any delete actions)
 $userController->handleRequest();
-?>

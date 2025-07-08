@@ -20,7 +20,6 @@ class BenefactorModel {
         return $conn;
     }
 
-    // Get all benefactors from the database
     public function getAllBenefactors() {
         $query = "
             SELECT 
@@ -56,7 +55,6 @@ class BenefactorModel {
         return $stmt->affected_rows > 0;
     }
 
-    // Get all campaigns
     public function getOngoingCampaigns() {
         $query = "SELECT * FROM Campaigns";
         $result = $this->conn->query($query);
@@ -98,7 +96,6 @@ class BenefactorModel {
         return $donations;
     }
 
-    // Get animals currently under care or available
     public function getAnimalsUnderCare() {
         $sql = "
             SELECT 
@@ -144,7 +141,6 @@ class BenefactorModel {
         return $stmt->execute();
     }
 
-    // Close DB connection
     public function closeConnection() {
         if (isset($this->conn)) {
             $this->conn->close();
