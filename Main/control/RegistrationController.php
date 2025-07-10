@@ -136,7 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'Benefactor' => $benefactor
     ];
 
-    // Register Using Model
     $result = $model->registerUser($userData);
     
     if ($result === true) {
@@ -144,13 +143,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $model->findUserByEmail($email, $_POST['Password']);
 
         if ($user) {
-            // Start session values
             $_SESSION['user_id'] = $user['UserID'];
             $_SESSION['user_full_name'] = $user['FullName'];
             $_SESSION['user_role'] = $user['Role'];
             $_SESSION['registration_success'] = true;
 
-            // Redirect based on role
             switch ($role) {
                 case 'Volunteer':
                     header("Location: /PawsitiveWellbeing/Volunteer/view/VolunteerHomepage.php");
@@ -169,27 +166,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Registration successful but user session could not be initialized.";
         }
     }
-
-    if ($result === true) {
-        $_SESSION['registration_success'] = true;
-        switch ($role) {
-            case 'Volunteer':
-                header("Location: /PawsitiveWellbeing/Volunteer/view/VolunteerHomepage.php");
-                break;
-            case 'Veterinarian':
-                header("Location: /PawsitiveWellbeing/Veterinarian/view/VeterinarianHomepage.php");
-                break;
-            case 'Benefactor':
-                header("Location: /PawsitiveWellbeing/Benefactor/view/Homepage.php");
-                break;
-            default:
-                header("Location: /PawsitiveWellbeing/General User/view/GeneralUserHomepage.php");
-        }
-        exit();
-    } else {
-        echo "Registration Failed: " . $result;
+    else {
+        echo "Registration failed: " . $result;
     }
-
 } else {
     echo "Invalid Request Method";
 }
