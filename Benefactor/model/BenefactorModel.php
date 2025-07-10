@@ -45,15 +45,7 @@ class BenefactorModel {
             return [];
         }
     }
-
-    // Delete a benefactor user
-    public function deleteUser($userID) {
-        $stmt = $this->conn->prepare("DELETE FROM Users WHERE UserID = ? AND Role = 'Benefactor'");
-        $stmt->bind_param("i", $userID);
-        $stmt->execute();
-
-        return $stmt->affected_rows > 0;
-    }
+    
 
     public function getOngoingCampaigns() {
         $query = "SELECT * FROM Campaigns";
