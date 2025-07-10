@@ -45,7 +45,6 @@ class BenefactorModel {
             return [];
         }
     }
-    
 
     public function getOngoingCampaigns() {
         $query = "SELECT * FROM Campaigns";
@@ -57,6 +56,14 @@ class BenefactorModel {
         }
 
         return $campaigns;
+    }
+
+    public function recordCampaignDonation($campaignId, $donorId, $amount) {
+        $query = "INSERT INTO Donations (DonorID, CampaignID, DonationAmount)
+                VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("iid", $donorId, $campaignId, $amount);
+        return $stmt->execute();
     }
 
     // Get donations by benefactor's UserID

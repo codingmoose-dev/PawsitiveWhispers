@@ -30,7 +30,7 @@ class UserController {
                     header("Location: ../../Veterinarian/view/VeterinarianHomepage.php");
                     break;
                 case 'Benefactor':
-                    header("Location: ../../Benefactor/view/BenefactorHomepage.php");
+                    header("Location: ../../Benefactor/view/Homepage.php");
                     break;
                 default:
                     header("Location: ../view/SignIn.php?error=role");
