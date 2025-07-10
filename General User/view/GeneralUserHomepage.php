@@ -2,12 +2,12 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../view/SignIn.php");
+    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php");
     exit();
 }
 
 if ($_SESSION['user_role'] !== 'General') {
-    header("Location: ../../view/SignIn.php?error=unauthorized");
+    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php?error=unauthorized");
     exit();
 }
 
@@ -29,12 +29,21 @@ include '../control/HomeControls.php';
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2c3e50;">
-        <?php
-        if (isset($_SESSION['registration_success'])) {
-            echo '<div class="alert alert-success">Registration successful! Welcome to the team!</div>';
-            unset($_SESSION['registration_success']);
-        }
-        ?>
+        <?php if (isset($_SESSION['registration_success'])): ?>
+            <div class="alert alert-success" id="success-message">
+                Registration successful! Welcome to the team!
+            </div>
+            <script>
+                setTimeout(function() {
+                    var message = document.getElementById('success-message');
+                    if (message) {
+                        message.style.display = 'none';
+                    }
+                }, 10000); // 10,000 milliseconds = 10 seconds
+            </script>
+            <?php unset($_SESSION['registration_success']); ?>
+        <?php endif; ?>
+
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center gap-2" href="#">
                 <img src="../../Main/images/Icon.png" alt="Logo" style="height: 50px; width: auto;" />

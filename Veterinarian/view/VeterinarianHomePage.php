@@ -1,14 +1,13 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../view/SignIn.php");
+    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php");
     exit();
 }
 
 if ($_SESSION['user_role'] !== 'Veterinarian') {
-    header("Location: ../../view/SignIn.php?error=unauthorized");
+    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php?error=unauthorized");
     exit();
 }
 
@@ -30,7 +29,22 @@ include '../control/UserController.php';
             <img src="../../Main/images/Icon.png" alt="Veterinarian Logo" style="height: 60px;">
             <h1>Veterinarian Homepage</h1>
         </div>
-        <nav>
+        
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2c3e50;">
+            <?php if (isset($_SESSION['registration_success'])): ?>
+                <div class="alert alert-success" id="success-message">
+                    Registration successful! Welcome to the team!
+                </div>
+                <script>
+                    setTimeout(function() {
+                        var message = document.getElementById('success-message');
+                        if (message) {
+                            message.style.display = 'none';
+                        }
+                    }, 10000); // 10,000 milliseconds = 10 seconds
+                </script>
+                <?php unset($_SESSION['registration_success']); ?>
+            <?php endif; ?>
             <a href="#home">Home</a>
             <a href="#rescue-missions">Rescue Missions</a>
             <a href="#adoption">Adopt an Animal</a>
@@ -43,7 +57,11 @@ include '../control/UserController.php';
 
     <!-- Home Section -->
     <section id="home">
-        <h2>Welcome, Veterinarian!</h2>
+        <?php
+            $fullName = $_SESSION['user_full_name'];
+            $userID = $_SESSION['user_id'];
+            echo "<h2>Welcome, Veterinarian $fullName (ID: $userID)!</h2>";
+        ?>
         <p>Manage rescue missions, review cases, maintain medical records, and train volunteers while making an impactful difference in animal welfare.</p>
     </section>
 

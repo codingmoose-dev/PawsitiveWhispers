@@ -2,12 +2,12 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../../view/SignIn.php");
+    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php");
     exit();
 }
 
 if ($_SESSION['user_role'] !== 'Volunteer') {
-    header("Location: ../../view/SignIn.php?error=unauthorized");
+    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php?error=unauthorized");
     exit();
 }
 
