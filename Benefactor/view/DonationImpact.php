@@ -1,67 +1,84 @@
 <?php
-include '../control/HomepageDisplayRequests.php'
+session_start();
+$activePage = 'impact';
+include '../includes/navbar.php';
+
+include '../control/HomepageDisplayController.php';
+
+$benefactorId = null;
+$donations = [];
+
+if (isset($_SESSION['user_id']) && $_SESSION['user_role'] === 'Benefactor') {
+    $benefactorId = $_SESSION['user_id'];
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['benefactor_id'])) {
+    $benefactorId = (int)$_POST['benefactor_id'];
+}
+
+if ($benefactorId) {$donations = getDonationsByBenefactor($benefactorId);
+}
+
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donation Impact</title>
-    <link rel="stylesheet" href="../css/Style.css">
-</head>
-<body>
-    <header>
-        <h1>Donation Impact</h1>
-        <p>See the impact of your donations and the campaigns you've supported.</p>
-    </header>
+<div class="container mt-4">
+    <h2>See the Impact of Your Donations</h2>
+    <p>Stay connected with the causes you support. View updates, success stories, and the outcomes of your generous contributions.</p>
 
-    <section id="impact">
-        <!-- Form to enter Benefactor ID -->
+    <?php if (!$benefactorId): ?>
+        <!-- Show form to enter Benefactor ID if not logged in as benefactor -->
         <form method="post" action="">
             <label for="benefactor_id">Enter your Benefactor ID:</label>
-            <input type="number" name="benefactor_id" id="benefactor_id" >
+            <input type="number" name="benefactor_id" id="benefactor_id" required>
             <button type="submit" class="btn">Submit</button>
         </form>
-
-        <!-- Check if donations data is available -->
-        <?php if (isset($donations) && !empty($donations)): ?>
-            <h2>Your Donations</h2>
-            <table>
-                <tr>
-                    <th>Donation Amount</th> 
-                    <th>Campaign Name</th>
-                    <th>Donation Date</th>
-                </tr>
-                <?php foreach ($donations as $donation): ?>
+    <?php else: ?>
+        <?php if (!empty($donations)): ?>
+            <h3>Your Donations</h3>
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td><?php echo $donation['DonationAmount']; ?></td>
-                        <td><?php echo $donation['CampaignName']; ?></td>
-                        <td><?php echo $donation['DonationDate']; ?></td>
+                        <th>Donation Amount</th>
+                        <th>Campaign Name</th>
+                        <th>Donation Date</th>
                     </tr>
-                <?php endforeach; ?>
+                </thead>
+                <tbody>
+                    <?php foreach ($donations as $donation): ?>
+                        <tr>
+                            <td>$<?= htmlspecialchars($donation['DonationAmount']) ?></td>
+                            <td><?= htmlspecialchars($donation['CampaignName'] ?? 'General Fund') ?></td>
+                            <td><?= htmlspecialchars($donation['DonationDate']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
             </table>
 
             <h3>Animals Benefited</h3>
             <div class="grid-container">
-                <?php foreach ($donations as $donation): ?>
+                <?php
+                // To avoid repeating animal cards for donations to same animal,
+                // collect unique animals from donations
+                $uniqueAnimals = [];
+                foreach ($donations as $donation) {
+                    if (!empty($donation['AnimalID']) && !isset($uniqueAnimals[$donation['AnimalID']])) {
+                        $uniqueAnimals[$donation['AnimalID']] = $donation;
+                    }
+                }
+                ?>
+                <?php foreach ($uniqueAnimals as $animal): ?>
                     <div class="animal-card">
-                        <img src="../../Main/<?php echo $donation['PicturePath']; ?>.jpg" alt="<?php echo $donation['AnimalName'];?>" class = "animal-image">
-                        <h4><?php echo $donation['AnimalName']; ?></h4>
-                        <p>Species: <?php echo $donation['AnimalSpecies']; ?></p>
-                        <p>Breed: <?php echo $donation['AnimalBreed']; ?></p>
-                        <p>Age: <?php echo $donation['AnimalAge']; ?> years</p>
-                        <p>Condition: <?php echo $donation['AnimalCondition']; ?></p>
+                        <img src="../../Main/<?= htmlspecialchars($animal['PicturePath']) ?>.jpg" alt="<?= htmlspecialchars($animal['AnimalName']) ?>" class="animal-image">
+                        <h4><?= htmlspecialchars($animal['AnimalName']) ?></h4>
+                        <p>Species: <?= htmlspecialchars($animal['AnimalSpecies']) ?></p>
+                        <p>Breed: <?= htmlspecialchars($animal['AnimalBreed']) ?></p>
+                        <p>Age: <?= htmlspecialchars($animal['AnimalAge']) ?> years</p>
+                        <p>Condition: <?= htmlspecialchars($animal['AnimalCondition']) ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>
         <?php else: ?>
             <p>No donations found for this Benefactor ID.</p>
         <?php endif; ?>
-    </section>
+    <?php endif; ?>
+</div>
 
-    <footer>
-        <p>© 2024 PawsitiveWellbeing | All Rights Reserved</p>
-    </footer>
-</body>
-</html>
+<?php include '../includes/footer.php'; ?>
