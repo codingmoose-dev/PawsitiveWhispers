@@ -119,15 +119,15 @@ VALUES
 -- Animals Table Data
 INSERT INTO Animals (Name, Species, Breed, Age, Gender, AnimalCondition, RescueDate, AdoptionStatus, ShelterID, PicturePath)
 VALUES
-('Bruno', 'Dog', 'Labrador', 4, 'Male', 'Healthy', '2025-01-10', 'Available', 1, 'images/bruno.jpg'),
-('Mimi', 'Cat', 'Persian', 2, 'Female', 'Minor cold', '2025-02-01', 'UnderCare', 2, 'images/mimi.jpg'),
-('Rex', 'Dog', 'Beagle', 3, 'Male', 'Leg injury', '2025-01-22', 'Adopted', 3, 'images/rex.jpg'),
-('Sundori', 'Cow', 'Local', 6, 'Female', 'Rescued from abuse', '2025-03-03', 'Available', 4, 'images/sundori.jpg'),
-('Tiger', 'Dog', 'German Shepherd', 5, 'Male', 'Recovering', '2025-01-30', 'Pending', 5, 'images/tiger.jpg'),
-('Puchki', 'Cat', 'Bengal', 1, 'Female', 'Eye infection', '2025-02-15', 'Available', 6, 'images/puchki.jpg'),
-('Tommy', 'Dog', 'Pug', 2, 'Male', 'Severe malnutrition', '2025-03-05', 'Available', 7, 'images/tommy.jpg'),
-('Laila', 'Goat', 'Black Bengal', 3, 'Female', 'Slight fever', '2025-01-18', 'UnderCare', 8, 'images/laila.jpg'),
-('Snowy', 'Dog', 'Husky', 4, 'Male', 'Healthy', '2025-02-20', 'Available', 9, 'images/snowy.jpg'),
+('Bruno', 'Dog', 'Labrador', 4, 'Male', 'Healthy', '2025-01-10', 'Available', 1, 'images/animal_images/bruno.jpg'),
+('Mimi', 'Cat', 'Persian', 2, 'Female', 'Minor cold', '2025-02-01', 'UnderCare', 2, 'images/animal_images/mimi.jpg'),
+('Rex', 'Dog', 'Beagle', 3, 'Male', 'Leg injury', '2025-01-22', 'Adopted', 3, 'images/animal_images/rex.jpg'),
+('Sundori', 'Cow', 'Local', 6, 'Female', 'Rescued from abuse', '2025-03-03', 'Available', 4, 'images/animal_images/sundori.jpg'),
+('Tiger', 'Dog', 'German Shepherd', 5, 'Male', 'Recovering', '2025-01-30', 'Pending', 5, 'images/animal_images/tiger.jpg'),
+('Puchki', 'Cat', 'Bengal', 1, 'Female', 'Eye infection', '2025-02-15', 'Available', 6, 'images/animal_images/puchki.jpg'),
+('Tommy', 'Dog', 'Pug', 2, 'Male', 'Severe malnutrition', '2025-03-05', 'Available', 7, 'images/animal_images/tommy.jpg'),
+('Laila', 'Goat', 'Black Bengal', 3, 'Female', 'Slight fever', '2025-01-18', 'UnderCare', 8, 'images/animal_images/laila.jpg'),
+('Snowy', 'Dog', 'Husky', 4, 'Male', 'Healthy', '2025-02-20', 'Available', 9, 'images/animal_images/snowy.jpg'),
 ('Milo', 'Cat', 'Siamese', 2, 'Male', 'Recovering', '2025-03-10', 'Pending', 10, 'images/milo.jpg');
 
 -- Rescue Missions Table Data
