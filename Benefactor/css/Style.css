@@ -97,6 +97,52 @@ section {
     background-color: #eaeaea;
 }
 
+/* FAQ Accordion Styles */
+.faq-section .accordion-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px !important; 
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.faq-section .accordion-button {
+    font-weight: bold;
+    color: #2c3e50;
+    background-color: #f8f9fa;
+    border-radius: 8px !important;
+}
+
+.faq-section .accordion-button:not(.collapsed) {
+    color: #fff;
+    background-color: #3498db;
+}
+
+.faq-section .accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+.faq-section .accordion-body {
+    padding: 20px;
+    background-color: #fff;
+}
+
+.faq-logo {
+    width: 100%;
+    max-width: 450px; 
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Centers the logo in its column */
+}
+
+/* On screens smaller than large desktops (like tablets and phones), hide the logo column */
+@media (max-width: 991.98px) {
+    .faq-logo-column {
+        display: none;
+    }
+}
+
 #donate h2,
 #donate h3,
 #donate h4 {
@@ -294,3 +340,4 @@ footer a:hover {
         background-color: #2980b9;
     }
 }
+
