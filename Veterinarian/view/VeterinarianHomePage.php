@@ -2,12 +2,12 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php");
+    header("Location: /PawsitiveWhispers/Main/view/SignIn.php");
     exit();
 }
 
 if ($_SESSION['user_role'] !== 'Veterinarian') {
-    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php?error=unauthorized");
+    header("Location: /PawsitiveWhispers/Main/view/SignIn.php?error=unauthorized");
     exit();
 }
 

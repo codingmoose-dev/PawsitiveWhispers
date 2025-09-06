@@ -4,12 +4,12 @@ session_start();
 include '../control/VolunteerHomeControls.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php");
+    header("Location: /PawsitiveWhispers/Main/view/SignIn.php");
     exit();
 }
 
 if ($_SESSION['user_role'] !== 'Volunteer') {
-    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php?error=unauthorized");
+    header("Location: /PawsitiveWhispers/Main/view/SignIn.php?error=unauthorized");
     exit();
 }
 
@@ -34,14 +34,14 @@ $canManageAdoption = (!empty($capabilities) && $capabilities['ManageAdoption']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volunteer Dashboard - PawsitiveWellbeing</title>
+    <title>Volunteer Dashboard - PawsitiveWhispers</title>
     <link rel="stylesheet" href="../css/Style.css">
 </head>
 <body>
     <header>
         <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-            <img src="../../Main/images/Icon.png" alt="PawsitiveWellbeing Logo" style="height: 60px;">
-            <h1>PawsitiveWellbeing</h1>
+            <img src="../../Main/images/Icon.png" alt="PawsitiveWhispers Logo" style="height: 60px;">
+            <h1>PawsitiveWhispers</h1>
         </div>
         <nav>
             <a href="#home">Home</a>
@@ -65,7 +65,7 @@ $canManageAdoption = (!empty($capabilities) && $capabilities['ManageAdoption']);
         <p>Check out assigned rescue cases or ongoing missions. Update case statuses, upload animal condition reports, and track your progress.</p>
         <div id="rescue-missions-content">
             <h3>Ongoing Rescue Missions</h3>
-            <p>Choose a mission to support and help in the rescue efforts.</p>
+            <p>Choose a mission to support and help in the rescue efforts.</p><br>
             <div id="missions">
                 <table border="1" cellpadding="10" cellspacing="0">
                     <tr>
@@ -153,7 +153,7 @@ $canManageAdoption = (!empty($capabilities) && $capabilities['ManageAdoption']);
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 PawsitiveWellbeing | All Rights Reserved</p>
+        <p>© 2024 PawsitiveWhispers | All Rights Reserved</p>
         <p>Follow us on: 
             <a href="#">Facebook</a> | 
             <a href="#">Twitter</a> | 

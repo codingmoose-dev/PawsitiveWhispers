@@ -7,10 +7,10 @@ include '../includes/navbar.php';
 <div class="container mt-4">
   <h2>Frequently Asked Questions</h2>
               <div>
-                <h3>What is the role of a Benefactor in PawsitiveWellbeing?</h3>
+                <h3>What is the role of a Benefactor in PawsitiveWhispers?</h3>
                 <p>As a Benefactor, your main role is to contribute financially to the organization's cause. Your generous donations support animal rescues, rehabilitation, and various campaigns aimed at improving the well-being of animals in need.</p>
 
-                <h3>How can I donate to PawsitiveWellbeing?</h3>
+                <h3>How can I donate to PawsitiveWhispers?</h3>
                 <p>You can donate through our website by choosing to support specific animal cases, campaigns, or contribute to our general fund. Donations can be one-time or monthly.</p>
 
                 <h3>What campaigns can I support as a Benefactor?</h3>

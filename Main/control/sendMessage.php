@@ -17,18 +17,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'contact.pawsitivewellbeing@gmail.com';
+        $mail->Username   = 'contact.pawsitiveWhispers@gmail.com';
         $mail->Password   = 'vedf zuzk lyen dojh';
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
 
         // Recipients
         $mail->setFrom($email, $name);
-        $mail->addAddress('contact.pawsitivewellbeing@gmail.com');
+        $mail->addAddress('contact.pawsitiveWhispers@gmail.com');
 
         // Content
         $mail->isHTML(false);
-        $mail->Subject = 'New Contact Message from Pawsitive Wellbeing';
+        $mail->Subject = 'New Contact Message from Pawsitive Whispers';
         $mail->Body    = "Name: $name\nEmail: $email\n\nMessage:\n$message";
 
         $mail->send();

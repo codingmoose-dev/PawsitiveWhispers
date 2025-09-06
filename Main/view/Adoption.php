@@ -14,7 +14,7 @@ include '../control/AdoptionController.php';
         <div class="page-wrapper">
         <header>
             <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <img src="../images/Icon.png" alt="PawsitiveWellbeing Logo" style="height: 60px;">
+                <img src="../images/Icon.png" alt="PawsitiveWhispers Logo" style="height: 60px;">
                 <h1>Available Animals for Adoption</h1>  
             </div>
         </header>
@@ -58,7 +58,7 @@ include '../control/AdoptionController.php';
         </div>
 
         <footer>
-            <p>© 2024 PawsitiveWellbeing | All Rights Reserved</p>
+            <p>© 2024 PawsitiveWhispers | All Rights Reserved</p>
         </footer>
         
         <script src="../js/AnimalProcess.js"></script>

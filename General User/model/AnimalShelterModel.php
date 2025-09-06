@@ -7,7 +7,7 @@ class AnimalShelterModel {
         $host = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "PawsitiveWellbeing";
+        $dbname = "PawsitiveWhispers";
 
         $this->db = new mysqli($host, $username, $password, $dbname);
 

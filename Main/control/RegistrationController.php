@@ -150,16 +150,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             switch ($role) {
                 case 'Volunteer':
-                    header("Location: /PawsitiveWellbeing/Volunteer/view/VolunteerHomepage.php");
+                    header("Location: /PawsitiveWhispers/Volunteer/view/VolunteerHomepage.php");
                     break;
                 case 'Veterinarian':
-                    header("Location: /PawsitiveWellbeing/Veterinarian/view/VeterinarianHomepage.php");
+                    header("Location: /PawsitiveWhispers/Veterinarian/view/VeterinarianHomepage.php");
                     break;
                 case 'Benefactor':
-                    header("Location: /PawsitiveWellbeing/Benefactor/view/Homepage.php");
+                    header("Location: /PawsitiveWhispers/Benefactor/view/Homepage.php");
                     break;
                 default:
-                    header("Location: /PawsitiveWellbeing/General User/view/GeneralUserHomepage.php");
+                    header("Location: /PawsitiveWhispers/General User/view/GeneralUserHomepage.php");
             }
             exit();
         } else {

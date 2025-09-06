@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'Volunteer') {
-    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php?error=unauthorized");
+    header("Location: /PawsitiveWhispers/Main/view/SignIn.php?error=unauthorized");
     exit();
 }
 

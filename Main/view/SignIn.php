@@ -7,7 +7,7 @@ include '../control/SignInController.php';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Sign In - PawsitiveWellbeing</title>
+    <title>Sign In - PawsitiveWhispers</title>
     <link rel="stylesheet" href="../css/SignInStyle.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@ include '../control/SignInController.php';
     <div class="container">
       <!-- Logo Section -->
       <div class="logo-container">
-        <img src="../images/PrimaryLogo.png" alt="PawsitiveWellbeing Logo" />
+        <img src="../images/PrimaryLogo.png" alt="PawsitiveWhispers Logo" />
       </div>
 
       <!-- Form Section -->
@@ -49,7 +49,7 @@ include '../control/SignInController.php';
     
     <!-- Footer -->
     <footer>
-      © 2024 PawsitiveWellbeing. All rights reserved.
+      © 2024 PawsitiveWhispers. All rights reserved.
     </footer>
   </div>
 </body>

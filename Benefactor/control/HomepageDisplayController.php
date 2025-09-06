@@ -8,28 +8,15 @@ class HomepageDisplayRequests {
         $this->model = new BenefactorModel(); 
     }
 
-    // Method to display ongoing campaigns (if needed for other use cases)
-    public function displayOngoingCampaigns() {
-        return $this->model->getOngoingCampaigns();
+    public function getHomepageData($benefactorID) {
+        return [
+            'campaigns' => $this->model->getOngoingCampaigns(),
+            'animals' => $this->model->getAnimalsUnderCare(),
+            'donations' => $this->model->getDonationsByBenefactor($benefactorID)
+        ];
     }
-
-    // Method to get donation impact based on BenefactorID
-    public function getDonationImpact($benefactorID) {
-        return $this->model->getDonationsByBenefactor($benefactorID);
-    }
-
-    public function showAnimalsUnderCare() {
-        return $this->model->getAnimalsUnderCare();
-    }   
 }
+
 $homepageController = new HomepageDisplayRequests();
-$campaigns = $homepageController->displayOngoingCampaigns();
-$animals = $homepageController->showAnimalsUnderCare();
-
-// If the form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['benefactor_id'])) {
-    $benefactorID = $_POST['benefactor_id'];
-    $donationImpactController = new HomepageDisplayRequests();
-    $donations = $donationImpactController->getDonationImpact($benefactorID);
-}
+$data = $homepageController->getHomepageData($_SESSION['user_id']);
 ?>

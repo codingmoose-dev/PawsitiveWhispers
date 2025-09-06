@@ -6,7 +6,7 @@ class AnimalModel {
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname = "PawsitiveWellbeing";
+        $dbname = "PawsitiveWhispers";
 
         $this->conn = new mysqli($servername, $username, $password, $dbname);
 

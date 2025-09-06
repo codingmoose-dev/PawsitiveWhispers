@@ -2,12 +2,12 @@
 session_start(); 
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php");
+    header("Location: /PawsitiveWhispers/Main/view/SignIn.php");
     exit();
 }
 
 if ($_SESSION['user_role'] !== 'Benefactor') {
-    header("Location: /PawsitiveWellbeing/Main/view/SignIn.php?error=unauthorized");
+    header("Location: /PawsitiveWhispers/Main/view/SignIn.php?error=unauthorized");
     exit();
 }
 
@@ -20,7 +20,7 @@ include '../control/HomepageDisplayController.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PawsitiveWellbeing - Benefactor</title>
+    <title>PawsitiveWhispers - Benefactor</title>
     <link rel="stylesheet" href="../css/Style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
@@ -28,8 +28,8 @@ include '../control/HomepageDisplayController.php';
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2c3e50;">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-                <img src="../../Main/images/Icon.png" alt="PawsitiveWellbeing Logo" style="height: 60px; width: auto;">
-                <span class="fs-4">PawsitiveWellbeing</span>
+                <img src="../../Main/images/Icon.png" alt="PawsitiveWhispers Logo" style="height: 60px; width: auto;">
+                <span class="fs-4">PawsitiveWhispers</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -44,7 +44,7 @@ include '../control/HomepageDisplayController.php';
                     <li class="nav-item"><a class="nav-link" href="#" data-section="faq">Frequently Asked Questions</a></li>
                     <!-- Logout Button -->
                     <li class="nav-item">
-                        <form action="/PawsitiveWellbeing/Main/view/Logout.php" method="post" class="d-inline">
+                        <form action="/PawsitiveWhispers/Main/view/Logout.php" method="post" class="d-inline">
                             <button type="submit" class="nav-link btn btn-link">Logout</button>
                         </form>
                     </li>
@@ -95,7 +95,7 @@ include '../control/HomepageDisplayController.php';
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 PawsitiveWellbeing. All rights reserved.</p>
+        <p>© 2024 PawsitiveWhispers. All rights reserved.</p>
         <p>Follow us on: 
             <a href="#">Facebook</a> | 
             <a href="#">Twitter</a> | 

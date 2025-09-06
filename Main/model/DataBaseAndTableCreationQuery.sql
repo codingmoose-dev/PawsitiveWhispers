@@ -1,6 +1,6 @@
 -- Create Database
-CREATE DATABASE PawsitiveWellbeing;
-USE PawsitiveWellbeing;
+CREATE DATABASE PawsitiveWhispers;
+USE PawsitiveWhispers;
 
 -- 1. Unified Users Table
 CREATE TABLE Users (
