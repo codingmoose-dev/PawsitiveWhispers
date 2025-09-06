@@ -36,15 +36,61 @@ include '../includes/navbar.php';
             <tbody>
                 <?php foreach ($campaigns as $campaign): ?>
                 <tr>
-                    <td><?= htmlspecialchars($campaign['CampaignName']); ?></td>
-                    <td><?= htmlspecialchars($campaign['Description']); ?></td>
-                    <td>
-                        </td>
-                    <td>
+                    <td style="width: 40%;">
+                        <h5 class="mb-1"><?= htmlspecialchars($campaign['CampaignName']); ?></h5>
+                        <p class="mb-2 text-muted">by <?= htmlspecialchars($campaign['CreatorName']); ?></p>
+                        <p><?= htmlspecialchars($campaign['Description']); ?></p>
+                        
+                        <?php
+                            // Create DateTime objects for calculation
+                            $today = new DateTime();
+                            $endDate = $campaign['EndDate'] ? new DateTime($campaign['EndDate']) : null;
+                            $startDate = new DateTime($campaign['StartDate']);
+                            
+                            // Format dates for display
+                            $displayStartDate = $startDate->format('M j, Y');
+                            $displayEndDate = $endDate ? $endDate->format('M j, Y') : 'Ongoing';
+                        ?>
+                        <small><strong>Duration:</strong> <?= $displayStartDate; ?> - <?= $displayEndDate; ?></small>
+                    </td>
+
+                    <td style="width: 35%; vertical-align: middle;">
+                        <?php
+                            // Calculate progress percentage
+                            $progress = ($campaign['GoalAmount'] > 0) ? ($campaign['RaisedAmount'] / $campaign['GoalAmount']) * 100 : 0;
+                        ?>
+                        <div class="progress" style="height: 25px;">
+                            <div class="progress-bar" role="progressbar" style="width: <?= round($progress); ?>%;"><?= round($progress); ?>%</div>
+                        </div>
+                        <small class="d-block mt-1">
+                            $<?= number_format($campaign['RaisedAmount']); ?> raised of $<?= number_format($campaign['GoalAmount']); ?>
+                        </small>
+                        
+                        <?php if ($endDate && $today <= $endDate): ?>
+                            <?php 
+                                $interval = $today->diff($endDate);
+                                $daysLeft = $interval->days;
+                            ?>
+                            <div class="mt-2 fw-bold text-success">
+                                <img src="../../Main/images/clock-icon.png" alt="Clock" style="width: 16px; height: 16px; margin-right: 5px;">
+                                <?= $daysLeft; ?> days left to contribute
+                            </div>
+                        <?php elseif ($endDate && $today > $endDate): ?>
+                            <div class="mt-2 fw-bold text-danger">Campaign Ended</div>
+                        <?php else: ?>
+                            <div class="mt-2 fw-bold text-primary">Campaign is Ongoing</div>
+                        <?php endif; ?>
+                    </td>
+                    
+                    <td style="width: 25%; vertical-align: middle;">
                         <form method="POST" action="../control/DonationActionController.php">
+                            <input type="hidden" name="action" value="processDonation">
                             <input type="hidden" name="campaign_id" value="<?= $campaign['CampaignID']; ?>">
-                            <input type="number" name="amount" placeholder="Amount" class="form-control mb-2" required>
-                            <button type="submit" class="btn btn-primary btn-sm">Donate</button>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" name="amount" placeholder="Amount" class="form-control" required min="1">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-2">Donate Now</button>
                         </form>
                     </td>
                 </tr>

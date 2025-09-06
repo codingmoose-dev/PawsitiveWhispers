@@ -63,7 +63,18 @@ class BenefactorModel {
     }
     
     public function getOngoingCampaigns() {
-        $query = "SELECT * FROM Campaigns WHERE EndDate >= CURDATE() OR EndDate IS NULL";
+        $query = "
+            SELECT 
+                c.CampaignID, c.CampaignName, c.Description, c.StartDate, c.EndDate, 
+                c.GoalAmount, c.RaisedAmount, u.FullName AS CreatorName
+            FROM 
+                Campaigns c
+            LEFT JOIN 
+                Users u ON c.CreatedBy = u.UserID
+            WHERE 
+                c.EndDate >= CURDATE() OR c.EndDate IS NULL
+        ";
+        
         $result = $this->conn->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
