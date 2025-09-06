@@ -78,6 +78,11 @@ section {
     box-sizing: border-box;
 }
 
+.tagline {
+    font-style: italic;
+    font-weight: normal;
+}
+
 /* Section background colors */
 #home,
 #adoption,

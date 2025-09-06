@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center gap-2" href="Homepage.php">
                 <img src="../../Main/images/Icon.png" alt="PawsitiveWhispers Logo" class="navbar-logo">
-                <span class="fs-4">PawsitiveWhispers</span>
+                <span class="fs-4">Pawsitive Whispers</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
