@@ -7,7 +7,7 @@ include '../control/SignInController.php';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Sign In - PawsitiveWhispers</title>
+    <title>Sign In - Pawsitive Whispers</title>
     <link rel="stylesheet" href="../css/SignInStyle.css" />
 </head>
 <body>
@@ -49,7 +49,7 @@ include '../control/SignInController.php';
     
     <!-- Footer -->
     <footer>
-      © 2024 PawsitiveWhispers. All rights reserved.
+      © 2024 Pawsitive Whispers. All rights reserved.
     </footer>
   </div>
 </body>

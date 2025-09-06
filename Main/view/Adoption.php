@@ -58,7 +58,7 @@ include '../control/AdoptionController.php';
         </div>
 
         <footer>
-            <p>© 2024 PawsitiveWhispers | All Rights Reserved</p>
+            <p>© 2024 Pawsitive Whispers | All Rights Reserved</p>
         </footer>
         
         <script src="../js/AnimalProcess.js"></script>

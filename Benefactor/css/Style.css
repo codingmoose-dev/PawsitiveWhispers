@@ -301,14 +301,13 @@ footer {
     text-align: center;
     padding: 10px 0;
 }
-
 footer a {
-    color: white;
-    text-decoration: none;
+    color: #3d6885; 
+    text-decoration: underline; 
 }
 
 footer a:hover {
-    text-decoration: underline;
+    color: #D6EAF8; 
 }
 
 /* Responsive Design */

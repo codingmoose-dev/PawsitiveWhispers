@@ -1,4 +1,4 @@
-# PawsitiveWhispers
+# Pawsitive Whispers
 An animal care platform that connects injured animals with vets, volunteers, and adopters. It features AI-powered injury diagnostics, real-time tracking, donation management, and an adoption network, all built with a modular, scalable architecture.
 
 ![image](https://github.com/user-attachments/assets/b3ab8f19-78aa-4c28-8a49-dd6eae04c122)
@@ -11,6 +11,6 @@ An animal care platform that connects injured animals with vets, volunteers, and
 ![image](https://github.com/user-attachments/assets/247e8c27-242c-4063-b0ca-f59762c58ee2)
 
 ## License
-This project is **© 2024 PawsitiveWhispers. All rights reserved.**  
+This project is **© 2024 Pawsitive Whispers. All rights reserved.**  
 It is shared publicly for learning and viewing purposes only.  
 **Unauthorized copying, modification, distribution, or commercial use is strictly prohibited.**

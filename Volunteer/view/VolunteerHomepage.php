@@ -34,14 +34,14 @@ $canManageAdoption = (!empty($capabilities) && $capabilities['ManageAdoption']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volunteer Dashboard - PawsitiveWhispers</title>
+    <title>Volunteer Dashboard - Pawsitive Whispers</title>
     <link rel="stylesheet" href="../css/Style.css">
 </head>
 <body>
     <header>
         <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
             <img src="../../Main/images/Icon.png" alt="PawsitiveWhispers Logo" style="height: 60px;">
-            <h1>PawsitiveWhispers</h1>
+            <h1>Pawsitive Whispers</h1>
         </div>
         <nav>
             <a href="#home">Home</a>
@@ -153,7 +153,7 @@ $canManageAdoption = (!empty($capabilities) && $capabilities['ManageAdoption']);
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 PawsitiveWhispers | All Rights Reserved</p>
+        <p>© 2024 Pawsitive Whispers | All Rights Reserved</p>
         <p>Follow us on: 
             <a href="#">Facebook</a> | 
             <a href="#">Twitter</a> | 

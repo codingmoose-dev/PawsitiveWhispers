@@ -113,3 +113,12 @@ footer {
   padding: 12px 0;
   width: 100%;
 }
+
+footer a {
+    color: #85C1E9; 
+    text-decoration: underline; 
+}
+
+footer a:hover {
+    color: #D6EAF8; 
+}

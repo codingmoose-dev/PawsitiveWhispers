@@ -20,7 +20,7 @@ include '../control/HomepageDisplayController.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PawsitiveWhispers - Benefactor</title>
+    <title>Pawsitive Whispers - Benefactor</title>
     <link rel="stylesheet" href="../css/Style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
@@ -95,7 +95,7 @@ include '../control/HomepageDisplayController.php';
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 PawsitiveWhispers. All rights reserved.</p>
+        <p>© 2024 Pawsitive Whispers. All rights reserved.</p>
         <p>Follow us on: 
             <a href="#">Facebook</a> | 
             <a href="#">Twitter</a> | 

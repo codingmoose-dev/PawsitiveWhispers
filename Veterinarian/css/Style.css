@@ -192,6 +192,14 @@ footer {
     padding: 10px 0;
     margin-top: 20px;
 }
+footer a {
+    color: #85C1E9; 
+    text-decoration: underline; 
+}
+
+footer a:hover {
+    color: #D6EAF8; 
+}
 
 /* Button Styles */
 .btn {
