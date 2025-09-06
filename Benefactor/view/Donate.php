@@ -20,7 +20,7 @@ include '../includes/navbar.php';
 ?>
 
 <main>
-<section id="donate" class="container py-4">
+<section id="donate"  class="container-fluid py-4">
     <h2>Donate to Make a Difference</h2>
     <p>Your contribution supports specific animal cases, campaigns, or general welfare funds.</p>
 
@@ -60,9 +60,13 @@ include '../includes/navbar.php';
         <div class="grid-container">
             <?php if (!empty($animals)): ?>
                 <?php foreach ($animals as $animal): ?>
-                    <div class="animal-card">
+                <div class="animal-card">
+                    
+                    <div class="animal-image-container">
                         <img src="../../Main/<?= htmlspecialchars($animal['PicturePath']); ?>" alt="<?= htmlspecialchars($animal['Name']); ?>" />
-                        
+                    </div>
+                    
+                    <div class="animal-card-body">
                         <h4><?= htmlspecialchars($animal['Name']); ?></h4>
                         <p>
                             <strong>Species:</strong> <?= htmlspecialchars($animal['Species']); ?><br>
@@ -71,35 +75,35 @@ include '../includes/navbar.php';
                         </p>
 
                         <?php 
-                            // Use the latest diagnosis if available, otherwise use the general condition
                             $condition = !empty($animal['LatestDiagnosis']) ? $animal['LatestDiagnosis'] : $animal['AnimalCondition'];
                         ?>
                         <?php if (!empty($condition)): ?>
-                            <p><strong>Condition:</strong> <span class="text-danger"><?= htmlspecialchars($condition); ?></span></p>
+                            <p><strong>Condition:</strong> <span class="animal-condition"><?= htmlspecialchars($condition); ?></span></p>
                         <?php endif; ?>
-
-                        <form method="POST" action="../control/DonationActionController.php" class="mt-auto">
-                            <input type="hidden" name="action" value="processDonation">
-                            <input type="hidden" name="animal_id" value="<?= $animal['AnimalID']; ?>">
-                            
-                            <div class="form-group mb-2">
-                                <input type="number" name="amount" placeholder="Sponsor Amount ($)" class="form-control" required min="1">
-                            </div>
-                            
-                            <div class="form-group mb-2">
-                                <select name="purpose" class="form-select" required>
-                                    <option value="" disabled selected>Select a purpose...</option>
-                                    <option value="Animal Food">Animal Food</option>
-                                    <option value="Medicine">Medicine</option>
-                                    <option value="Transport">Transport</option>
-                                    <option value="General Care">General Care</option>
-                                </select>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary w-100">Sponsor <?= htmlspecialchars($animal['Name']); ?></button>
-                        </form>
                     </div>
-                <?php endforeach; ?>
+
+                    <form method="POST" action="../control/DonationActionController.php" class="mt-auto">
+                        <input type="hidden" name="action" value="processDonation">
+                        <input type="hidden" name="animal_id" value="<?= $animal['AnimalID']; ?>">
+                        
+                        <div class="form-group mb-2">
+                            <input type="number" name="amount" placeholder="Sponsor Amount ($)" class="form-control" required min="1">
+                        </div>
+                        
+                        <div class="form-group mb-2">
+                            <select name="purpose" class="form-select" required>
+                                <option value="" disabled selected>Select a purpose...</option>
+                                <option value="Animal Food">Animal Food</option>
+                                <option value="Medicine">Medicine</option>
+                                <option value="Transport">Transport</option>
+                                <option value="General Care">General Care</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">Sponsor <?= htmlspecialchars($animal['Name']); ?></button>
+                    </form>
+
+                </div> <?php endforeach; ?>
             <?php else: ?>
                 <p>All animals are currently cared for. Thank you for your support!</p>
             <?php endif; ?>
