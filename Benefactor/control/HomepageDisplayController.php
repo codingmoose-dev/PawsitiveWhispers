@@ -11,7 +11,7 @@ class HomepageDisplayRequests {
     public function getHomepageData($benefactorID) {
         return [
             'campaigns' => $this->model->getOngoingCampaigns(),
-            'animals' => $this->model->getAnimalsUnderCare(),
+            'animals' => $this->model->getSupportableAnimals(),
             'donations' => $this->model->getDonationsByBenefactor($benefactorID)
         ];
     }

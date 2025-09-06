@@ -1,79 +1,112 @@
 <?php
 session_start();
-session_regenerate_id(true);
 
+// AUTHENTICATION
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'Benefactor') {
     header("Location: SignIn.php?error=unauthorized");
     exit();
 }
 
-include '../control/HomepageDisplayController.php'; 
+require_once '../control/HomepageDisplayController.php'; 
+$displayController = new HomepageDisplayRequests();
+$pageData = $displayController->getHomepageData($_SESSION['user_id']);
+
+// Extract the variables the view needs
+$campaigns = $pageData['campaigns'];
+$animals = $pageData['animals'];
+
 $activePage = 'donate';
+include '../includes/navbar.php'; 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Donate - PawsitiveWhispers</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/Style.css" />
-</head>
-<body>
-<?php include '../includes/navbar.php'; ?>
 
-<section id="donate">
-    <div class="content-wrapper">
-        <h2>Donate to Make a Difference</h2>
-        <p>Your contribution supports specific animal cases, campaigns, or general welfare funds.</p>
+<main>
+<section id="donate" class="container py-4">
+    <h2>Donate to Make a Difference</h2>
+    <p>Your contribution supports specific animal cases, campaigns, or general welfare funds.</p>
 
-        <?php if (isset($_SESSION['donation_success'])): ?>
-            <div class="alert-success"><?= $_SESSION['donation_success']; unset($_SESSION['donation_success']); ?></div>
-        <?php elseif (isset($_SESSION['donation_error'])): ?>
-            <div class="alert-error"><?= $_SESSION['donation_error']; unset($_SESSION['donation_error']); ?></div>
-        <?php endif; ?>
+    <?php if (isset($_SESSION['donation_success'])): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($_SESSION['donation_success']); unset($_SESSION['donation_success']); ?></div>
+    <?php elseif (isset($_SESSION['donation_error'])): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($_SESSION['donation_error']); unset($_SESSION['donation_error']); ?></div>
+    <?php endif; ?>
 
-        <!-- Campaigns -->
-        <div class="section-block">
-            <h3>Support Our Campaigns</h3>
-            <p>Click below to view and donate to active campaigns.</p>
-            <button id="show-more-donate" class="btn btn-primary">Show Campaigns</button>
+    <div class="my-5">
+        <h3>Support Our Campaigns</h3>
+        <table class="table table-bordered table-striped">
+            <tbody>
+                <?php foreach ($campaigns as $campaign): ?>
+                <tr>
+                    <td><?= htmlspecialchars($campaign['CampaignName']); ?></td>
+                    <td><?= htmlspecialchars($campaign['Description']); ?></td>
+                    <td>
+                        </td>
+                    <td>
+                        <form method="POST" action="../control/DonationActionController.php">
+                            <input type="hidden" name="campaign_id" value="<?= $campaign['CampaignID']; ?>">
+                            <input type="number" name="amount" placeholder="Amount" class="form-control mb-2" required>
+                            <button type="submit" class="btn btn-primary btn-sm">Donate</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 
-            <div id="donate-more-content" class="campaigns-section">
-                <?php include 'campaigns.php'; ?>
-                <!-- Donation Form -->
-                <form id="donation-form-campaign" method="POST" action="../control/DonateToCampaign.php" class="form">
-                    <!-- Form Elements Here -->
-                </form>
-            </div>
-        </div>
-
-        <!-- Animal Donations -->
-        <div class="section-block">
-            <h3>Support Specific Animals</h3>
-            <p>Donate directly to support individual animals with food, medicine, or transport.</p>
-            <div class="grid-container" id="animals">
+    <div class="my-5">
+        <h3>Sponsor an Animal in Need</h3>
+        <p>Your support provides food, medicine, and care for animals waiting for their forever home.</p>
+        
+        <div class="grid-container">
+            <?php if (!empty($animals)): ?>
                 <?php foreach ($animals as $animal): ?>
                     <div class="animal-card">
                         <img src="../../Main/<?= htmlspecialchars($animal['PicturePath']); ?>" alt="<?= htmlspecialchars($animal['Name']); ?>" />
+                        
                         <h4><?= htmlspecialchars($animal['Name']); ?></h4>
-                        <!-- Other Animal Info -->
+                        <p>
+                            <strong>Species:</strong> <?= htmlspecialchars($animal['Species']); ?><br>
+                            <strong>Breed:</strong> <?= htmlspecialchars($animal['Breed']); ?><br>
+                            <strong>Age:</strong> <?= htmlspecialchars($animal['Age'] ?? 'N/A'); ?> years
+                        </p>
+
+                        <?php 
+                            // Use the latest diagnosis if available, otherwise use the general condition
+                            $condition = !empty($animal['LatestDiagnosis']) ? $animal['LatestDiagnosis'] : $animal['AnimalCondition'];
+                        ?>
+                        <?php if (!empty($condition)): ?>
+                            <p><strong>Condition:</strong> <span class="text-danger"><?= htmlspecialchars($condition); ?></span></p>
+                        <?php endif; ?>
+
+                        <form method="POST" action="../control/DonationActionController.php" class="mt-auto">
+                            <input type="hidden" name="action" value="processDonation">
+                            <input type="hidden" name="animal_id" value="<?= $animal['AnimalID']; ?>">
+                            
+                            <div class="form-group mb-2">
+                                <input type="number" name="amount" placeholder="Sponsor Amount ($)" class="form-control" required min="1">
+                            </div>
+                            
+                            <div class="form-group mb-2">
+                                <select name="purpose" class="form-select" required>
+                                    <option value="" disabled selected>Select a purpose...</option>
+                                    <option value="Animal Food">Animal Food</option>
+                                    <option value="Medicine">Medicine</option>
+                                    <option value="Transport">Transport</option>
+                                    <option value="General Care">General Care</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">Sponsor <?= htmlspecialchars($animal['Name']); ?></button>
+                        </form>
                     </div>
                 <?php endforeach; ?>
-            </div>
-        </div>
-
-        <!-- General Fund -->
-        <div class="section-block">
-            <h3>General Fund Donations</h3>
-            <form id="general-donation-form" method="POST" action="../control/DonateToGeneralFund.php" class="form">
-                <!-- Donation Form Elements -->
-            </form>
+            <?php else: ?>
+                <p>All animals are currently cared for. Thank you for your support!</p>
+            <?php endif; ?>
         </div>
     </div>
+    
 </section>
+</main>
 
-<script src="../js/ShowDetailHomepage.js"></script>
 <?php include '../includes/footer.php'; ?>
-</body>
-</html>

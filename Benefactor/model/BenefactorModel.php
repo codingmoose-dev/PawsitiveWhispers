@@ -5,39 +5,106 @@ class BenefactorModel {
     private $conn;
 
     public function __construct() {
-        $this->conn = $this->openConn();
-    }
-
-    private function openConn() {
         $servername = "localhost";
         $username = "root";
         $password = "";
         $dbname = "PawsitiveWhispers"; 
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        $this->conn = new mysqli($servername, $username, $password, $dbname);
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
         }
-        return $conn;
     }
 
+    public function recordDonation($donorID, $amount, $campaignID, $animalID, $purpose) {
+        $this->conn->begin_transaction();
+        try {
+            // Update the SQL query to include the Purpose column
+            $sql = "INSERT INTO Donations (DonorID, CampaignID, AnimalID, DonationAmount, Purpose) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $this->conn->prepare($sql);
+            // Add "s" for string type for the new purpose field
+            $stmt->bind_param("iiids", $donorID, $campaignID, $animalID, $amount, $purpose);
+            
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to record donation.");
+            }
+            $stmt->close();
+
+            // Step 2: If it's a campaign donation, update the campaign's raised amount
+            if ($campaignID !== null) {
+                $updateSql = "UPDATE Campaigns SET RaisedAmount = RaisedAmount + ? WHERE CampaignID = ?";
+                $updateStmt = $this->conn->prepare($updateSql);
+                $updateStmt->bind_param("di", $amount, $campaignID);
+                
+                if (!$updateStmt->execute()) {
+                    throw new Exception("Failed to update campaign amount.");
+                }
+                $updateStmt->close();
+            }
+
+            $this->conn->commit();
+            return true;
+
+        } catch (Exception $e) {
+            $this->conn->rollback();
+            return false;
+        }
+    }      
+
+    public function getTotalDonationsByUser($userID) {
+        $sql = "SELECT SUM(DonationAmount) AS TotalDonated FROM Donations WHERE DonorID = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $stmt->close();
+        
+        return $row['TotalDonated'] ?? 0.00;
+    }
+    
+    public function getOngoingCampaigns() {
+        $query = "SELECT * FROM Campaigns WHERE EndDate >= CURDATE() OR EndDate IS NULL";
+        $result = $this->conn->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    public function getSupportableAnimals() {
+        $sql = "
+            SELECT
+                a.AnimalID,
+                a.Name,
+                a.Species,
+                a.Breed,
+                a.Age,
+                a.PicturePath,
+                a.AnimalCondition,
+                -- Subquery to get the most recent diagnosis for each animal
+                (SELECT mr.Diagnosis 
+                FROM MedicalRecords mr 
+                WHERE mr.AnimalID = a.AnimalID 
+                ORDER BY mr.TreatmentDate DESC 
+                LIMIT 1) AS LatestDiagnosis
+            FROM 
+                Animals a
+            WHERE 
+                a.AdoptionStatus IN ('Available', 'UnderCare', 'Pending')
+        ";
+        
+        $result = $this->conn->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
     public function getAllBenefactors() {
         $query = "
             SELECT 
                 u.UserID, u.FullName, u.Email, u.Phone, u.HomeAddress, u.CityStateCountry,
-                b.OrganizationType, b.DonationType, b.PreferredCampaign, b.PaymentMethod,
-                b.SavePayment, b.SponsorEvents, b.NgoPartnership, b.AdditionalNotes,
-                g.LocationEnabled, g.AdoptionNotifications, g.DonationCampaignNotifications, g.NewsletterSubscription
+                b.OrganizationType, b.DonationType, b.PreferredCampaign, b.PaymentMethod
             FROM Users u
             INNER JOIN BenefactorDetails b ON u.UserID = b.UserID
-            INNER JOIN GeneralUserPreferences g ON u.UserID = g.UserID
             WHERE u.Role = 'Benefactor'
         ";
 
         $stmt = $this->conn->prepare($query);
-        if ($stmt === false) {
-            die("Error preparing statement: " . $this->conn->error);
-        }
-
         if ($stmt->execute()) {
             $result = $stmt->get_result();
             return $result->fetch_all(MYSQLI_ASSOC);
@@ -46,98 +113,19 @@ class BenefactorModel {
         }
     }
 
-    public function getOngoingCampaigns() {
-        $query = "SELECT * FROM Campaigns";
-        $result = $this->conn->query($query);
-        $campaigns = [];
-
-        while ($row = $result->fetch_assoc()) {
-            $campaigns[] = $row;
-        }
-
-        return $campaigns;
-    }
-
-    public function recordCampaignDonation($campaignId, $donorId, $amount) {
-        $query = "INSERT INTO Donations (DonorID, CampaignID, DonationAmount)
-                VALUES (?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("iid", $donorId, $campaignId, $amount);
-        return $stmt->execute();
-    }
-
-    // Get donations by benefactor's UserID
     public function getDonationsByBenefactor($userID) {
-        $sql = "
-            SELECT 
-                d.DonationAmount, d.DonationDate, 
-                c.CampaignName, 
-                a.Name AS AnimalName, a.Species AS AnimalSpecies, 
-                a.Breed AS AnimalBreed, a.Age AS AnimalAge, 
-                a.AnimalCondition, a.PicturePath
-            FROM Donations d
-            LEFT JOIN Campaigns c ON d.CampaignID = c.CampaignID
-            LEFT JOIN Animals a ON d.AnimalID = a.AnimalID
-            WHERE d.DonorID = ?
-        ";
-
+        $sql = "SELECT d.DonationAmount, d.DonationDate, c.CampaignName, a.Name AS AnimalName 
+                FROM Donations d
+                LEFT JOIN Campaigns c ON d.CampaignID = c.CampaignID
+                LEFT JOIN Animals a ON d.AnimalID = a.AnimalID
+                WHERE d.DonorID = ?";
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $userID);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        $donations = [];
-        while ($row = $result->fetch_assoc()) {
-            $donations[] = $row;
-        }
-
+        $donations = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
         return $donations;
-    }
-
-    public function getAnimalsUnderCare() {
-        $sql = "
-            SELECT 
-                AnimalID, Name, Species, Breed, Age, Gender, 
-                AnimalCondition, RescueDate, 
-                AdoptionStatus, ShelterID, PicturePath
-            FROM Animals
-            WHERE AdoptionStatus IN ('Available', 'UnderCare')
-        ";
-        $result = $this->conn->query($sql);
-        $animals = [];
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $animals[] = $row;
-            }
-        }
-
-        return $animals;
-    }
-
-    // Get current raised amount for a campaign
-    public function getCurrentRaisedAmount($campaignId) {
-        $query = "SELECT RaisedAmount FROM Campaigns WHERE CampaignID = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("i", $campaignId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            return $row['RaisedAmount'];
-        }
-
-        return null;
-    }
-
-    // Update raised amount for a campaign
-    public function updateRaisedAmount($campaignId, $newRaisedAmount) {
-        $query = "UPDATE Campaigns SET RaisedAmount = ? WHERE CampaignID = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("di", $newRaisedAmount, $campaignId);
-        return $stmt->execute();
     }
 
     public function closeConnection() {
@@ -146,4 +134,3 @@ class BenefactorModel {
         }
     }
 }
-?>

@@ -126,9 +126,9 @@ VALUES
 ('Tiger', 'Dog', 'German Shepherd', 5, 'Male', 'Recovering', '2025-01-30', 'Pending', 5, 'images/animal_images/tiger.jpg'),
 ('Puchki', 'Cat', 'Bengal', 1, 'Female', 'Eye infection', '2025-02-15', 'Available', 6, 'images/animal_images/puchki.jpg'),
 ('Tommy', 'Dog', 'Pug', 2, 'Male', 'Severe malnutrition', '2025-03-05', 'Available', 7, 'images/animal_images/tommy.jpg'),
-('Laila', 'Goat', 'Black Bengal', 3, 'Female', 'Slight fever', '2025-01-18', 'UnderCare', 8, 'images/animal_images/laila.jpg'),
+('Laila', 'Goat', 'Black Bengal', 3, 'Female', 'Healthy', '2025-01-18', 'Adopted', 8, 'images/animal_images/laila.jpg'),
 ('Snowy', 'Dog', 'Husky', 4, 'Male', 'Healthy', '2025-02-20', 'Available', 9, 'images/animal_images/snowy.jpg'),
-('Milo', 'Cat', 'Siamese', 2, 'Male', 'Recovering', '2025-03-10', 'Pending', 10, 'images/milo.jpg');
+('Milo', 'Cat', 'Siamese', 2, 'Male', 'Recovering', '2025-03-10', 'Pending', 10, 'images/animal_images/milo.jpg');
 
 -- Rescue Missions Table Data
 INSERT INTO RescueMissions (
@@ -202,18 +202,19 @@ VALUES
 ('Educational Workshops', 'Teach school kids about animal care.', '2025-01-28', '2025-02-28', 15000.00, 6000.00, 130009);
 
 -- Donations Table Data
-INSERT INTO Donations (DonorID, CampaignID, AnimalID, DonationAmount)
+INSERT INTO Donations (DonorID, CampaignID, AnimalID, DonationAmount, Purpose)
 VALUES
-(130000, 1, NULL, 3000.00),
-(130001, 2, NULL, 5000.00),
-(130002, 3, NULL, 20000.00),
-(130003, 4, NULL, 4000.00),
-(130004, 5, 1, 1500.00),
-(130005, 6, NULL, 3500.00),
-(130006, 7, 5, 1200.00),
-(130007, 8, NULL, 1800.00),
-(130008, 9, 2, 2500.00),
-(130009, 10, NULL, 3000.00);
+(130000, 1, NULL, 3000.00, 'Animal Food'),       
+(130001, 2, NULL, 5000.00, 'Medicine'),           
+(130002, 4, NULL, 20000.00, 'Shelter Support'),   
+(130003, 4, NULL, 4000.00, 'Transport'),          
+(130005, 6, NULL, 3500.00, 'Shelter Support'),    
+(130007, 8, NULL, 1800.00, 'General Care'),   
+(130008, 5, NULL, 2500.00, 'Medicine'),     
+(130009, 10, NULL, 3000.00, 'General Care'),
+(130004, 5, 1, 1500.00, 'Animal Food'), 
+(130006, 7, 5, 1200.00, 'Medicine'),
+(130008, 9, 2, 2500.00, 'General Care');
 
 -- FundUsage Table Data
 INSERT INTO FundUsage (DonationID, UsedBy, Purpose, AmountUsed, DateUsed, Notes)

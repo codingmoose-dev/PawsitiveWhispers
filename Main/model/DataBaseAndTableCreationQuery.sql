@@ -169,6 +169,11 @@ CREATE TABLE Donations (
     FOREIGN KEY (AnimalID) REFERENCES Animals(AnimalID) ON DELETE SET NULL
 );
 
+ALTER TABLE Donations
+ADD COLUMN Purpose VARCHAR(255) NULL;
+ALTER TABLE Donations 
+MODIFY COLUMN Purpose ENUM('Animal Food', 'Medicine', 'Clothing', 'Transport', 'Shelter Support', 'General Care');
+
 -- 11. Fund Usage Tracking
 CREATE TABLE FundUsage (
     UsageID INT PRIMARY KEY AUTO_INCREMENT,
