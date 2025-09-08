@@ -22,26 +22,21 @@
                 <ul class="navbar-nav">
                     <?php
                         $pages = [
-                            'home'         => ['url' => 'Homepage.php', 'text' => 'Home'],
-                            'donate'       => ['url' => 'Donate.php', 'text' => 'Donate'],
-                            'adoption'     => ['url' => 'Adoption.php', 'text' => 'Adopt an Animal'],
-                            'impact'       => ['url' => 'DonationImpact.php', 'text' => 'Impact & Updates'],
-                            'transparency' => ['url' => 'Transparency.php', 'text' => 'Transparency'],
-                            'faq'          => ['url' => 'FAQs.php', 'text' => 'Frequently Asked Questions']
+                            'home'     => ['url' => '../view/Homepage.php', 'text' => 'Home'],
+                            'donate'   => ['url' => '../control/DonationController.php', 'text' => 'Donate'],
+                            'adoption' => ['url' => '../view/Adoption.php', 'text' => 'Adopt an Animal'],
+                            'impact'   => ['url' => '../control/ImpactController.php', 'text' => 'Impact & Updates'],
+                            'transparency' => ['url' => '../view/Transparency.php', 'text' => 'Transparency'],
+                            'faq'      => ['url' => '../view/FAQs.php', 'text' => 'Frequently Asked Questions']
                         ];
 
                         foreach ($pages as $pageKey => $pageData) {
                             $isActive = ($activePage == $pageKey) ? 'active' : '';
                             echo '<li class="nav-item">
                                     <a class="nav-link ' . $isActive . '" href="' . $pageData['url'] . '">' . $pageData['text'] . '</a>
-                                  </li>';
+                                </li>';
                         }
                     ?>
-                    <li class="nav-item">
-                        <form action="/PawsitiveWhispers/Main/view/Logout.php" method="post" class="d-inline">
-                            <button type="submit" class="nav-link btn btn-link">Logout</button>
-                        </form>
-                    </li>
                 </ul>
             </div>
         </div>

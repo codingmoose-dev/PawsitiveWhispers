@@ -7,11 +7,11 @@ An animal care platform that connects injured animals with vets, volunteers, and
 ![Benefactor Homepage - Navbar](./Main/docs/benefactor-navbar.png)
 ![Donate Page - Campaigns](./Main/docs/donate-campaigns.png)
 ![Donate Page - Animal Sponsorship](./Main/docs/donate-sponsor-animal-in-need.png)
+![Donation Impact Page](./Main/docs/impact-page.png)
 ![FAQ Page](./Main/docs/faq-page.png)
 ![Footer](./Main/docs/footer.png)
 
 <!--
-![Donation Impact Page](./docs/images/impact-page.png)
 ![Code Snippet of the Model](./docs/images/code-snippet-model.png)
 ![Code Snippet of the Controller](./docs/images/code-snippet-controller.png)
 ![Database Schema Diagram](./docs/images/database-schema.png)

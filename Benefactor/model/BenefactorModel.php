@@ -125,11 +125,17 @@ class BenefactorModel {
     }
 
     public function getDonationsByBenefactor($userID) {
-        $sql = "SELECT d.DonationAmount, d.DonationDate, c.CampaignName, a.Name AS AnimalName 
-                FROM Donations d
-                LEFT JOIN Campaigns c ON d.CampaignID = c.CampaignID
-                LEFT JOIN Animals a ON d.AnimalID = a.AnimalID
-                WHERE d.DonorID = ?";
+        $sql = "SELECT 
+            d.DonationAmount, d.DonationDate, d.Purpose, c.CampaignName, 
+            a.AnimalID, a.Name AS AnimalName, a.Species AS AnimalSpecies, 
+            a.Breed AS AnimalBreed, a.Age AS AnimalAge, a.AnimalCondition, 
+            a.PicturePath, a.AdoptionStatus
+        FROM Donations d
+        LEFT JOIN Campaigns c ON d.CampaignID = c.CampaignID
+        LEFT JOIN Animals a ON d.AnimalID = a.AnimalID
+        WHERE d.DonorID = ?
+        ORDER BY d.DonationDate DESC";
+
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $userID);
         $stmt->execute();

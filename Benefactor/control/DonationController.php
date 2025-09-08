@@ -2,7 +2,7 @@
 session_start();
 require_once '../model/BenefactorModel.php';
 
-class DonationActionController {
+class DonationController {
     private $model;
 
     public function __construct() {
@@ -58,7 +58,7 @@ class DonationActionController {
 }
 
 $action = $_REQUEST['action'] ?? '';
-$controller = new DonationActionController();
+$controller = new DonationController();
 
 switch ($action) {
     case 'processDonation':

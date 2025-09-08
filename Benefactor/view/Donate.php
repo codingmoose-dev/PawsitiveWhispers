@@ -128,7 +128,7 @@ include '../includes/navbar.php';
                         <?php endif; ?>
                     </div>
 
-                    <form method="POST" action="../control/DonationActionController.php" class="mt-auto">
+                    <form method="POST" action="../control/DonationController.php" class="mt-auto">
                         <input type="hidden" name="action" value="processDonation">
                         <input type="hidden" name="animal_id" value="<?= $animal['AnimalID']; ?>">
                         
