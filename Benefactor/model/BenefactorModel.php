@@ -18,18 +18,15 @@ class BenefactorModel {
     public function recordDonation($donorID, $amount, $campaignID, $animalID, $purpose) {
         $this->conn->begin_transaction();
         try {
-            // Update the SQL query to include the Purpose column
             $sql = "INSERT INTO Donations (DonorID, CampaignID, AnimalID, DonationAmount, Purpose) VALUES (?, ?, ?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
-            // Add "s" for string type for the new purpose field
             $stmt->bind_param("iiids", $donorID, $campaignID, $animalID, $amount, $purpose);
             
             if (!$stmt->execute()) {
                 throw new Exception("Failed to record donation.");
             }
             $stmt->close();
-
-            // Step 2: If it's a campaign donation, update the campaign's raised amount
+            
             if ($campaignID !== null) {
                 $updateSql = "UPDATE Campaigns SET RaisedAmount = RaisedAmount + ? WHERE CampaignID = ?";
                 $updateStmt = $this->conn->prepare($updateSql);

@@ -1,6 +1,4 @@
 <?php
-// File: control/ImpactController.php
-
 session_start();
 require_once '../model/BenefactorModel.php';
 

@@ -36,16 +36,7 @@ class DonationController {
             $this->redirectWithMessage('Sorry, there was an issue processing your donation.', 'error');
         }
     }
-
-    // Placeholder for future "Donation Impact" feature.
-    public function showDonationImpact() {
-        $totalDonated = $this->model->getTotalDonationsByUser($_SESSION['user_id']);
-        $message = "You have donated a total of $" . number_format($totalDonated, 2) . ". Thank you for making a difference!";
-        $this->redirectWithMessage($message, 'success');
-    }
-    
-    
-    // A helper function to handle redirects and session messages.
+   
     private function redirectWithMessage($message, $type) {
         if ($type === 'success') {
             $_SESSION['donation_success'] = $message;
@@ -64,11 +55,6 @@ switch ($action) {
     case 'processDonation':
         $controller->processDonation();
         break;
-    
-    case 'showImpact':
-        $controller->showDonationImpact();
-        break;
-
     default:
         header("Location: ../view/Donate.php");
         exit();

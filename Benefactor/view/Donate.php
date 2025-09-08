@@ -11,7 +11,6 @@ require_once '../control/HomepageDisplayController.php';
 $displayController = new HomepageDisplayRequests();
 $pageData = $displayController->getHomepageData($_SESSION['user_id']);
 
-// Extract the variables the view needs
 $campaigns = $pageData['campaigns'];
 $animals = $pageData['animals'];
 
@@ -42,12 +41,9 @@ include '../includes/navbar.php';
                         <p><?= htmlspecialchars($campaign['Description']); ?></p>
                         
                         <?php
-                            // Create DateTime objects for calculation
                             $today = new DateTime();
                             $endDate = $campaign['EndDate'] ? new DateTime($campaign['EndDate']) : null;
                             $startDate = new DateTime($campaign['StartDate']);
-                            
-                            // Format dates for display
                             $displayStartDate = $startDate->format('M j, Y');
                             $displayEndDate = $endDate ? $endDate->format('M j, Y') : 'Ongoing';
                         ?>
@@ -56,7 +52,6 @@ include '../includes/navbar.php';
 
                     <td style="width: 35%; vertical-align: middle;">
                         <?php
-                            // Calculate progress percentage
                             $progress = ($campaign['GoalAmount'] > 0) ? ($campaign['RaisedAmount'] / $campaign['GoalAmount']) * 100 : 0;
                         ?>
                         <div class="progress" style="height: 25px;">
