@@ -26,7 +26,7 @@
                             'donate'   => ['url' => '../control/DonationController.php', 'text' => 'Donate'],
                             'adoption' => ['url' => '../view/Adoption.php', 'text' => 'Adopt an Animal'],
                             'impact'   => ['url' => '../control/ImpactController.php', 'text' => 'Impact & Updates'],
-                            'transparency' => ['url' => '../view/Transparency.php', 'text' => 'Transparency'],
+                            'transparency' => ['url' => '../control/TransparencyController.php', 'text' => 'Transparency'],
                             'faq'      => ['url' => '../view/FAQs.php', 'text' => 'Frequently Asked Questions']
                         ];
 

@@ -142,6 +142,59 @@ class BenefactorModel {
         return $donations;
     }
 
+    public function getFinancialSummary() {
+    $summary = [];
+
+    // Total Donations Received
+    $stmt1 = $this->conn->prepare("SELECT SUM(DonationAmount) AS TotalReceived FROM Donations");
+    $stmt1->execute();
+    $result1 = $stmt1->get_result()->fetch_assoc();
+    $summary['total_received'] = $result1['TotalReceived'] ?? 0;
+    $stmt1->close();
+
+    // Total Funds Used
+    $stmt2 = $this->conn->prepare("SELECT SUM(AmountUsed) AS TotalUsed FROM FundUsage");
+    $stmt2->execute();
+    $result2 = $stmt2->get_result()->fetch_assoc();
+    $summary['total_used'] = $result2['TotalUsed'] ?? 0;
+    $stmt2->close();
+    
+    // Number of animals helped (unique animals with donations)
+    $stmt3 = $this->conn->prepare("SELECT COUNT(DISTINCT AnimalID) AS AnimalsHelped FROM Donations WHERE AnimalID IS NOT NULL");
+    $stmt3->execute();
+    $result3 = $stmt3->get_result()->fetch_assoc();
+    $summary['animals_helped'] = $result3['AnimalsHelped'] ?? 0;
+    $stmt3->close();
+
+    return $summary;
+    }
+
+    // Gets a detailed log of all funds used, joining with the user who spent it.
+    public function getFundUsageLog() {
+        $query = "
+            SELECT 
+                fu.DateUsed, 
+                fu.AmountUsed, 
+                fu.Purpose, 
+                u.FullName AS VolunteerName
+            FROM 
+                FundUsage fu
+            LEFT JOIN 
+                Users u ON fu.UsedBy = u.UserID
+            ORDER BY 
+                fu.DateUsed DESC
+        ";
+        $result = $this->conn->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    // Gets the financial status of all campaigns.
+    public function getCampaignFinancials() {
+        $query = "SELECT CampaignName, GoalAmount, RaisedAmount FROM Campaigns ORDER BY StartDate DESC";
+        $result = $this->conn->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function closeConnection() {
         if (isset($this->conn)) {
             $this->conn->close();
