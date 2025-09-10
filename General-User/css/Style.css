@@ -44,6 +44,15 @@ header img {
     height: 60px;
 }
 
+.custom-navbar {
+    background-color: #2c3e50;
+}
+
+.navbar-logo {
+    height: 60px !important;
+    width: auto;
+}
+
 #logo-container {
     display: flex;
     align-items: center;
@@ -178,31 +187,31 @@ div {
 
 .preference-item {
     display: inline-flex;
-    align-items: center; /* Ensures the label and radio button align horizontally */
+    align-items: center;
     margin-bottom: 10px;
-    gap: 5px; /* Adjust spacing between radio button and label */
+    gap: 5px;
 }
 
 
 input[type="number"], input[type="text"], input[type="date"], select {
-    width: 52%; /*Set width of Input field to 52% of its parent */
-    max-width: 400px; /* Textbox never gets wider than 400px */
-    margin: 0 auto; /* Optional: centers the textbox */
+    width: 52%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 input[type="radio"] {
-    width: 15px; /* Adjust the size of the radio button */
+    width: 15px;
     height: 15px;
-    transform: scale(1); /* Adjust this scale if needed */
+    transform: scale(1);
 }
 
 label {
-    margin-left: 10px; /* Space between radio button and label */
+    margin-left: 10px;
     cursor: pointer;
 }
 
 .preference-item label {
-    width: 200px; /* Adjust width as needed */
+    width: 200px;
     font-weight: bold;
 }
 
@@ -260,9 +269,9 @@ footer a:hover {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: inline-block;
-    width: 250px; /* Fixed card width */
+    width: 250px;
     text-align: center;
-    background-color: #f9f9f9; /* Optional: subtle background for the card */
+    background-color: #f9f9f9;
 }
 
 .animal-image {
