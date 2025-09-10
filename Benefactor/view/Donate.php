@@ -78,7 +78,7 @@ include '../includes/navbar.php';
                     </td>
                     
                     <td style="width: 25%; vertical-align: middle;">
-                        <form method="POST" action="../control/DonationActionController.php">
+                        <form method="POST" action="../control/DonationController.php">
                             <input type="hidden" name="action" value="processDonation">
                             <input type="hidden" name="campaign_id" value="<?= $campaign['CampaignID']; ?>">
                             <div class="input-group">
