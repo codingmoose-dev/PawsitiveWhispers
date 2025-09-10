@@ -74,6 +74,7 @@ form button {
   color: white;
   border: none;
   cursor: pointer;
+  user-select: none;
 }
 
 form button:hover {
@@ -105,6 +106,31 @@ form button:hover {
   font-size: 0.95em;
 }
 
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 45px; 
+    box-sizing: border-box;
+}
+
+.toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  user-select: none;
+}
+
+.toggle-icon:hover {
+    color: #333;
+}
+
 /* Footer */
 footer {
   background-color: #2c3e50;
@@ -115,8 +141,8 @@ footer {
 }
 
 footer a {
-    color: #85C1E9; 
-    text-decoration: underline; 
+  color: #85C1E9; 
+  text-decoration: underline; 
 }
 
 footer a:hover {
