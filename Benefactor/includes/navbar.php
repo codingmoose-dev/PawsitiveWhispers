@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
         <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="Homepage.php">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="../../Main/view/Homepage.html">
                 <img src="../../Main/images/Icon.png" alt="PawsitiveWhispers Logo" class="navbar-logo">
                 <span class="fs-4">Pawsitive Whispers</span>
             </a>
