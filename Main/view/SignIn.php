@@ -8,7 +8,7 @@ include '../control/SignInController.php';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Sign In - Pawsitive Whispers</title>
-    <link rel="stylesheet" href="../css/SignInStyle.css" />
+    <link rel="stylesheet" href="/PawsitiveWhispers/Main/css/SignInStyle.css" />
 </head>
 <body>
   <div class="page-wrapper">
