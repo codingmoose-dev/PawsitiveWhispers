@@ -7,15 +7,18 @@ CREATE TABLE Users (
     UserID INT PRIMARY KEY AUTO_INCREMENT,
     FullName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) UNIQUE NOT NULL,
-    Phone VARCHAR(15),
+    Phone VARCHAR(20),
     Password VARCHAR(255) NOT NULL,
     HomeAddress TEXT,
     CityStateCountry VARCHAR(255),
     Role ENUM('General', 'Volunteer', 'Veterinarian', 'Benefactor') NOT NULL,
     ProfilePicturePath VARCHAR(255),
     SocialMediaLinks TEXT,
-    EmailVerified BOOLEAN DEFAULT FALSE
-) ENGINE = InnoDB AUTO_INCREMENT = 100000;
+    EmailVerified BOOLEAN DEFAULT FALSE,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    DeletedAt TIMESTAMP NULL
+);
 
 -- 2. Role-Specific Details
 CREATE TABLE VolunteerDetails (
@@ -26,7 +29,7 @@ CREATE TABLE VolunteerDetails (
     ManageAdoption BOOLEAN DEFAULT FALSE,
     Skills TEXT,
     ExperienceYears INT CHECK (ExperienceYears >= 0),
-    Availability ENUM('Weekends', 'Weekdays', 'Morning', 'Afternoon', 'Evening', 'Anytime') DEFAULT 'Anytime',
+    Availability SET('Weekends', 'Weekdays', 'Morning', 'Afternoon', 'Evening', 'Anytime') DEFAULT 'Anytime',
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
@@ -60,7 +63,6 @@ CREATE TABLE BenefactorDetails (
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
--- 3. General User Preferences
 CREATE TABLE GeneralUserPreferences (
     UserID INT PRIMARY KEY,
     LocationEnabled BOOLEAN DEFAULT FALSE,
@@ -70,18 +72,18 @@ CREATE TABLE GeneralUserPreferences (
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
--- 4. Shelter Table
+-- 3. Shelter Table
 CREATE TABLE Shelter (
     ShelterID INT PRIMARY KEY AUTO_INCREMENT,
     ShelterName VARCHAR(255) NOT NULL,
     Address TEXT NOT NULL,
     CityStateCountry VARCHAR(255),
     ContactNumber VARCHAR(20),
-    Email VARCHAR(255) UNIQUE NOT NULL,
+    Email VARCHAR(255),
     ShelterType ENUM('Private', 'Government', 'NGO') DEFAULT 'NGO'
 );
 
--- 5. Animals Table
+-- 4. Animals Table
 CREATE TABLE Animals (
     AnimalID INT PRIMARY KEY AUTO_INCREMENT,
     Name VARCHAR(50) NOT NULL,
@@ -93,8 +95,18 @@ CREATE TABLE Animals (
     RescueDate DATE,
     AdoptionStatus ENUM('Available', 'Adopted', 'Pending', 'UnderCare'),
     ShelterID INT,
-    PicturePath VARCHAR(255),
     FOREIGN KEY (ShelterID) REFERENCES Shelter(ShelterID) ON DELETE SET NULL
+);
+
+CREATE INDEX idx_animals_shelterid ON Animals(ShelterID);
+
+-- 5. Animal Tags (Optional Many-to-Many)
+-- What if animals need tags like "Blind", "Aggressive", "Needs Training"?
+CREATE TABLE AnimalTags (
+    AnimalID INT,
+    Tag VARCHAR(50),
+    PRIMARY KEY (AnimalID, Tag),
+    FOREIGN KEY (AnimalID) REFERENCES Animals(AnimalID) ON DELETE CASCADE
 );
 
 -- 6. Rescue Missions
@@ -102,24 +114,34 @@ CREATE TABLE RescueMissions (
     MissionID INT PRIMARY KEY AUTO_INCREMENT,
     MissionName VARCHAR(100) NOT NULL,
     Description TEXT,
-    ReportedBy INT NOT NULL,
-    AssignedVolunteer INT,
+    ReportedBy INT NULL,
     AssignedVet INT,
     Location TEXT NOT NULL,
     Status ENUM('Pending', 'In Progress', 'Completed', 'Cancelled', 'Resolved') DEFAULT 'Pending',
     PriorityLevel ENUM('Low', 'Medium', 'High') DEFAULT 'Medium',
     RegisteredDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ImagePath VARCHAR(255),
     FOREIGN KEY (ReportedBy) REFERENCES Users(UserID),
-    FOREIGN KEY (AssignedVolunteer) REFERENCES Users(UserID),
     FOREIGN KEY (AssignedVet) REFERENCES Users(UserID)
 );
 
-ALTER TABLE RescueMissions MODIFY COLUMN ReportedBy INT NULL;
+-- 7. Mission Volunteers
+CREATE TABLE MissionVolunteers (
+    MissionID INT,
+    UserID INT,
+    RoleInMission ENUM(
+        'Primary Responder', 
+        'Transport', 
+        'First Aid Provider',
+        'On-site Assistant', 
+        'Photographer/Videographer'
+    ) NOT NULL,
+    PRIMARY KEY (MissionID, UserID),
+    FOREIGN KEY (MissionID) REFERENCES RescueMissions(MissionID) ON DELETE CASCADE,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
+);
 
-ALTER TABLE RescueMissions
-ADD COLUMN ImagePath VARCHAR(255) NULL;
-
--- 7. Medical Records
+-- 8. Medical Records
 CREATE TABLE MedicalRecords (
     RecordID INT PRIMARY KEY AUTO_INCREMENT,
     AnimalID INT NOT NULL,
@@ -130,9 +152,10 @@ CREATE TABLE MedicalRecords (
     Notes TEXT,
     FOREIGN KEY (AnimalID) REFERENCES Animals(AnimalID) ON DELETE CASCADE,
     FOREIGN KEY (TreatedBy) REFERENCES Users(UserID) ON DELETE CASCADE
+    -- later enforce that TreatedBy must be a Veterinarian via app logic or a trigger
 );
 
--- 8. Adoption Applications
+-- 9. Adoption Applications
 CREATE TABLE AdoptionApplications (
     ApplicationID INT PRIMARY KEY AUTO_INCREMENT,
     AnimalID INT NOT NULL,
@@ -140,7 +163,7 @@ CREATE TABLE AdoptionApplications (
     HomeDetails TEXT,
     FamilyDetails TEXT,
     ApplicationStatus ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
-    AssignedVolunteer INT NULL,
+    AssignedVolunteer INT,
     ApplicationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Notes TEXT,
     FOREIGN KEY (AnimalID) REFERENCES Animals(AnimalID),
@@ -148,7 +171,7 @@ CREATE TABLE AdoptionApplications (
     FOREIGN KEY (AssignedVolunteer) REFERENCES Users(UserID)
 );
 
--- 9. Campaigns
+-- 10. Campaigns
 CREATE TABLE Campaigns (
     CampaignID INT PRIMARY KEY AUTO_INCREMENT,
     CampaignName VARCHAR(100) NOT NULL,
@@ -161,7 +184,7 @@ CREATE TABLE Campaigns (
     FOREIGN KEY (CreatedBy) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
--- 10. Donations
+-- 11. Donations
 CREATE TABLE Donations (
     DonationID INT PRIMARY KEY AUTO_INCREMENT,
     DonorID INT NOT NULL,
@@ -169,17 +192,13 @@ CREATE TABLE Donations (
     AnimalID INT,
     DonationAmount DECIMAL(10, 2) NOT NULL,
     DonationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Purpose ENUM('Animal Food', 'Medicine', 'Clothing', 'Transport', 'Shelter Support', 'General Care'),
     FOREIGN KEY (DonorID) REFERENCES Users(UserID) ON DELETE CASCADE,
     FOREIGN KEY (CampaignID) REFERENCES Campaigns(CampaignID) ON DELETE SET NULL,
     FOREIGN KEY (AnimalID) REFERENCES Animals(AnimalID) ON DELETE SET NULL
 );
 
-ALTER TABLE Donations
-ADD COLUMN Purpose VARCHAR(255) NULL;
-ALTER TABLE Donations 
-MODIFY COLUMN Purpose ENUM('Animal Food', 'Medicine', 'Clothing', 'Transport', 'Shelter Support', 'General Care');
-
--- 11. Fund Usage Tracking
+-- 12. Fund Usage
 CREATE TABLE FundUsage (
     UsageID INT PRIMARY KEY AUTO_INCREMENT,
     DonationID INT,
@@ -192,7 +211,7 @@ CREATE TABLE FundUsage (
     FOREIGN KEY (UsedBy) REFERENCES Users(UserID)
 );
 
--- 12. Educational Content
+-- 13. Educational Content
 CREATE TABLE EducationalContent (
     ContentID INT PRIMARY KEY AUTO_INCREMENT,
     UploadedBy INT NOT NULL,
@@ -204,20 +223,50 @@ CREATE TABLE EducationalContent (
     FOREIGN KEY (UploadedBy) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
+-- 14. Content Likes
 CREATE TABLE ContentLikes (
     LikeID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
     ContentID INT,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID),
-    FOREIGN KEY (ContentID) REFERENCES EducationalContent(ContentID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
+    FOREIGN KEY (ContentID) REFERENCES EducationalContent(ContentID) ON DELETE CASCADE
 );
 
+-- 15. Content Comments
 CREATE TABLE ContentComments (
     CommentID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
     ContentID INT,
     Comment TEXT,
     CommentDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID),
-    FOREIGN KEY (ContentID) REFERENCES EducationalContent(ContentID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
+    FOREIGN KEY (ContentID) REFERENCES EducationalContent(ContentID) ON DELETE CASCADE
+);
+
+-- 16. User Login History (Optional)
+CREATE TABLE UserLogins (
+    LoginID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    LoginTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    IPAddress VARCHAR(45),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
+);
+
+-- 17. Media Table (Generic for multiple uploads)
+CREATE TABLE Media (
+    MediaID INT PRIMARY KEY AUTO_INCREMENT,
+    EntityType ENUM('Animal', 'Mission', 'Content', 'User', 'Campaign'),
+    EntityID INT,
+    FilePath VARCHAR(255),
+    UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 18. Email Verification Tokens (optional)
+CREATE TABLE EmailVerificationTokens (
+    UserID INT,
+    Token VARCHAR(255) NOT NULL,
+    Expiry TIMESTAMP NOT NULL,
+    Used BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (UserID, Token),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
