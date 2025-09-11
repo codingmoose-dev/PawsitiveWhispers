@@ -21,7 +21,7 @@ class UserController {
 
             switch ($user['Role']) {
                 case 'General':
-                    header("Location: ../../General User/view/GeneralUserHomepage.php");
+                    header("Location: ../../General-User/view/GeneralUserHomepage.php");
                     break;
                 case 'Volunteer':
                     header("Location: ../../Volunteer/view/VolunteerHomepage.php");

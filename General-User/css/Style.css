@@ -1,49 +1,19 @@
-/* General Styles */ 
+/* General Styles */
 body {
+    min-height: 100vh;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-/* Header Styles */
-header {
-    background-color: #2c3e50;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-    font-weight: 700;
-}
-
-header nav {
-    margin: 10px 0;
-}
-
-header nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.1em;
-}
-
-header div {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    flex-direction: column;
 }
 
-header img {
-    height: 60px;
+main {
+    flex: 1;
 }
 
+/* Navbar Styling */
 .custom-navbar {
     background-color: #2c3e50;
 }
@@ -53,185 +23,192 @@ header img {
     width: auto;
 }
 
-#logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+.navbar .nav-link.btn-link {
+    color: white;
+    text-decoration: none;
 }
 
-#logo-container img {
-    height: 60px;
+.navbar .nav-link.btn-link:hover {
+    text-decoration: underline;
 }
 
-/* Section Styles */
+.navbar-nav .nav-link {
+    font-size: 1.1em;
+    color: white;
+    padding: 8px 16px;
+}
+
+.navbar-nav .nav-link.active {
+    background-color: #2980b9;
+}
+
+/* General Section Styles */
 section {
-    padding: 20px;
+    width: 100%;
+    margin: 0;
+    padding: 40px 0;
+    box-sizing: border-box;
 }
 
-#home, #submit-case, #donate, #adoption, #resources {
-    padding: 40px 20px;
-    margin: 20px 0;
+.tagline {
+    font-style: italic;
+    font-weight: normal;
 }
 
-#home {
+/* Section Background Colors */
+#home, #adoption, #about, #transparency {
     background-color: #f4f4f4;
-    text-align: center;
 }
 
-#home h2, #submit-case h2, #donate h2, #adoption h2, #resources h2 {
-    color: #2c3e50;
-}
-
-#submit-case {
+#donate, #impact, #faq {
     background-color: #eaeaea;
 }
 
-#donate {
-    background-color: #f4f4f4;
-}
-
-#adoption {
-    background-color: #eaeaea;
-}
-
-#resources {
-    background-color: #f4f4f4;
-}
-
-/* Message Styles */
-#message {
-    background-color: #f4f4f4;
-    padding: 40px 20px;
-    margin: 20px 0;
-    text-align: center;
-}
-
-#message h2 {
-    color: #2c3e50;
-    font-size: 1.8em;
-}
-
-/* Registration Form Styles */
-#registration {
-    background-color: #f4f4f4;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 750px;
-    margin: 20px auto;
-}
-
-fieldset {
-    margin-bottom: 15px;
+/* FAQ Accordion Styles */
+.faq-section .accordion-item {
+    background-color: #fff;
     border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-}
-
-legend {
-    font-size: 1.2em;
-    color: #2e3c48;
+    border-radius: 8px !important;
     margin-bottom: 10px;
-}
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 5px;  /* Adjust this value to control the space between columns */
-    margin-bottom: 15px;
-}
-.form-grid textarea {
-    width: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
+.faq-section .accordion-button {
+    font-weight: bold;
+    color: #2c3e50;
+    background-color: #f8f9fa;
+    border-radius: 8px !important;
+}
+
+.faq-section .accordion-button:not(.collapsed) {
+    color: #fff;
+    background-color: #3498db;
+}
+
+.faq-section .accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+.faq-section .accordion-body {
+    padding: 20px;
+    background-color: #fff;
+}
+
+.faq-logo {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Hide logo on smaller screens */
+@media (max-width: 991.98px) {
+    .faq-logo-column {
+        display: none;
+    }
+}
+
+/* Page Specific Headings */
+#donate h2, #donate h3,
+#impact h2, #impact h3,
+#transparency h2, #transparency h3 {
+    color: #2c3e50;
+}
+
+/* Messages */
+.alert {
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Animal cards */
 .grid-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
 }
 
-input, select, button, form input, form textarea {
-    width: 100%;
-    padding: 8px;
-    font-size: 1em;
-    border-radius: 6px;
+.animal-card {
+    background-color: #fff;
     border: 1px solid #ddd;
-}
-
-textarea {
-    width: 52%;
-    max-width: 400px;
-}
-
-button, form button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 10px 20px;
-    text-align: left;
-}
-
-button:hover, form button:hover {
-    background-color: #2980b9;
-}
-
-
-div {
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 15px;
+    width: calc((100% / 5) - 15px); /* Set to 5 cards per row */
     display: flex;
-    align-items: left;
-    gap: 0;
-} 
+    flex-direction: column;
+    aspect-ratio: 2 / 3;
+}
 
-.preference-item {
-    display: inline-flex;
-    align-items: center;
+.animal-image-container {
+    height: 30%; 
+    width: 100%;
     margin-bottom: 10px;
-    gap: 5px;
 }
 
-
-input[type="number"], input[type="text"], input[type="date"], select {
-    width: 52%;
-    max-width: 400px;
-    margin: 0 auto;
+.animal-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
-input[type="radio"] {
-    width: 15px;
-    height: 15px;
-    transform: scale(1);
+.animal-card-body {
+    flex-grow: 1;
+    text-align: center;
 }
 
-label {
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.preference-item label {
-    width: 200px;
+.animal-card-body h4 {
+    font-size: 0.9em !important;
     font-weight: bold;
 }
 
-.preference-item input {
-    margin-left: 10px;
+.animal-card-body p {
+    font-size: 0.9em;
+    margin-bottom: 4px;
 }
 
-.error {
-    color: red;
-    margin-left: 10px;
+.animal-card-body .animal-condition {
+    color: #000;    
+    font-weight: bold;
 }
 
+.animal-card form {
+    margin-top: auto;
+}
 
-/* Footer Styles */
+.animal-card form input,
+.animal-card form select {
+    padding: 6px 8px;
+    font-size: 0.9em;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* Footer */
 footer {
     background-color: #2c3e50;
     color: white;
     text-align: center;
-    padding: 10px 0;
-    margin-top: 20px;
+    padding: 12px 0;
+    width: 100%;
 }
 
 footer a {
@@ -243,46 +220,108 @@ footer a:hover {
     color: #D6EAF8; 
 }
 
-/* Button Styles */
-.btn {
-    display: inline-block;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .grid-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .animal-card {
+        width: 100%;
+        max-width: 350px; /* Optional: constrain width on mobile */
+        aspect-ratio: auto; /* Let height be automatic on mobile */
+    }
+}
+
+/* General Styles for Form Pages */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+/* Section Styles */
+section {
+    padding: 20px;
+}
+
+/* Registration Form Container */
+#registration {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 750px;
+    margin: 40px auto;
+}
+
+#registration h2 {
     text-align: center;
-    margin: 0 auto;
-    max-width: fit-content;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+fieldset {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2c3e50;
+    padding: 0 10px;
+}
+
+/* Form Grid Layout */
+.form-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr; /* Label column and input column */
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-grid label {
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Form Element Styles (Scoped to the #registration form) */
+#registration input,
+#registration select,
+#registration textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+#registration button {
     background-color: #3498db;
     color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 1em;
     cursor: pointer;
     border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    display: block;
+    margin: 20px auto 0;
 }
 
-.btn:hover {
+#registration button:hover {
     background-color: #2980b9;
 }
 
-.animal-card {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    width: 250px;
-    text-align: center;
-    background-color: #f9f9f9;
-}
-
-.animal-image {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%; /* Scales down the image to fit the card width */
-    max-height: 150px; /* Limits height to maintain flashcard proportions */
-    width: auto; /* Maintains the image aspect ratio */
-    height: auto; /* Prevents distortion */
-    object-fit: cover; /* Ensures the image fits inside the container */
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Error Message Styles */
+.error {
+    color: red;
+    font-size: 0.9em;
+    grid-column: 2 / 3;
 }
