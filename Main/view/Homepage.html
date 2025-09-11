@@ -64,6 +64,14 @@
         </button>
     </div>
 
+    <section id="report-cta">
+        <h2>See an Animal in Distress?</h2>
+        <p>You can make a difference right now. Report a case with a location and a photo, and our network will be alerted immediately.</p>
+        <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#reportCaseModal">
+            Report a Case Now
+        </button>
+    </section>
+
     <!-- About Us Section -->
     <section id="about">
         <h2>About Us</h2>
@@ -92,6 +100,35 @@
         <p>Email: contact.pawsitivewhispers@gmail.com</p>
         <p>Phone: +123 456 7890</p>
     </section>
+
+    <div class="modal fade" id="reportCaseModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Report an Animal in Need</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="report-mission-form" action="../control/CreateMissionController.php" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location of the Animal</label>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="e.g., Near Mirpur 10 roundabout" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Upload a Photo/Video</label>
+                            <input type="file" class="form-control" id="photo" name="photo" accept="image/*,video/*" required>
+                            <div class="form-text">A clear image helps our AI and volunteers assess the situation quickly.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Brief Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="e.g., Small brown dog, seems to have an injured paw." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Submit Report</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>

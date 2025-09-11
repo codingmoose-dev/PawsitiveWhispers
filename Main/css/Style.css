@@ -162,6 +162,17 @@ form button:hover {
     padding: 20px;
 }
 
+#report-cta {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 40px 20px;
+    margin: 20px 0;
+}
+
+#report-cta h2 {
+    color: #2c3e50;
+}
+
 .animal-card {
     background-color: #f8f8f8; 
     border-radius: 10px;
@@ -252,4 +263,30 @@ form button:hover {
     border-radius: 5px;
     margin-top: 15px;
     font-size: 0.95em;
+}
+
+@media (max-width: 768px) {
+    header div {
+        flex-direction: column;
+    }
+
+    header nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    header nav a {
+        padding: 10px;
+        margin: 4px 0;
+        width: 90%;
+        border-radius: 5px;
+        background-color: #2c3e50;
+    }
+
+    header nav a:hover {
+        background-color: #2980b9; 
+    }
 }

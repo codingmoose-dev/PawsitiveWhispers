@@ -114,6 +114,11 @@ CREATE TABLE RescueMissions (
     FOREIGN KEY (AssignedVet) REFERENCES Users(UserID)
 );
 
+ALTER TABLE RescueMissions MODIFY COLUMN ReportedBy INT NULL;
+
+ALTER TABLE RescueMissions
+ADD COLUMN ImagePath VARCHAR(255) NULL;
+
 -- 7. Medical Records
 CREATE TABLE MedicalRecords (
     RecordID INT PRIMARY KEY AUTO_INCREMENT,
